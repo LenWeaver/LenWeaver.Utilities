@@ -1,0 +1,2 @@
+﻿From xaml:        <SymbolView ImageUri="/LenWeaver.Utilities;component/Images/Database-Connect.png">
+From code behind: svSymbolImage.ImageUri = new Uri( "/LenWeaver.Utilities;component/Images/Folder-01-Star.png", UriKind.Relative );

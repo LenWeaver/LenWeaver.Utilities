@@ -1,0 +1,748 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:local="clr-namespace:LenWeaver.Utilities"
+                    xmlns:sys="clr-namespace:System;assembly=System.Runtime">
+
+    <FontFamily x:Key="SymbolFont">Segoe MDL2 Assets</FontFamily>
+
+    <sys:String x:Key="ArrowLeft">&#xE0A6;</sys:String>
+    <sys:String x:Key="ArrowRight">&#xE0AB;</sys:String>
+
+    <local:DateTimeToStringConverter x:Key="DateTimeToString" />
+
+
+    <Style x:Key="FocusVisual">
+        <Setter Property="Control.Template"     Value="{x:Null}" />
+    </Style>
+    
+
+    <Style TargetType="{x:Type local:MonthView}">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type local:MonthView}">
+                    <Border                                 x:Name="border"
+                                                            Background="{TemplateBinding Background}"
+                                                            BorderBrush="{TemplateBinding BorderBrush}"
+                                                            BorderThickness="{TemplateBinding BorderThickness}"
+                                                            CornerRadius="{TemplateBinding CornerRadius}"
+                                                            Padding="2">
+                        <Grid>
+                            <Grid                           x:Name="grdMonthView"
+                                                            Background="Transparent"
+                                                            Visibility="Visible">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition       Width="Auto"    />
+                                    <ColumnDefinition       Width="*"       />
+                                    <ColumnDefinition       Width="Auto"    />
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition          Height="30"     />
+                                    <RowDefinition          Height="Auto"   />
+                                    <RowDefinition          Height="*"      />
+                                </Grid.RowDefinitions>
+
+                                <local:PlainButton          x:Name="btnPrevious"    Grid.Column="0"     Grid.Row="0"
+                                                            Background="Transparent"
+                                                            Margin="3"
+                                                            FontFamily="{StaticResource SymbolFont}"
+                                                            Foreground="{TemplateBinding Foreground}"
+                                                            SymbolCharacter="{StaticResource ArrowLeft}"/>
+
+                                <TextBlock                  x:Name="tbMonthYear"    Grid.Column="1"     Grid.Row="0"
+                                                            Background="Transparent"
+                                                            FontFamily="{TemplateBinding FontFamily}"
+                                                            FontSize="{TemplateBinding FontSize}"
+                                                            FontStretch="{TemplateBinding FontStretch}"
+                                                            FontStyle="{TemplateBinding FontStyle}"
+                                                            FontWeight="{TemplateBinding FontWeight}"
+                                                            Foreground="{TemplateBinding Foreground}"
+                                                            TextAlignment="Center">
+                                    <Hyperlink              x:Name="lnkMonth" Foreground="{TemplateBinding Foreground}">January</Hyperlink>
+                                    <Span                   x:Name="spnDays" Foreground="{TemplateBinding Foreground}" /> 
+                                    <Hyperlink              x:Name="lnkYear" Foreground="{TemplateBinding Foreground}">2019</Hyperlink>
+                                </TextBlock>
+
+                                <local:PlainButton          x:Name="btnNext"        Grid.Column="2"     Grid.Row="0"
+                                                            Background="Transparent"
+                                                            Margin="3"
+                                                            FontFamily="{StaticResource SymbolFont}"
+                                                            Foreground="{TemplateBinding Foreground}"
+                                                            SymbolCharacter="{StaticResource ArrowRight}" />
+
+                                <Grid                       x:Name="grdDaysOfWeek"  Grid.Column="0"     Grid.ColumnSpan="3"     Grid.Row="1">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition   Width="*"   />
+                                        <ColumnDefinition   Width="*"   />
+                                        <ColumnDefinition   Width="*"   />
+                                        <ColumnDefinition   Width="*"   />
+                                        <ColumnDefinition   Width="*"   />
+                                        <ColumnDefinition   Width="*"   />
+                                        <ColumnDefinition   Width="*"   />
+                                    </Grid.ColumnDefinitions>
+
+                                    <TextBlock              x:Name="tb00"           Grid.Column="0"
+                                                            FontFamily="{TemplateBinding FontFamily}"
+                                                            FontSize="{TemplateBinding FontSize}"
+                                                            FontStretch="{TemplateBinding FontStretch}"
+                                                            FontStyle="{TemplateBinding FontStyle}"
+                                                            FontWeight="{TemplateBinding FontWeight}"
+                                                            Foreground="{TemplateBinding Foreground}"
+                                                            HorizontalAlignment="Center"
+                                                            VerticalAlignment="Center" />
+                                    <TextBlock              x:Name="tb01"           Grid.Column="1"
+                                                            HorizontalAlignment="Center"
+                                                            VerticalAlignment="Center"
+                                                            FontFamily="{TemplateBinding FontFamily}"
+                                                            FontSize="{TemplateBinding FontSize}"
+                                                            FontStretch="{TemplateBinding FontStretch}"
+                                                            FontStyle="{TemplateBinding FontStyle}"
+                                                            FontWeight="{TemplateBinding FontWeight}"
+                                                            Foreground="{TemplateBinding Foreground}" />
+                                    <TextBlock              x:Name="tb02"           Grid.Column="2"
+                                                            HorizontalAlignment="Center"
+                                                            VerticalAlignment="Center"
+                                                            FontFamily="{TemplateBinding FontFamily}"
+                                                            FontSize="{TemplateBinding FontSize}"
+                                                            FontStretch="{TemplateBinding FontStretch}"
+                                                            FontStyle="{TemplateBinding FontStyle}"
+                                                            FontWeight="{TemplateBinding FontWeight}"
+                                                            Foreground="{TemplateBinding Foreground}" />
+                                    <TextBlock              x:Name="tb03"           Grid.Column="3"
+                                                            HorizontalAlignment="Center"
+                                                            VerticalAlignment="Center"
+                                                            FontFamily="{TemplateBinding FontFamily}"
+                                                            FontSize="{TemplateBinding FontSize}"
+                                                            FontStretch="{TemplateBinding FontStretch}"
+                                                            FontStyle="{TemplateBinding FontStyle}"
+                                                            FontWeight="{TemplateBinding FontWeight}"
+                                                            Foreground="{TemplateBinding Foreground}" />
+                                    <TextBlock              x:Name="tb04"           Grid.Column="4"
+                                                            HorizontalAlignment="Center"
+                                                            VerticalAlignment="Center"
+                                                            FontFamily="{TemplateBinding FontFamily}"
+                                                            FontSize="{TemplateBinding FontSize}"
+                                                            FontStretch="{TemplateBinding FontStretch}"
+                                                            FontStyle="{TemplateBinding FontStyle}"
+                                                            FontWeight="{TemplateBinding FontWeight}"
+                                                            Foreground="{TemplateBinding Foreground}" />
+                                    <TextBlock              x:Name="tb05"           Grid.Column="5"
+                                                            HorizontalAlignment="Center"
+                                                            VerticalAlignment="Center"
+                                                            FontFamily="{TemplateBinding FontFamily}"
+                                                            FontSize="{TemplateBinding FontSize}"
+                                                            FontStretch="{TemplateBinding FontStretch}"
+                                                            FontStyle="{TemplateBinding FontStyle}"
+                                                            FontWeight="{TemplateBinding FontWeight}"
+                                                            Foreground="{TemplateBinding Foreground}" />
+                                    <TextBlock              x:Name="tb06"           Grid.Column="6"
+                                                            HorizontalAlignment="Center"
+                                                            VerticalAlignment="Center"
+                                                            FontFamily="{TemplateBinding FontFamily}"
+                                                            FontSize="{TemplateBinding FontSize}"
+                                                            FontStretch="{TemplateBinding FontStretch}"
+                                                            FontStyle="{TemplateBinding FontStyle}"
+                                                            FontWeight="{TemplateBinding FontWeight}"
+                                                            Foreground="{TemplateBinding Foreground}" />
+                                </Grid>
+
+                                <UniformGrid                x:Name="grdDays"        Grid.Column="0"     Grid.ColumnSpan="3"     Grid.Row="2"
+                                                            Columns="7"
+                                                            Rows="6">
+
+                                    <local:DayView          x:Name          ="dv00"
+                                                            Background      ="{Binding RelativeSource={RelativeSource AncestorType={x:Type local:MonthView}}, Path=DaysBackground}"
+                                                            BorderBrush     ="{Binding RelativeSource={RelativeSource AncestorType={x:Type local:MonthView}}, Path=DaysBorderBrush}"
+                                                            BorderThickness ="{Binding RelativeSource={RelativeSource AncestorType={x:Type local:MonthView}}, Path=DaysBorderThickness}"
+                                                            CornerRadius    ="{Binding RelativeSource={RelativeSource AncestorType={x:Type local:MonthView}}, Path=DaysCornerRadius}"
+                                                            Foreground      ="{Binding RelativeSource={RelativeSource AncestorType={x:Type local:MonthView}}, Path=DaysForeground}"
+                                                            Margin          ="{Binding RelativeSource={RelativeSource AncestorType={x:Type local:MonthView}}, Path=DaysMargin}"
+                                                            Padding         ="{Binding RelativeSource={RelativeSource AncestorType={x:Type local:MonthView}}, Path=DaysPadding}"/>
+                                    <local:DayView          x:Name          ="dv01"
+                                                            Background      ="{Binding RelativeSource={RelativeSource AncestorType={x:Type local:MonthView}}, Path=DaysBackground}"
+                                                            BorderBrush     ="{Binding RelativeSource={RelativeSource AncestorType={x:Type local:MonthView}}, Path=DaysBorderBrush}"
+                                                            BorderThickness ="{Binding RelativeSource={RelativeSource AncestorType={x:Type local:MonthView}}, Path=DaysBorderThickness}"
+                                                            CornerRadius    ="{Binding RelativeSource={RelativeSource AncestorType={x:Type local:MonthView}}, Path=DaysCornerRadius}"
+                                                            Foreground      ="{Binding RelativeSource={RelativeSource AncestorType={x:Type local:MonthView}}, Path=DaysForeground}"
+                                                            Margin          ="{Binding RelativeSource={RelativeSource AncestorType={x:Type local:MonthView}}, Path=DaysMargin}"
+                                                            Padding         ="{Binding RelativeSource={RelativeSource AncestorType={x:Type local:MonthView}}, Path=DaysPadding}"/>
+                                    <local:DayView          x:Name          ="dv02"
+                                                            Background      ="{Binding RelativeSource={RelativeSource AncestorType={x:Type local:MonthView}}, Path=DaysBackground}"
+                                                            BorderBrush     ="{Binding RelativeSource={RelativeSource AncestorType={x:Type local:MonthView}}, Path=DaysBorderBrush}"
+                                                            BorderThickness ="{Binding RelativeSource={RelativeSource AncestorType={x:Type local:MonthView}}, Path=DaysBorderThickness}"
+                                                            CornerRadius    ="{Binding RelativeSource={RelativeSource AncestorType={x:Type local:MonthView}}, Path=DaysCornerRadius}"
+                                                            Foreground      ="{Binding RelativeSource={RelativeSource AncestorType={x:Type local:MonthView}}, Path=DaysForeground}"
+                                                            Margin          ="{Binding RelativeSource={RelativeSource AncestorType={x:Type local:MonthView}}, Path=DaysMargin}"
+                                                            Padding         ="{Binding RelativeSource={RelativeSource AncestorType={x:Type local:MonthView}}, Path=DaysPadding}"/>
+                                    <local:DayView          x:Name          ="dv03"
+                                                            Background      ="{Binding RelativeSource={RelativeSource AncestorType={x:Type local:MonthView}}, Path=DaysBackground}"
+                                                            BorderBrush     ="{Binding RelativeSource={RelativeSource AncestorType={x:Type local:MonthView}}, Path=DaysBorderBrush}"
+                                                            BorderThickness ="{Binding RelativeSource={RelativeSource AncestorType={x:Type local:MonthView}}, Path=DaysBorderThickness}"
+                                                            CornerRadius    ="{Binding RelativeSource={RelativeSource AncestorType={x:Type local:MonthView}}, Path=DaysCornerRadius}"
+                                                            Foreground      ="{Binding RelativeSource={RelativeSource AncestorType={x:Type local:MonthView}}, Path=DaysForeground}"
+                                                            Margin          ="{Binding RelativeSource={RelativeSource AncestorType={x:Type local:MonthView}}, Path=DaysMargin}"
+                                                            Padding         ="{Binding RelativeSource={RelativeSource AncestorType={x:Type local:MonthView}}, Path=DaysPadding}"/>
+                                    <local:DayView          x:Name          ="dv04"
+                                                            Background      ="{Binding RelativeSource={RelativeSource AncestorType={x:Type local:MonthView}}, Path=DaysBackground}"
+                                                            BorderBrush     ="{Binding RelativeSource={RelativeSource AncestorType={x:Type local:MonthView}}, Path=DaysBorderBrush}"
+                                                            BorderThickness ="{Binding RelativeSource={RelativeSource AncestorType={x:Type local:MonthView}}, Path=DaysBorderThickness}"
+                                                            CornerRadius    ="{Binding RelativeSource={RelativeSource AncestorType={x:Type local:MonthView}}, Path=DaysCornerRadius}"
+                                                            Foreground      ="{Binding RelativeSource={RelativeSource AncestorType={x:Type local:MonthView}}, Path=DaysForeground}"
+                                                            Margin          ="{Binding RelativeSource={RelativeSource AncestorType={x:Type local:MonthView}}, Path=DaysMargin}"
+                                                            Padding         ="{Binding RelativeSource={RelativeSource AncestorType={x:Type local:MonthView}}, Path=DaysPadding}"/>
+                                    <local:DayView          x:Name          ="dv05"
+                                                            Background      ="{Binding RelativeSource={RelativeSource AncestorType={x:Type local:MonthView}}, Path=DaysBackground}"
+                                                            BorderBrush     ="{Binding RelativeSource={RelativeSource AncestorType={x:Type local:MonthView}}, Path=DaysBorderBrush}"
+                                                            BorderThickness ="{Binding RelativeSource={RelativeSource AncestorType={x:Type local:MonthView}}, Path=DaysBorderThickness}"
+                                                            CornerRadius    ="{Binding RelativeSource={RelativeSource AncestorType={x:Type local:MonthView}}, Path=DaysCornerRadius}"
+                                                            Foreground      ="{Binding RelativeSource={RelativeSource AncestorType={x:Type local:MonthView}}, Path=DaysForeground}"
+                                                            Margin          ="{Binding RelativeSource={RelativeSource AncestorType={x:Type local:MonthView}}, Path=DaysMargin}"
+                                                            Padding         ="{Binding RelativeSource={RelativeSource AncestorType={x:Type local:MonthView}}, Path=DaysPadding}"/>
+                                    <local:DayView          x:Name          ="dv06"
+                                                            Background      ="{Binding RelativeSource={RelativeSource AncestorType={x:Type local:MonthView}}, Path=DaysBackground}"
+                                                            BorderBrush     ="{Binding RelativeSource={RelativeSource AncestorType={x:Type local:MonthView}}, Path=DaysBorderBrush}"
+                                                            BorderThickness ="{Binding RelativeSource={RelativeSource AncestorType={x:Type local:MonthView}}, Path=DaysBorderThickness}"
+                                                            CornerRadius    ="{Binding RelativeSource={RelativeSource AncestorType={x:Type local:MonthView}}, Path=DaysCornerRadius}"
+                                                            Foreground      ="{Binding RelativeSource={RelativeSource AncestorType={x:Type local:MonthView}}, Path=DaysForeground}"
+                                                            Margin          ="{Binding RelativeSource={RelativeSource AncestorType={x:Type local:MonthView}}, Path=DaysMargin}"
+                                                            Padding         ="{Binding RelativeSource={RelativeSource AncestorType={x:Type local:MonthView}}, Path=DaysPadding}"/>
+
+                                    <local:DayView          x:Name          ="dv07"
+                                                            Background      ="{Binding RelativeSource={RelativeSource AncestorType={x:Type local:MonthView}}, Path=DaysBackground}"
+                                                            BorderBrush     ="{Binding RelativeSource={RelativeSource AncestorType={x:Type local:MonthView}}, Path=DaysBorderBrush}"
+                                                            BorderThickness ="{Binding RelativeSource={RelativeSource AncestorType={x:Type local:MonthView}}, Path=DaysBorderThickness}"
+                                                            CornerRadius    ="{Binding RelativeSource={RelativeSource AncestorType={x:Type local:MonthView}}, Path=DaysCornerRadius}"
+                                                            Foreground      ="{Binding RelativeSource={RelativeSource AncestorType={x:Type local:MonthView}}, Path=DaysForeground}"
+                                                            Margin          ="{Binding RelativeSource={RelativeSource AncestorType={x:Type local:MonthView}}, Path=DaysMargin}"
+                                                            Padding         ="{Binding RelativeSource={RelativeSource AncestorType={x:Type local:MonthView}}, Path=DaysPadding}"/>
+                                    <local:DayView          x:Name          ="dv08"
+                                                            Background      ="{Binding RelativeSource={RelativeSource AncestorType={x:Type local:MonthView}}, Path=DaysBackground}"
+                                                            BorderBrush     ="{Binding RelativeSource={RelativeSource AncestorType={x:Type local:MonthView}}, Path=DaysBorderBrush}"
+                                                            BorderThickness ="{Binding RelativeSource={RelativeSource AncestorType={x:Type local:MonthView}}, Path=DaysBorderThickness}"
+                                                            CornerRadius    ="{Binding RelativeSource={RelativeSource AncestorType={x:Type local:MonthView}}, Path=DaysCornerRadius}"
+                                                            Foreground      ="{Binding RelativeSource={RelativeSource AncestorType={x:Type local:MonthView}}, Path=DaysForeground}"
+                                                            Margin          ="{Binding RelativeSource={RelativeSource AncestorType={x:Type local:MonthView}}, Path=DaysMargin}"
+                                                            Padding         ="{Binding RelativeSource={RelativeSource AncestorType={x:Type local:MonthView}}, Path=DaysPadding}"/>
+                                    <local:DayView          x:Name          ="dv09"
+                                                            Background      ="{Binding RelativeSource={RelativeSource AncestorType={x:Type local:MonthView}}, Path=DaysBackground}"
+                                                            BorderBrush     ="{Binding RelativeSource={RelativeSource AncestorType={x:Type local:MonthView}}, Path=DaysBorderBrush}"
+                                                            BorderThickness ="{Binding RelativeSource={RelativeSource AncestorType={x:Type local:MonthView}}, Path=DaysBorderThickness}"
+                                                            CornerRadius    ="{Binding RelativeSource={RelativeSource AncestorType={x:Type local:MonthView}}, Path=DaysCornerRadius}"
+                                                            Foreground      ="{Binding RelativeSource={RelativeSource AncestorType={x:Type local:MonthView}}, Path=DaysForeground}"
+                                                            Margin          ="{Binding RelativeSource={RelativeSource AncestorType={x:Type local:MonthView}}, Path=DaysMargin}"
+                                                            Padding         ="{Binding RelativeSource={RelativeSource AncestorType={x:Type local:MonthView}}, Path=DaysPadding}"/>
+                                    <local:DayView          x:Name          ="dv10"
+                                                            Background      ="{Binding RelativeSource={RelativeSource AncestorType={x:Type local:MonthView}}, Path=DaysBackground}"
+                                                            BorderBrush     ="{Binding RelativeSource={RelativeSource AncestorType={x:Type local:MonthView}}, Path=DaysBorderBrush}"
+                                                            BorderThickness ="{Binding RelativeSource={RelativeSource AncestorType={x:Type local:MonthView}}, Path=DaysBorderThickness}"
+                                                            CornerRadius    ="{Binding RelativeSource={RelativeSource AncestorType={x:Type local:MonthView}}, Path=DaysCornerRadius}"
+                                                            Foreground      ="{Binding RelativeSource={RelativeSource AncestorType={x:Type local:MonthView}}, Path=DaysForeground}"
+                                                            Margin          ="{Binding RelativeSource={RelativeSource AncestorType={x:Type local:MonthView}}, Path=DaysMargin}"
+                                                            Padding         ="{Binding RelativeSource={RelativeSource AncestorType={x:Type local:MonthView}}, Path=DaysPadding}"/>
+                                    <local:DayView          x:Name          ="dv11"
+                                                            Background      ="{Binding RelativeSource={RelativeSource AncestorType={x:Type local:MonthView}}, Path=DaysBackground}"
+                                                            BorderBrush     ="{Binding RelativeSource={RelativeSource AncestorType={x:Type local:MonthView}}, Path=DaysBorderBrush}"
+                                                            BorderThickness ="{Binding RelativeSource={RelativeSource AncestorType={x:Type local:MonthView}}, Path=DaysBorderThickness}"
+                                                            CornerRadius    ="{Binding RelativeSource={RelativeSource AncestorType={x:Type local:MonthView}}, Path=DaysCornerRadius}"
+                                                            Foreground      ="{Binding RelativeSource={RelativeSource AncestorType={x:Type local:MonthView}}, Path=DaysForeground}"
+                                                            Margin          ="{Binding RelativeSource={RelativeSource AncestorType={x:Type local:MonthView}}, Path=DaysMargin}"
+                                                            Padding         ="{Binding RelativeSource={RelativeSource AncestorType={x:Type local:MonthView}}, Path=DaysPadding}"/>
+                                    <local:DayView          x:Name          ="dv12"
+                                                            Background      ="{Binding RelativeSource={RelativeSource AncestorType={x:Type local:MonthView}}, Path=DaysBackground}"
+                                                            BorderBrush     ="{Binding RelativeSource={RelativeSource AncestorType={x:Type local:MonthView}}, Path=DaysBorderBrush}"
+                                                            BorderThickness ="{Binding RelativeSource={RelativeSource AncestorType={x:Type local:MonthView}}, Path=DaysBorderThickness}"
+                                                            CornerRadius    ="{Binding RelativeSource={RelativeSource AncestorType={x:Type local:MonthView}}, Path=DaysCornerRadius}"
+                                                            Foreground      ="{Binding RelativeSource={RelativeSource AncestorType={x:Type local:MonthView}}, Path=DaysForeground}"
+                                                            Margin          ="{Binding RelativeSource={RelativeSource AncestorType={x:Type local:MonthView}}, Path=DaysMargin}"
+                                                            Padding         ="{Binding RelativeSource={RelativeSource AncestorType={x:Type local:MonthView}}, Path=DaysPadding}"/>
+                                    <local:DayView          x:Name          ="dv13"
+                                                            Background      ="{Binding RelativeSource={RelativeSource AncestorType={x:Type local:MonthView}}, Path=DaysBackground}"
+                                                            BorderBrush     ="{Binding RelativeSource={RelativeSource AncestorType={x:Type local:MonthView}}, Path=DaysBorderBrush}"
+                                                            BorderThickness ="{Binding RelativeSource={RelativeSource AncestorType={x:Type local:MonthView}}, Path=DaysBorderThickness}"
+                                                            CornerRadius    ="{Binding RelativeSource={RelativeSource AncestorType={x:Type local:MonthView}}, Path=DaysCornerRadius}"
+                                                            Foreground      ="{Binding RelativeSource={RelativeSource AncestorType={x:Type local:MonthView}}, Path=DaysForeground}"
+                                                            Margin          ="{Binding RelativeSource={RelativeSource AncestorType={x:Type local:MonthView}}, Path=DaysMargin}"
+                                                            Padding         ="{Binding RelativeSource={RelativeSource AncestorType={x:Type local:MonthView}}, Path=DaysPadding}"/>
+
+                                    <local:DayView          x:Name          ="dv14"
+                                                            Background      ="{Binding RelativeSource={RelativeSource AncestorType={x:Type local:MonthView}}, Path=DaysBackground}"
+                                                            BorderBrush     ="{Binding RelativeSource={RelativeSource AncestorType={x:Type local:MonthView}}, Path=DaysBorderBrush}"
+                                                            BorderThickness ="{Binding RelativeSource={RelativeSource AncestorType={x:Type local:MonthView}}, Path=DaysBorderThickness}"
+                                                            CornerRadius    ="{Binding RelativeSource={RelativeSource AncestorType={x:Type local:MonthView}}, Path=DaysCornerRadius}"
+                                                            Foreground      ="{Binding RelativeSource={RelativeSource AncestorType={x:Type local:MonthView}}, Path=DaysForeground}"
+                                                            Margin          ="{Binding RelativeSource={RelativeSource AncestorType={x:Type local:MonthView}}, Path=DaysMargin}"
+                                                            Padding         ="{Binding RelativeSource={RelativeSource AncestorType={x:Type local:MonthView}}, Path=DaysPadding}"/>
+                                    <local:DayView          x:Name          ="dv15"
+                                                            Background      ="{Binding RelativeSource={RelativeSource AncestorType={x:Type local:MonthView}}, Path=DaysBackground}"
+                                                            BorderBrush     ="{Binding RelativeSource={RelativeSource AncestorType={x:Type local:MonthView}}, Path=DaysBorderBrush}"
+                                                            BorderThickness ="{Binding RelativeSource={RelativeSource AncestorType={x:Type local:MonthView}}, Path=DaysBorderThickness}"
+                                                            CornerRadius    ="{Binding RelativeSource={RelativeSource AncestorType={x:Type local:MonthView}}, Path=DaysCornerRadius}"
+                                                            Foreground      ="{Binding RelativeSource={RelativeSource AncestorType={x:Type local:MonthView}}, Path=DaysForeground}"
+                                                            Margin          ="{Binding RelativeSource={RelativeSource AncestorType={x:Type local:MonthView}}, Path=DaysMargin}"
+                                                            Padding         ="{Binding RelativeSource={RelativeSource AncestorType={x:Type local:MonthView}}, Path=DaysPadding}"/>
+                                    <local:DayView          x:Name          ="dv16"
+                                                            Background      ="{Binding RelativeSource={RelativeSource AncestorType={x:Type local:MonthView}}, Path=DaysBackground}"
+                                                            BorderBrush     ="{Binding RelativeSource={RelativeSource AncestorType={x:Type local:MonthView}}, Path=DaysBorderBrush}"
+                                                            BorderThickness ="{Binding RelativeSource={RelativeSource AncestorType={x:Type local:MonthView}}, Path=DaysBorderThickness}"
+                                                            CornerRadius    ="{Binding RelativeSource={RelativeSource AncestorType={x:Type local:MonthView}}, Path=DaysCornerRadius}"
+                                                            Foreground      ="{Binding RelativeSource={RelativeSource AncestorType={x:Type local:MonthView}}, Path=DaysForeground}"
+                                                            Margin          ="{Binding RelativeSource={RelativeSource AncestorType={x:Type local:MonthView}}, Path=DaysMargin}"
+                                                            Padding         ="{Binding RelativeSource={RelativeSource AncestorType={x:Type local:MonthView}}, Path=DaysPadding}"/>
+                                    <local:DayView          x:Name          ="dv17"
+                                                            Background      ="{Binding RelativeSource={RelativeSource AncestorType={x:Type local:MonthView}}, Path=DaysBackground}"
+                                                            BorderBrush     ="{Binding RelativeSource={RelativeSource AncestorType={x:Type local:MonthView}}, Path=DaysBorderBrush}"
+                                                            BorderThickness ="{Binding RelativeSource={RelativeSource AncestorType={x:Type local:MonthView}}, Path=DaysBorderThickness}"
+                                                            CornerRadius    ="{Binding RelativeSource={RelativeSource AncestorType={x:Type local:MonthView}}, Path=DaysCornerRadius}"
+                                                            Foreground      ="{Binding RelativeSource={RelativeSource AncestorType={x:Type local:MonthView}}, Path=DaysForeground}"
+                                                            Margin          ="{Binding RelativeSource={RelativeSource AncestorType={x:Type local:MonthView}}, Path=DaysMargin}"
+                                                            Padding         ="{Binding RelativeSource={RelativeSource AncestorType={x:Type local:MonthView}}, Path=DaysPadding}"/>
+                                    <local:DayView          x:Name          ="dv18"
+                                                            Background      ="{Binding RelativeSource={RelativeSource AncestorType={x:Type local:MonthView}}, Path=DaysBackground}"
+                                                            BorderBrush     ="{Binding RelativeSource={RelativeSource AncestorType={x:Type local:MonthView}}, Path=DaysBorderBrush}"
+                                                            BorderThickness ="{Binding RelativeSource={RelativeSource AncestorType={x:Type local:MonthView}}, Path=DaysBorderThickness}"
+                                                            CornerRadius    ="{Binding RelativeSource={RelativeSource AncestorType={x:Type local:MonthView}}, Path=DaysCornerRadius}"
+                                                            Foreground      ="{Binding RelativeSource={RelativeSource AncestorType={x:Type local:MonthView}}, Path=DaysForeground}"
+                                                            Margin          ="{Binding RelativeSource={RelativeSource AncestorType={x:Type local:MonthView}}, Path=DaysMargin}"
+                                                            Padding         ="{Binding RelativeSource={RelativeSource AncestorType={x:Type local:MonthView}}, Path=DaysPadding}"/>
+                                    <local:DayView          x:Name          ="dv19"
+                                                            Background      ="{Binding RelativeSource={RelativeSource AncestorType={x:Type local:MonthView}}, Path=DaysBackground}"
+                                                            BorderBrush     ="{Binding RelativeSource={RelativeSource AncestorType={x:Type local:MonthView}}, Path=DaysBorderBrush}"
+                                                            BorderThickness ="{Binding RelativeSource={RelativeSource AncestorType={x:Type local:MonthView}}, Path=DaysBorderThickness}"
+                                                            CornerRadius    ="{Binding RelativeSource={RelativeSource AncestorType={x:Type local:MonthView}}, Path=DaysCornerRadius}"
+                                                            Foreground      ="{Binding RelativeSource={RelativeSource AncestorType={x:Type local:MonthView}}, Path=DaysForeground}"
+                                                            Margin          ="{Binding RelativeSource={RelativeSource AncestorType={x:Type local:MonthView}}, Path=DaysMargin}"
+                                                            Padding         ="{Binding RelativeSource={RelativeSource AncestorType={x:Type local:MonthView}}, Path=DaysPadding}"/>
+                                    <local:DayView          x:Name          ="dv20"
+                                                            Background      ="{Binding RelativeSource={RelativeSource AncestorType={x:Type local:MonthView}}, Path=DaysBackground}"
+                                                            BorderBrush     ="{Binding RelativeSource={RelativeSource AncestorType={x:Type local:MonthView}}, Path=DaysBorderBrush}"
+                                                            BorderThickness ="{Binding RelativeSource={RelativeSource AncestorType={x:Type local:MonthView}}, Path=DaysBorderThickness}"
+                                                            CornerRadius    ="{Binding RelativeSource={RelativeSource AncestorType={x:Type local:MonthView}}, Path=DaysCornerRadius}"
+                                                            Foreground      ="{Binding RelativeSource={RelativeSource AncestorType={x:Type local:MonthView}}, Path=DaysForeground}"
+                                                            Margin          ="{Binding RelativeSource={RelativeSource AncestorType={x:Type local:MonthView}}, Path=DaysMargin}"
+                                                            Padding         ="{Binding RelativeSource={RelativeSource AncestorType={x:Type local:MonthView}}, Path=DaysPadding}"/>
+
+                                    <local:DayView          x:Name          ="dv21"
+                                                            Background      ="{Binding RelativeSource={RelativeSource AncestorType={x:Type local:MonthView}}, Path=DaysBackground}"
+                                                            BorderBrush     ="{Binding RelativeSource={RelativeSource AncestorType={x:Type local:MonthView}}, Path=DaysBorderBrush}"
+                                                            BorderThickness ="{Binding RelativeSource={RelativeSource AncestorType={x:Type local:MonthView}}, Path=DaysBorderThickness}"
+                                                            CornerRadius    ="{Binding RelativeSource={RelativeSource AncestorType={x:Type local:MonthView}}, Path=DaysCornerRadius}"
+                                                            Foreground      ="{Binding RelativeSource={RelativeSource AncestorType={x:Type local:MonthView}}, Path=DaysForeground}"
+                                                            Margin          ="{Binding RelativeSource={RelativeSource AncestorType={x:Type local:MonthView}}, Path=DaysMargin}"
+                                                            Padding         ="{Binding RelativeSource={RelativeSource AncestorType={x:Type local:MonthView}}, Path=DaysPadding}"/>
+                                    <local:DayView          x:Name          ="dv22"
+                                                            Background      ="{Binding RelativeSource={RelativeSource AncestorType={x:Type local:MonthView}}, Path=DaysBackground}"
+                                                            BorderBrush     ="{Binding RelativeSource={RelativeSource AncestorType={x:Type local:MonthView}}, Path=DaysBorderBrush}"
+                                                            BorderThickness ="{Binding RelativeSource={RelativeSource AncestorType={x:Type local:MonthView}}, Path=DaysBorderThickness}"
+                                                            CornerRadius    ="{Binding RelativeSource={RelativeSource AncestorType={x:Type local:MonthView}}, Path=DaysCornerRadius}"
+                                                            Foreground      ="{Binding RelativeSource={RelativeSource AncestorType={x:Type local:MonthView}}, Path=DaysForeground}"
+                                                            Margin          ="{Binding RelativeSource={RelativeSource AncestorType={x:Type local:MonthView}}, Path=DaysMargin}"
+                                                            Padding         ="{Binding RelativeSource={RelativeSource AncestorType={x:Type local:MonthView}}, Path=DaysPadding}"/>
+                                    <local:DayView          x:Name          ="dv23"
+                                                            Background      ="{Binding RelativeSource={RelativeSource AncestorType={x:Type local:MonthView}}, Path=DaysBackground}"
+                                                            BorderBrush     ="{Binding RelativeSource={RelativeSource AncestorType={x:Type local:MonthView}}, Path=DaysBorderBrush}"
+                                                            BorderThickness ="{Binding RelativeSource={RelativeSource AncestorType={x:Type local:MonthView}}, Path=DaysBorderThickness}"
+                                                            CornerRadius    ="{Binding RelativeSource={RelativeSource AncestorType={x:Type local:MonthView}}, Path=DaysCornerRadius}"
+                                                            Foreground      ="{Binding RelativeSource={RelativeSource AncestorType={x:Type local:MonthView}}, Path=DaysForeground}"
+                                                            Margin          ="{Binding RelativeSource={RelativeSource AncestorType={x:Type local:MonthView}}, Path=DaysMargin}"
+                                                            Padding         ="{Binding RelativeSource={RelativeSource AncestorType={x:Type local:MonthView}}, Path=DaysPadding}"/>
+                                    <local:DayView          x:Name          ="dv24"
+                                                            Background      ="{Binding RelativeSource={RelativeSource AncestorType={x:Type local:MonthView}}, Path=DaysBackground}"
+                                                            BorderBrush     ="{Binding RelativeSource={RelativeSource AncestorType={x:Type local:MonthView}}, Path=DaysBorderBrush}"
+                                                            BorderThickness ="{Binding RelativeSource={RelativeSource AncestorType={x:Type local:MonthView}}, Path=DaysBorderThickness}"
+                                                            CornerRadius    ="{Binding RelativeSource={RelativeSource AncestorType={x:Type local:MonthView}}, Path=DaysCornerRadius}"
+                                                            Foreground      ="{Binding RelativeSource={RelativeSource AncestorType={x:Type local:MonthView}}, Path=DaysForeground}"
+                                                            Margin          ="{Binding RelativeSource={RelativeSource AncestorType={x:Type local:MonthView}}, Path=DaysMargin}"
+                                                            Padding         ="{Binding RelativeSource={RelativeSource AncestorType={x:Type local:MonthView}}, Path=DaysPadding}"/>
+                                    <local:DayView          x:Name          ="dv25"
+                                                            Background      ="{Binding RelativeSource={RelativeSource AncestorType={x:Type local:MonthView}}, Path=DaysBackground}"
+                                                            BorderBrush     ="{Binding RelativeSource={RelativeSource AncestorType={x:Type local:MonthView}}, Path=DaysBorderBrush}"
+                                                            BorderThickness ="{Binding RelativeSource={RelativeSource AncestorType={x:Type local:MonthView}}, Path=DaysBorderThickness}"
+                                                            CornerRadius    ="{Binding RelativeSource={RelativeSource AncestorType={x:Type local:MonthView}}, Path=DaysCornerRadius}"
+                                                            Foreground      ="{Binding RelativeSource={RelativeSource AncestorType={x:Type local:MonthView}}, Path=DaysForeground}"
+                                                            Margin          ="{Binding RelativeSource={RelativeSource AncestorType={x:Type local:MonthView}}, Path=DaysMargin}"
+                                                            Padding         ="{Binding RelativeSource={RelativeSource AncestorType={x:Type local:MonthView}}, Path=DaysPadding}"/>
+                                    <local:DayView          x:Name          ="dv26"
+                                                            Background      ="{Binding RelativeSource={RelativeSource AncestorType={x:Type local:MonthView}}, Path=DaysBackground}"
+                                                            BorderBrush     ="{Binding RelativeSource={RelativeSource AncestorType={x:Type local:MonthView}}, Path=DaysBorderBrush}"
+                                                            BorderThickness ="{Binding RelativeSource={RelativeSource AncestorType={x:Type local:MonthView}}, Path=DaysBorderThickness}"
+                                                            CornerRadius    ="{Binding RelativeSource={RelativeSource AncestorType={x:Type local:MonthView}}, Path=DaysCornerRadius}"
+                                                            Foreground      ="{Binding RelativeSource={RelativeSource AncestorType={x:Type local:MonthView}}, Path=DaysForeground}"
+                                                            Margin          ="{Binding RelativeSource={RelativeSource AncestorType={x:Type local:MonthView}}, Path=DaysMargin}"
+                                                            Padding         ="{Binding RelativeSource={RelativeSource AncestorType={x:Type local:MonthView}}, Path=DaysPadding}"/>
+                                    <local:DayView          x:Name          ="dv27"
+                                                            Background      ="{Binding RelativeSource={RelativeSource AncestorType={x:Type local:MonthView}}, Path=DaysBackground}"
+                                                            BorderBrush     ="{Binding RelativeSource={RelativeSource AncestorType={x:Type local:MonthView}}, Path=DaysBorderBrush}"
+                                                            BorderThickness ="{Binding RelativeSource={RelativeSource AncestorType={x:Type local:MonthView}}, Path=DaysBorderThickness}"
+                                                            CornerRadius    ="{Binding RelativeSource={RelativeSource AncestorType={x:Type local:MonthView}}, Path=DaysCornerRadius}"
+                                                            Foreground      ="{Binding RelativeSource={RelativeSource AncestorType={x:Type local:MonthView}}, Path=DaysForeground}"
+                                                            Margin          ="{Binding RelativeSource={RelativeSource AncestorType={x:Type local:MonthView}}, Path=DaysMargin}"
+                                                            Padding         ="{Binding RelativeSource={RelativeSource AncestorType={x:Type local:MonthView}}, Path=DaysPadding}"/>
+
+                                    <local:DayView          x:Name          ="dv28"
+                                                            Background      ="{Binding RelativeSource={RelativeSource AncestorType={x:Type local:MonthView}}, Path=DaysBackground}"
+                                                            BorderBrush     ="{Binding RelativeSource={RelativeSource AncestorType={x:Type local:MonthView}}, Path=DaysBorderBrush}"
+                                                            BorderThickness ="{Binding RelativeSource={RelativeSource AncestorType={x:Type local:MonthView}}, Path=DaysBorderThickness}"
+                                                            CornerRadius    ="{Binding RelativeSource={RelativeSource AncestorType={x:Type local:MonthView}}, Path=DaysCornerRadius}"
+                                                            Foreground      ="{Binding RelativeSource={RelativeSource AncestorType={x:Type local:MonthView}}, Path=DaysForeground}"
+                                                            Margin          ="{Binding RelativeSource={RelativeSource AncestorType={x:Type local:MonthView}}, Path=DaysMargin}"
+                                                            Padding         ="{Binding RelativeSource={RelativeSource AncestorType={x:Type local:MonthView}}, Path=DaysPadding}"/>
+                                    <local:DayView          x:Name          ="dv29"
+                                                            Background      ="{Binding RelativeSource={RelativeSource AncestorType={x:Type local:MonthView}}, Path=DaysBackground}"
+                                                            BorderBrush     ="{Binding RelativeSource={RelativeSource AncestorType={x:Type local:MonthView}}, Path=DaysBorderBrush}"
+                                                            BorderThickness ="{Binding RelativeSource={RelativeSource AncestorType={x:Type local:MonthView}}, Path=DaysBorderThickness}"
+                                                            CornerRadius    ="{Binding RelativeSource={RelativeSource AncestorType={x:Type local:MonthView}}, Path=DaysCornerRadius}"
+                                                            Foreground      ="{Binding RelativeSource={RelativeSource AncestorType={x:Type local:MonthView}}, Path=DaysForeground}"
+                                                            Margin          ="{Binding RelativeSource={RelativeSource AncestorType={x:Type local:MonthView}}, Path=DaysMargin}"
+                                                            Padding         ="{Binding RelativeSource={RelativeSource AncestorType={x:Type local:MonthView}}, Path=DaysPadding}"/>
+                                    <local:DayView          x:Name          ="dv30"
+                                                            Background      ="{Binding RelativeSource={RelativeSource AncestorType={x:Type local:MonthView}}, Path=DaysBackground}"
+                                                            BorderBrush     ="{Binding RelativeSource={RelativeSource AncestorType={x:Type local:MonthView}}, Path=DaysBorderBrush}"
+                                                            BorderThickness ="{Binding RelativeSource={RelativeSource AncestorType={x:Type local:MonthView}}, Path=DaysBorderThickness}"
+                                                            CornerRadius    ="{Binding RelativeSource={RelativeSource AncestorType={x:Type local:MonthView}}, Path=DaysCornerRadius}"
+                                                            Foreground      ="{Binding RelativeSource={RelativeSource AncestorType={x:Type local:MonthView}}, Path=DaysForeground}"
+                                                            Margin          ="{Binding RelativeSource={RelativeSource AncestorType={x:Type local:MonthView}}, Path=DaysMargin}"
+                                                            Padding         ="{Binding RelativeSource={RelativeSource AncestorType={x:Type local:MonthView}}, Path=DaysPadding}"/>
+                                    <local:DayView          x:Name          ="dv31"
+                                                            Background      ="{Binding RelativeSource={RelativeSource AncestorType={x:Type local:MonthView}}, Path=DaysBackground}"
+                                                            BorderBrush     ="{Binding RelativeSource={RelativeSource AncestorType={x:Type local:MonthView}}, Path=DaysBorderBrush}"
+                                                            BorderThickness ="{Binding RelativeSource={RelativeSource AncestorType={x:Type local:MonthView}}, Path=DaysBorderThickness}"
+                                                            CornerRadius    ="{Binding RelativeSource={RelativeSource AncestorType={x:Type local:MonthView}}, Path=DaysCornerRadius}"
+                                                            Foreground      ="{Binding RelativeSource={RelativeSource AncestorType={x:Type local:MonthView}}, Path=DaysForeground}"
+                                                            Margin          ="{Binding RelativeSource={RelativeSource AncestorType={x:Type local:MonthView}}, Path=DaysMargin}"
+                                                            Padding         ="{Binding RelativeSource={RelativeSource AncestorType={x:Type local:MonthView}}, Path=DaysPadding}"/>
+                                    <local:DayView          x:Name          ="dv32"
+                                                            Background      ="{Binding RelativeSource={RelativeSource AncestorType={x:Type local:MonthView}}, Path=DaysBackground}"
+                                                            BorderBrush     ="{Binding RelativeSource={RelativeSource AncestorType={x:Type local:MonthView}}, Path=DaysBorderBrush}"
+                                                            BorderThickness ="{Binding RelativeSource={RelativeSource AncestorType={x:Type local:MonthView}}, Path=DaysBorderThickness}"
+                                                            CornerRadius    ="{Binding RelativeSource={RelativeSource AncestorType={x:Type local:MonthView}}, Path=DaysCornerRadius}"
+                                                            Foreground      ="{Binding RelativeSource={RelativeSource AncestorType={x:Type local:MonthView}}, Path=DaysForeground}"
+                                                            Margin          ="{Binding RelativeSource={RelativeSource AncestorType={x:Type local:MonthView}}, Path=DaysMargin}"
+                                                            Padding         ="{Binding RelativeSource={RelativeSource AncestorType={x:Type local:MonthView}}, Path=DaysPadding}"/>
+                                    <local:DayView          x:Name          ="dv33"
+                                                            Background      ="{Binding RelativeSource={RelativeSource AncestorType={x:Type local:MonthView}}, Path=DaysBackground}"
+                                                            BorderBrush     ="{Binding RelativeSource={RelativeSource AncestorType={x:Type local:MonthView}}, Path=DaysBorderBrush}"
+                                                            BorderThickness ="{Binding RelativeSource={RelativeSource AncestorType={x:Type local:MonthView}}, Path=DaysBorderThickness}"
+                                                            CornerRadius    ="{Binding RelativeSource={RelativeSource AncestorType={x:Type local:MonthView}}, Path=DaysCornerRadius}"
+                                                            Foreground      ="{Binding RelativeSource={RelativeSource AncestorType={x:Type local:MonthView}}, Path=DaysForeground}"
+                                                            Margin          ="{Binding RelativeSource={RelativeSource AncestorType={x:Type local:MonthView}}, Path=DaysMargin}"
+                                                            Padding         ="{Binding RelativeSource={RelativeSource AncestorType={x:Type local:MonthView}}, Path=DaysPadding}"/>
+                                    <local:DayView          x:Name          ="dv34"
+                                                            Background      ="{Binding RelativeSource={RelativeSource AncestorType={x:Type local:MonthView}}, Path=DaysBackground}"
+                                                            BorderBrush     ="{Binding RelativeSource={RelativeSource AncestorType={x:Type local:MonthView}}, Path=DaysBorderBrush}"
+                                                            BorderThickness ="{Binding RelativeSource={RelativeSource AncestorType={x:Type local:MonthView}}, Path=DaysBorderThickness}"
+                                                            CornerRadius    ="{Binding RelativeSource={RelativeSource AncestorType={x:Type local:MonthView}}, Path=DaysCornerRadius}"
+                                                            Foreground      ="{Binding RelativeSource={RelativeSource AncestorType={x:Type local:MonthView}}, Path=DaysForeground}"
+                                                            Margin          ="{Binding RelativeSource={RelativeSource AncestorType={x:Type local:MonthView}}, Path=DaysMargin}"
+                                                            Padding         ="{Binding RelativeSource={RelativeSource AncestorType={x:Type local:MonthView}}, Path=DaysPadding}"/>
+
+                                    <local:DayView          x:Name          ="dv35"
+                                                            Background      ="{Binding RelativeSource={RelativeSource AncestorType={x:Type local:MonthView}}, Path=DaysBackground}"
+                                                            BorderBrush     ="{Binding RelativeSource={RelativeSource AncestorType={x:Type local:MonthView}}, Path=DaysBorderBrush}"
+                                                            BorderThickness ="{Binding RelativeSource={RelativeSource AncestorType={x:Type local:MonthView}}, Path=DaysBorderThickness}"
+                                                            CornerRadius    ="{Binding RelativeSource={RelativeSource AncestorType={x:Type local:MonthView}}, Path=DaysCornerRadius}"
+                                                            Foreground      ="{Binding RelativeSource={RelativeSource AncestorType={x:Type local:MonthView}}, Path=DaysForeground}"
+                                                            Margin          ="{Binding RelativeSource={RelativeSource AncestorType={x:Type local:MonthView}}, Path=DaysMargin}"
+                                                            Padding         ="{Binding RelativeSource={RelativeSource AncestorType={x:Type local:MonthView}}, Path=DaysPadding}"/>
+                                    <local:DayView          x:Name          ="dv36"
+                                                            Background      ="{Binding RelativeSource={RelativeSource AncestorType={x:Type local:MonthView}}, Path=DaysBackground}"
+                                                            BorderBrush     ="{Binding RelativeSource={RelativeSource AncestorType={x:Type local:MonthView}}, Path=DaysBorderBrush}"
+                                                            BorderThickness ="{Binding RelativeSource={RelativeSource AncestorType={x:Type local:MonthView}}, Path=DaysBorderThickness}"
+                                                            CornerRadius    ="{Binding RelativeSource={RelativeSource AncestorType={x:Type local:MonthView}}, Path=DaysCornerRadius}"
+                                                            Foreground      ="{Binding RelativeSource={RelativeSource AncestorType={x:Type local:MonthView}}, Path=DaysForeground}"
+                                                            Margin          ="{Binding RelativeSource={RelativeSource AncestorType={x:Type local:MonthView}}, Path=DaysMargin}"
+                                                            Padding         ="{Binding RelativeSource={RelativeSource AncestorType={x:Type local:MonthView}}, Path=DaysPadding}"/>
+                                    <local:DayView          x:Name          ="dv37"
+                                                            Background      ="{Binding RelativeSource={RelativeSource AncestorType={x:Type local:MonthView}}, Path=DaysBackground}"
+                                                            BorderBrush     ="{Binding RelativeSource={RelativeSource AncestorType={x:Type local:MonthView}}, Path=DaysBorderBrush}"
+                                                            BorderThickness ="{Binding RelativeSource={RelativeSource AncestorType={x:Type local:MonthView}}, Path=DaysBorderThickness}"
+                                                            CornerRadius    ="{Binding RelativeSource={RelativeSource AncestorType={x:Type local:MonthView}}, Path=DaysCornerRadius}"
+                                                            Foreground      ="{Binding RelativeSource={RelativeSource AncestorType={x:Type local:MonthView}}, Path=DaysForeground}"
+                                                            Margin          ="{Binding RelativeSource={RelativeSource AncestorType={x:Type local:MonthView}}, Path=DaysMargin}"
+                                                            Padding         ="{Binding RelativeSource={RelativeSource AncestorType={x:Type local:MonthView}}, Path=DaysPadding}"/>
+                                    <local:DayView          x:Name          ="dv38"
+                                                            Background      ="{Binding RelativeSource={RelativeSource AncestorType={x:Type local:MonthView}}, Path=DaysBackground}"
+                                                            BorderBrush     ="{Binding RelativeSource={RelativeSource AncestorType={x:Type local:MonthView}}, Path=DaysBorderBrush}"
+                                                            BorderThickness ="{Binding RelativeSource={RelativeSource AncestorType={x:Type local:MonthView}}, Path=DaysBorderThickness}"
+                                                            CornerRadius    ="{Binding RelativeSource={RelativeSource AncestorType={x:Type local:MonthView}}, Path=DaysCornerRadius}"
+                                                            Foreground      ="{Binding RelativeSource={RelativeSource AncestorType={x:Type local:MonthView}}, Path=DaysForeground}"
+                                                            Margin          ="{Binding RelativeSource={RelativeSource AncestorType={x:Type local:MonthView}}, Path=DaysMargin}"
+                                                            Padding         ="{Binding RelativeSource={RelativeSource AncestorType={x:Type local:MonthView}}, Path=DaysPadding}"/>
+                                    <local:DayView          x:Name          ="dv39"
+                                                            Background      ="{Binding RelativeSource={RelativeSource AncestorType={x:Type local:MonthView}}, Path=DaysBackground}"
+                                                            BorderBrush     ="{Binding RelativeSource={RelativeSource AncestorType={x:Type local:MonthView}}, Path=DaysBorderBrush}"
+                                                            BorderThickness ="{Binding RelativeSource={RelativeSource AncestorType={x:Type local:MonthView}}, Path=DaysBorderThickness}"
+                                                            CornerRadius    ="{Binding RelativeSource={RelativeSource AncestorType={x:Type local:MonthView}}, Path=DaysCornerRadius}"
+                                                            Foreground      ="{Binding RelativeSource={RelativeSource AncestorType={x:Type local:MonthView}}, Path=DaysForeground}"
+                                                            Margin          ="{Binding RelativeSource={RelativeSource AncestorType={x:Type local:MonthView}}, Path=DaysMargin}"
+                                                            Padding         ="{Binding RelativeSource={RelativeSource AncestorType={x:Type local:MonthView}}, Path=DaysPadding}"/>
+                                    <local:DayView          x:Name          ="dv40"
+                                                            Background      ="{Binding RelativeSource={RelativeSource AncestorType={x:Type local:MonthView}}, Path=DaysBackground}"
+                                                            BorderBrush     ="{Binding RelativeSource={RelativeSource AncestorType={x:Type local:MonthView}}, Path=DaysBorderBrush}"
+                                                            BorderThickness ="{Binding RelativeSource={RelativeSource AncestorType={x:Type local:MonthView}}, Path=DaysBorderThickness}"
+                                                            CornerRadius    ="{Binding RelativeSource={RelativeSource AncestorType={x:Type local:MonthView}}, Path=DaysCornerRadius}"
+                                                            Foreground      ="{Binding RelativeSource={RelativeSource AncestorType={x:Type local:MonthView}}, Path=DaysForeground}"
+                                                            Margin          ="{Binding RelativeSource={RelativeSource AncestorType={x:Type local:MonthView}}, Path=DaysMargin}"
+                                                            Padding         ="{Binding RelativeSource={RelativeSource AncestorType={x:Type local:MonthView}}, Path=DaysPadding}"/>
+                                    <local:DayView          x:Name          ="dv41"
+                                                            Background      ="{Binding RelativeSource={RelativeSource AncestorType={x:Type local:MonthView}}, Path=DaysBackground}"
+                                                            BorderBrush     ="{Binding RelativeSource={RelativeSource AncestorType={x:Type local:MonthView}}, Path=DaysBorderBrush}"
+                                                            BorderThickness ="{Binding RelativeSource={RelativeSource AncestorType={x:Type local:MonthView}}, Path=DaysBorderThickness}"
+                                                            CornerRadius    ="{Binding RelativeSource={RelativeSource AncestorType={x:Type local:MonthView}}, Path=DaysCornerRadius}"
+                                                            Foreground      ="{Binding RelativeSource={RelativeSource AncestorType={x:Type local:MonthView}}, Path=DaysForeground}"
+                                                            Margin          ="{Binding RelativeSource={RelativeSource AncestorType={x:Type local:MonthView}}, Path=DaysMargin}"
+                                                            Padding         ="{Binding RelativeSource={RelativeSource AncestorType={x:Type local:MonthView}}, Path=DaysPadding}"/>
+
+                                </UniformGrid>
+                            </Grid>
+
+                            <Grid                           x:Name="grdMonthList"
+                                                            Background="{TemplateBinding MonthListBackground}"
+                                                            Visibility="Collapsed">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition       Width="30"      />
+                                    <ColumnDefinition       Width="*"       />
+                                    <ColumnDefinition       Width="5"       />
+                                    <ColumnDefinition       Width="*"       />
+                                    <ColumnDefinition       Width="5"       />
+                                    <ColumnDefinition       Width="*"       />
+                                    <ColumnDefinition       Width="30"      />
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition          Height="30"     />
+                                    <RowDefinition          Height="*"      />
+                                    <RowDefinition          Height="Auto"   />
+                                    <RowDefinition          Height="*"      />
+                                    <RowDefinition          Height="Auto"   />
+                                    <RowDefinition          Height="*"      />
+                                    <RowDefinition          Height="Auto"   />
+                                    <RowDefinition          Height="*"      />
+                                    <RowDefinition          Height="Auto"   />
+                                    <RowDefinition          Height="*"      />
+                                    <RowDefinition          Height="30"     />
+                                </Grid.RowDefinitions>
+
+                                <local:PlainButton          x:Name="btnMonthPrev"       Grid.Column="0"     Grid.Row="0"
+                                                            Background="Transparent"
+                                                            FontFamily="{StaticResource SymbolFont}"
+                                                            Foreground="{TemplateBinding MonthListForeground}"
+                                                            Margin="3"
+                                                            SymbolCharacter="{StaticResource ArrowLeft}" />
+
+                                <TextBlock                  x:Name="tbMonthListYear"    Grid.Column="3"     Grid.Row="0"
+                                                            Background="Transparent"
+                                                            FontFamily="{TemplateBinding FontFamily}"
+                                                            FontSize="{TemplateBinding FontSize}"
+                                                            FontStretch="{TemplateBinding FontStretch}"
+                                                            FontStyle="{TemplateBinding FontStyle}"
+                                                            FontWeight="{TemplateBinding FontWeight}"
+                                                            Foreground="{TemplateBinding MonthListForeground}"
+                                                            Text="2019"
+                                                            TextAlignment="Center" />
+
+                                <local:PlainButton          x:Name="btnMonthNext"       Grid.Column="6"     Grid.Row="0"
+                                                            Background="Transparent"
+                                                            FontFamily="{StaticResource SymbolFont}"
+                                                            Foreground="{TemplateBinding MonthListForeground}"
+                                                            Margin="3"
+                                                            SymbolCharacter="{StaticResource ArrowRight}" />
+
+                                <Button                     x:Name="btnMonthList00"     Grid.Column="1"     Grid.Row="2"
+                                                            Background="Transparent"
+                                                            BorderBrush="Transparent"
+                                                            Content="January"
+                                                            Foreground="{TemplateBinding MonthListForeground}" />
+
+                                <Button                     x:Name="btnMonthList01"     Grid.Column="1"     Grid.Row="4"
+                                                            Background="Transparent"
+                                                            BorderBrush="Transparent"
+                                                            Content="February"
+                                                            Foreground="{TemplateBinding MonthListForeground}" />
+
+                                <Button                     x:Name="btnMonthList02"     Grid.Column="1"     Grid.Row="6"
+                                                            Background="Transparent"
+                                                            BorderBrush="Transparent"
+                                                            Content="March"
+                                                            Foreground="{TemplateBinding MonthListForeground}" />
+
+                                <Button                     x:Name="btnMonthList03"     Grid.Column="1"     Grid.Row="8"
+                                                            Background="Transparent"
+                                                            BorderBrush="Transparent"
+                                                            Content="April"
+                                                            Foreground="{TemplateBinding MonthListForeground}" />
+
+                                <Button                     x:Name="btnMonthList04"     Grid.Column="3"     Grid.Row="2"
+                                                            Background="Transparent"
+                                                            BorderBrush="Transparent"
+                                                            Content="May"
+                                                            Foreground="{TemplateBinding MonthListForeground}" />
+
+                                <Button                     x:Name="btnMonthList05"     Grid.Column="3"     Grid.Row="4"
+                                                            Background="Transparent"
+                                                            BorderBrush="Transparent"
+                                                            Content="June"
+                                                            Foreground="{TemplateBinding MonthListForeground}"/>
+
+                                <Button                     x:Name="btnMonthList06"     Grid.Column="3"     Grid.Row="6"
+                                                            Background="Transparent"
+                                                            BorderBrush="Transparent"
+                                                            Content="July"
+                                                            Foreground="{TemplateBinding MonthListForeground}" />
+
+                                <Button                     x:Name="btnMonthList07"     Grid.Column="3"     Grid.Row="8"
+                                                            Background="Transparent"
+                                                            BorderBrush="Transparent"
+                                                            Content="August"
+                                                            Foreground="{TemplateBinding MonthListForeground}" />
+
+                                <Button                     x:Name="btnMonthList08"     Grid.Column="5"     Grid.Row="2"
+                                                            Background="Transparent"
+                                                            BorderBrush="Transparent"
+                                                            Content="September"
+                                                            Foreground="{TemplateBinding MonthListForeground}" />
+
+                                <Button                     x:Name="btnMonthList09"     Grid.Column="5"     Grid.Row="4"
+                                                            Background="Transparent"
+                                                            BorderBrush="Transparent"
+                                                            Content="October"
+                                                            Foreground="{TemplateBinding MonthListForeground}" />
+
+                                <Button                     x:Name="btnMonthList10"     Grid.Column="5"     Grid.Row="6"
+                                                            Background="Transparent"
+                                                            BorderBrush="Transparent"
+                                                            Content="November"
+                                                            Foreground="{TemplateBinding MonthListForeground}" />
+
+                                <Button                     x:Name="btnMonthList11"     Grid.Column="5"     Grid.Row="8"
+                                                            Background="Transparent"
+                                                            BorderBrush="Transparent"
+                                                            Content="December"
+                                                            Foreground="{TemplateBinding MonthListForeground}" />
+
+                            </Grid>
+
+                            <Grid                           x:Name="grdYearList"
+                                                            Background="{TemplateBinding YearListBackground}"
+                                                            Visibility="Collapsed">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition       Width="30"      />
+                                    <ColumnDefinition       Width="*"       />
+                                    <ColumnDefinition       Width="Auto"    />
+                                    <ColumnDefinition       Width="2*"       />
+                                    <ColumnDefinition       Width="Auto"    />
+                                    <ColumnDefinition       Width="*"       />
+                                    <ColumnDefinition       Width="30"      />
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition          Height="30"     />
+                                    <RowDefinition          Height="20"     />
+                                    <RowDefinition          Height="Auto"   />
+                                    <RowDefinition          Height="*"      />
+                                    <RowDefinition          Height="Auto"   />
+                                    <RowDefinition          Height="*"      />
+                                    <RowDefinition          Height="Auto"   />
+                                    <RowDefinition          Height="*"      />
+                                    <RowDefinition          Height="Auto"   />
+                                    <RowDefinition          Height="*"      />
+                                    <RowDefinition          Height="Auto"   />
+                                    <RowDefinition          Height="45"     />
+                                </Grid.RowDefinitions>
+
+                                <local:PlainButton          x:Name="btnDecadePrev"        Grid.Column="0"     Grid.Row="0"
+                                                            Background="Transparent"
+                                                            FontFamily="{StaticResource SymbolFont}"
+                                                            Foreground="{TemplateBinding YearListForeground}"
+                                                            Margin="3"
+                                                            SymbolCharacter="{StaticResource ArrowLeft}" />
+
+                                <TextBlock                  x:Name="tbDecadeYear"       Grid.Column="2"     Grid.ColumnSpan="3"     Grid.Row="0"
+                                                            Background="Transparent"
+                                                            FontFamily="{TemplateBinding FontFamily}"
+                                                            FontSize="{TemplateBinding FontSize}"
+                                                            FontStretch="{TemplateBinding FontStretch}"
+                                                            FontStyle="{TemplateBinding FontStyle}"
+                                                            FontWeight="{TemplateBinding FontWeight}"
+                                                            Foreground="{TemplateBinding YearListForeground}"
+                                                            TextAlignment="Center" />
+
+                                <local:PlainButton          x:Name="btnDecadeNext"        Grid.Column="6"     Grid.Row="0"
+                                                            Background="Transparent"
+                                                            FontFamily="{StaticResource SymbolFont}"
+                                                            Foreground="{TemplateBinding YearListForeground}"
+                                                            Margin="3"
+                                                            SymbolCharacter="{StaticResource ArrowRight}" />
+
+                                <Button                     x:Name="btnYearList00"      Grid.Column="2"     Grid.Row="2"
+                                                            Background="Transparent"
+                                                            BorderBrush="Transparent"
+                                                            Foreground="{TemplateBinding YearListForeground}" />
+
+                                <Button                     x:Name="btnYearList01"      Grid.Column="2"     Grid.Row="4"
+                                                            Background="Transparent"
+                                                            BorderBrush="Transparent"
+                                                            Foreground="{TemplateBinding YearListForeground}" />
+
+                                <Button                     x:Name="btnYearList02"      Grid.Column="2"     Grid.Row="6"
+                                                            Background="Transparent"
+                                                            BorderBrush="Transparent"
+                                                            Foreground="{TemplateBinding YearListForeground}" />
+
+                                <Button                     x:Name="btnYearList03"      Grid.Column="2"     Grid.Row="8"
+                                                            Background="Transparent"
+                                                            BorderBrush="Transparent"
+                                                            Foreground="{TemplateBinding YearListForeground}" />
+
+                                <Button                     x:Name="btnYearList04"      Grid.Column="2"     Grid.Row="10"
+                                                            Background="Transparent"
+                                                            BorderBrush="Transparent"
+                                                            Foreground="{TemplateBinding YearListForeground}" />
+
+                                <Button                     x:Name="btnYearList05"      Grid.Column="4"     Grid.Row="2"
+                                                            Background="Transparent"
+                                                            BorderBrush="Transparent"
+                                                            Foreground="{TemplateBinding YearListForeground}" />
+
+                                <Button                     x:Name="btnYearList06"      Grid.Column="4"     Grid.Row="4"
+                                                            Background="Transparent"
+                                                            BorderBrush="Transparent"
+                                                            Foreground="{TemplateBinding YearListForeground}" />
+
+                                <Button                     x:Name="btnYearList07"      Grid.Column="4"     Grid.Row="6"
+                                                            Background="Transparent"
+                                                            BorderBrush="Transparent"
+                                                            Foreground="{TemplateBinding YearListForeground}" />
+
+                                <Button                     x:Name="btnYearList08"      Grid.Column="4"     Grid.Row="8"
+                                                            Background="Transparent"
+                                                            BorderBrush="Transparent"
+                                                            Foreground="{TemplateBinding YearListForeground}" />
+
+                                <Button                     x:Name="btnYearList09"      Grid.Column="4"     Grid.Row="10"
+                                                            Background="Transparent"
+                                                            BorderBrush="Transparent"
+                                                            Foreground="{TemplateBinding YearListForeground}" />
+
+                                <StackPanel                 Grid.Column="2"     Grid.ColumnSpan="3"     Grid.Row="11"
+                                                            HorizontalAlignment="Center"
+                                                            Orientation="Horizontal">
+                                    <TextBlock              Foreground="{TemplateBinding YearListForeground}"
+                                                            Height="24"
+                                                            Text="Enter Year:"
+                                                            VerticalAlignment="Bottom" />
+                                    <TextBox                x:Name="txtEnteredYear"
+                                                            Height="24"
+                                                            Margin="5 0"
+                                                            MaxLength="4"
+                                                            Width="45" />
+                                    <Button                 x:Name="btnEnteredYear"
+                                                            Content="_Go"
+                                                            Height="24"
+                                                            IsDefault="True"
+                                                            IsEnabled="{Binding ElementName=txtEnteredYear, Path=Text.Length}" />
+                                </StackPanel>
+                            </Grid>
+                        </Grid>
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+</ResourceDictionary>

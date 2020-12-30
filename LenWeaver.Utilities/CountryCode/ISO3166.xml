@@ -1,0 +1,256 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<!--
+    Source:         https://www.iso.org/iso-3166-country-codes.html
+    Last Update:    20200410
+-->
+<CountryCodes>
+    <Country Name="AFGHANISTAN"                                     ISO3166-1-Alpha2="AF" ISO3166-1-Alpha3="AFG" ISO3166-1-Numeric="004" />
+    <Country Name="ALAND ISLANDS"                                   ISO3166-1-Alpha2="AX" ISO3166-1-Alpha3="ALA" ISO3166-1-Numeric="248" />
+    <Country Name="ALBANIA"                                         ISO3166-1-Alpha2="AL" ISO3166-1-Alpha3="ALB" ISO3166-1-Numeric="008" />
+    <Country Name="ALGERIA"                                         ISO3166-1-Alpha2="DZ" ISO3166-1-Alpha3="DZA" ISO3166-1-Numeric="012" />
+    <Country Name="AMERICAN SAMOA"                                  ISO3166-1-Alpha2="AS" ISO3166-1-Alpha3="ASM" ISO3166-1-Numeric="016" />
+    <Country Name="ANDORRA"                                         ISO3166-1-Alpha2="AD" ISO3166-1-Alpha3="AND" ISO3166-1-Numeric="020" />
+    <Country Name="ANGOLA"                                          ISO3166-1-Alpha2="AO" ISO3166-1-Alpha3="AGO" ISO3166-1-Numeric="024" />
+    <Country Name="ANGUILLA"                                        ISO3166-1-Alpha2="AI" ISO3166-1-Alpha3="AIA" ISO3166-1-Numeric="660" />
+    <Country Name="ANTARCTICA"                                      ISO3166-1-Alpha2="AQ" ISO3166-1-Alpha3="ATA" ISO3166-1-Numeric="010" />
+    <Country Name="ANTIGUA AND BARBUDA"                             ISO3166-1-Alpha2="AG" ISO3166-1-Alpha3="ATG" ISO3166-1-Numeric="028" />
+    <Country Name="ARGENTINA"                                       ISO3166-1-Alpha2="AR" ISO3166-1-Alpha3="ARG" ISO3166-1-Numeric="032" />
+    <Country Name="ARMENIA"                                         ISO3166-1-Alpha2="AM" ISO3166-1-Alpha3="ARM" ISO3166-1-Numeric="051" />
+    <Country Name="ARUBA"                                           ISO3166-1-Alpha2="AW" ISO3166-1-Alpha3="ABW" ISO3166-1-Numeric="533" />
+    <Country Name="AUSTRALIA"                                       ISO3166-1-Alpha2="AU" ISO3166-1-Alpha3="AUS" ISO3166-1-Numeric="036" />
+    <Country Name="AUSTRIA"                                         ISO3166-1-Alpha2="AT" ISO3166-1-Alpha3="AUT" ISO3166-1-Numeric="040" />
+    <Country Name="AZERBAIJAN"                                      ISO3166-1-Alpha2="AZ" ISO3166-1-Alpha3="AZE" ISO3166-1-Numeric="031" />
+    <Country Name="BAHAMAS"                                         ISO3166-1-Alpha2="BS" ISO3166-1-Alpha3="BHS" ISO3166-1-Numeric="044" />
+    <Country Name="BAHRAIN"                                         ISO3166-1-Alpha2="BH" ISO3166-1-Alpha3="BHR" ISO3166-1-Numeric="048" />
+    <Country Name="BANGLADESH"                                      ISO3166-1-Alpha2="BD" ISO3166-1-Alpha3="BGD" ISO3166-1-Numeric="050" />
+    <Country Name="BARBADOS"                                        ISO3166-1-Alpha2="BB" ISO3166-1-Alpha3="BRB" ISO3166-1-Numeric="052" />
+    <Country Name="BELARUS"                                         ISO3166-1-Alpha2="BY" ISO3166-1-Alpha3="BLR" ISO3166-1-Numeric="112" />
+    <Country Name="BELGIUM"                                         ISO3166-1-Alpha2="BE" ISO3166-1-Alpha3="BEL" ISO3166-1-Numeric="056" />
+    <Country Name="BELIZE"                                          ISO3166-1-Alpha2="BZ" ISO3166-1-Alpha3="BLZ" ISO3166-1-Numeric="084" />
+    <Country Name="BENIN"                                           ISO3166-1-Alpha2="BJ" ISO3166-1-Alpha3="BEN" ISO3166-1-Numeric="204" />
+    <Country Name="BERMUDA"                                         ISO3166-1-Alpha2="BM" ISO3166-1-Alpha3="BMU" ISO3166-1-Numeric="060" />
+    <Country Name="BHUTAN"                                          ISO3166-1-Alpha2="BT" ISO3166-1-Alpha3="BTN" ISO3166-1-Numeric="064" />
+    <Country Name="BOLIVIA"                                         ISO3166-1-Alpha2="BO" ISO3166-1-Alpha3="BOL" ISO3166-1-Numeric="068" />
+    <Country Name="BONAIRE, SINT EUSTATIUS AND SABA"                ISO3166-1-Alpha2="BQ" ISO3166-1-Alpha3="BES" ISO3166-1-Numeric="535" />
+    <Country Name="BOSNIA AND HERZEGOVINA"                          ISO3166-1-Alpha2="BA" ISO3166-1-Alpha3="BIH" ISO3166-1-Numeric="070" />
+    <Country Name="BOTSWANA"                                        ISO3166-1-Alpha2="BW" ISO3166-1-Alpha3="BWA" ISO3166-1-Numeric="072" />
+    <Country Name="BOUVET ISLAND"                                   ISO3166-1-Alpha2="BV" ISO3166-1-Alpha3="BVT" ISO3166-1-Numeric="074" />
+    <Country Name="BRAZIL"                                          ISO3166-1-Alpha2="BR" ISO3166-1-Alpha3="BRA" ISO3166-1-Numeric="076" />
+    <Country Name="BRITISH INDIAN OCEAN TERRITORY"                  ISO3166-1-Alpha2="IO" ISO3166-1-Alpha3="IOT" ISO3166-1-Numeric="086" />
+    <Country Name="BRUNEI DARUSSALAM"                               ISO3166-1-Alpha2="BN" ISO3166-1-Alpha3="BRN" ISO3166-1-Numeric="096" />
+    <Country Name="BULGARIA"                                        ISO3166-1-Alpha2="BG" ISO3166-1-Alpha3="BGR" ISO3166-1-Numeric="100" />
+    <Country Name="BURKINA FASO"                                    ISO3166-1-Alpha2="BF" ISO3166-1-Alpha3="BFA" ISO3166-1-Numeric="854" />
+    <Country Name="BURUNDI"                                         ISO3166-1-Alpha2="BI" ISO3166-1-Alpha3="BDI" ISO3166-1-Numeric="108" />
+    <Country Name="CAMBODIA"                                        ISO3166-1-Alpha2="KH" ISO3166-1-Alpha3="KHM" ISO3166-1-Numeric="116" />
+    <Country Name="CAMEROON"                                        ISO3166-1-Alpha2="CM" ISO3166-1-Alpha3="CMR" ISO3166-1-Numeric="120" />
+    <Country Name="CANADA"                                          ISO3166-1-Alpha2="CA" ISO3166-1-Alpha3="CAN" ISO3166-1-Numeric="124" />
+    <Country Name="CABO VERDE"                                      ISO3166-1-Alpha2="CV" ISO3166-1-Alpha3="CPV" ISO3166-1-Numeric="132" />
+    <Country Name="CAYMAN ISLANDS"                                  ISO3166-1-Alpha2="KY" ISO3166-1-Alpha3="CYM" ISO3166-1-Numeric="136" />
+    <Country Name="CENTRAL AFRICAN REPUBLIC"                        ISO3166-1-Alpha2="CF" ISO3166-1-Alpha3="CAF" ISO3166-1-Numeric="140" />
+    <Country Name="CHAD"                                            ISO3166-1-Alpha2="TD" ISO3166-1-Alpha3="TCD" ISO3166-1-Numeric="148" />
+    <Country Name="CHILE"                                           ISO3166-1-Alpha2="CL" ISO3166-1-Alpha3="CHL" ISO3166-1-Numeric="152" />
+    <Country Name="CHINA"                                           ISO3166-1-Alpha2="CN" ISO3166-1-Alpha3="CHN" ISO3166-1-Numeric="156" />
+    <Country Name="CHRISTMAS ISLAND"                                ISO3166-1-Alpha2="CX" ISO3166-1-Alpha3="CXR" ISO3166-1-Numeric="162" />
+    <Country Name="COCOS (KEELING) ISLANDS"                         ISO3166-1-Alpha2="CC" ISO3166-1-Alpha3="CCK" ISO3166-1-Numeric="166" />
+    <Country Name="COLOMBIA"                                        ISO3166-1-Alpha2="CO" ISO3166-1-Alpha3="COL" ISO3166-1-Numeric="170" />
+    <Country Name="COMOROS"                                         ISO3166-1-Alpha2="KM" ISO3166-1-Alpha3="COM" ISO3166-1-Numeric="174" />
+    <Country Name="CONGO"                                           ISO3166-1-Alpha2="CG" ISO3166-1-Alpha3="COG" ISO3166-1-Numeric="178" />
+    <Country Name="CONGO, THE DEMOCRATIC REPUBLIC OF THE"           ISO3166-1-Alpha2="CD" ISO3166-1-Alpha3="COD" ISO3166-1-Numeric="180" />
+    <Country Name="COOK ISLANDS"                                    ISO3166-1-Alpha2="CK" ISO3166-1-Alpha3="COK" ISO3166-1-Numeric="184" />
+    <Country Name="COSTA RICA"                                      ISO3166-1-Alpha2="CR" ISO3166-1-Alpha3="CRI" ISO3166-1-Numeric="188" />
+    <Country Name="CÔTE D'IVOIRE"                                   ISO3166-1-Alpha2="CI" ISO3166-1-Alpha3="CIV" ISO3166-1-Numeric="384" />
+    <Country Name="CROATIA"                                         ISO3166-1-Alpha2="HR" ISO3166-1-Alpha3="HRV" ISO3166-1-Numeric="191" />
+    <Country Name="CUBA"                                            ISO3166-1-Alpha2="CU" ISO3166-1-Alpha3="CUB" ISO3166-1-Numeric="192" />
+    <Country Name="CURAÇAO"                                         ISO3166-1-Alpha2="CW" ISO3166-1-Alpha3="CUW" ISO3166-1-Numeric="531" />
+    <Country Name="CYPRUS"                                          ISO3166-1-Alpha2="CY" ISO3166-1-Alpha3="CYP" ISO3166-1-Numeric="196" />
+    <Country Name="CZECHIA"                                         ISO3166-1-Alpha2="CZ" ISO3166-1-Alpha3="CZE" ISO3166-1-Numeric="203" />
+    <Country Name="DENMARK"                                         ISO3166-1-Alpha2="DK" ISO3166-1-Alpha3="DNK" ISO3166-1-Numeric="208" />
+    <Country Name="DJIBOUTI"                                        ISO3166-1-Alpha2="DJ" ISO3166-1-Alpha3="DJI" ISO3166-1-Numeric="262" />
+    <Country Name="DOMINICA"                                        ISO3166-1-Alpha2="DM" ISO3166-1-Alpha3="DMA" ISO3166-1-Numeric="212" />
+    <Country Name="DOMINICAN REPUBLIC"                              ISO3166-1-Alpha2="DO" ISO3166-1-Alpha3="DOM" ISO3166-1-Numeric="214" />
+    <Country Name="ECUADOR"                                         ISO3166-1-Alpha2="EC" ISO3166-1-Alpha3="ECU" ISO3166-1-Numeric="218" />
+    <Country Name="EGYPT"                                           ISO3166-1-Alpha2="EG" ISO3166-1-Alpha3="EGY" ISO3166-1-Numeric="818" />
+    <Country Name="EL SALVADOR"                                     ISO3166-1-Alpha2="SV" ISO3166-1-Alpha3="SLV" ISO3166-1-Numeric="222" />
+    <Country Name="EQUATORIAL GUINEA"                               ISO3166-1-Alpha2="GQ" ISO3166-1-Alpha3="GNQ" ISO3166-1-Numeric="226" />
+    <Country Name="ERITREA"                                         ISO3166-1-Alpha2="ER" ISO3166-1-Alpha3="ERI" ISO3166-1-Numeric="232" />
+    <Country Name="ESTONIA"                                         ISO3166-1-Alpha2="EE" ISO3166-1-Alpha3="EST" ISO3166-1-Numeric="233" />
+    <Country Name="ESWATINI"                                        ISO3166-1-Alpha2="SZ" ISO3166-1-Alpha3="SWZ" ISO3166-1-Numeric="748" />
+    <Country Name="ETHIOPIA"                                        ISO3166-1-Alpha2="ET" ISO3166-1-Alpha3="ETH" ISO3166-1-Numeric="231" />
+    <Country Name="FALKLAND ISLANDS (MALVINAS)"                     ISO3166-1-Alpha2="FK" ISO3166-1-Alpha3="FLK" ISO3166-1-Numeric="238" />
+    <Country Name="FAROE ISLANDS"                                   ISO3166-1-Alpha2="FO" ISO3166-1-Alpha3="FRO" ISO3166-1-Numeric="234" />
+    <Country Name="FIJI"                                            ISO3166-1-Alpha2="FJ" ISO3166-1-Alpha3="FJI" ISO3166-1-Numeric="242" />
+    <Country Name="FINLAND"                                         ISO3166-1-Alpha2="FI" ISO3166-1-Alpha3="FIN" ISO3166-1-Numeric="246" />
+    <Country Name="FRANCE"                                          ISO3166-1-Alpha2="FR" ISO3166-1-Alpha3="FRA" ISO3166-1-Numeric="250" />
+    <Country Name="FRENCH GUIANA"                                   ISO3166-1-Alpha2="GF" ISO3166-1-Alpha3="GUF" ISO3166-1-Numeric="254" />
+    <Country Name="FRENCH POLYNESIA"                                ISO3166-1-Alpha2="PF" ISO3166-1-Alpha3="PYF" ISO3166-1-Numeric="258" />
+    <Country Name="FRENCH SOUTHERN TERRITORIES"                     ISO3166-1-Alpha2="TF" ISO3166-1-Alpha3="ATF" ISO3166-1-Numeric="260" />
+    <Country Name="GABON"                                           ISO3166-1-Alpha2="GA" ISO3166-1-Alpha3="GAB" ISO3166-1-Numeric="266" />
+    <Country Name="GAMBIA"                                          ISO3166-1-Alpha2="GM" ISO3166-1-Alpha3="GMB" ISO3166-1-Numeric="270" />
+    <Country Name="GEORGIA"                                         ISO3166-1-Alpha2="GE" ISO3166-1-Alpha3="GEO" ISO3166-1-Numeric="268" />
+    <Country Name="GERMANY"                                         ISO3166-1-Alpha2="DE" ISO3166-1-Alpha3="DEU" ISO3166-1-Numeric="276" />
+    <Country Name="GHANA"                                           ISO3166-1-Alpha2="GH" ISO3166-1-Alpha3="GHA" ISO3166-1-Numeric="288" />
+    <Country Name="GIBRALTAR"                                       ISO3166-1-Alpha2="GI" ISO3166-1-Alpha3="GIB" ISO3166-1-Numeric="292" />
+    <Country Name="GREECE"                                          ISO3166-1-Alpha2="GR" ISO3166-1-Alpha3="GRC" ISO3166-1-Numeric="300" />
+    <Country Name="GREENLAND"                                       ISO3166-1-Alpha2="GL" ISO3166-1-Alpha3="GRL" ISO3166-1-Numeric="304" />
+    <Country Name="GRENADA"                                         ISO3166-1-Alpha2="GD" ISO3166-1-Alpha3="GRD" ISO3166-1-Numeric="308" />
+    <Country Name="GUADELOUPE"                                      ISO3166-1-Alpha2="GP" ISO3166-1-Alpha3="GLP" ISO3166-1-Numeric="312" />
+    <Country Name="GUAM"                                            ISO3166-1-Alpha2="GU" ISO3166-1-Alpha3="GUM" ISO3166-1-Numeric="316" />
+    <Country Name="GUATEMALA"                                       ISO3166-1-Alpha2="GT" ISO3166-1-Alpha3="GTM" ISO3166-1-Numeric="320" />
+    <Country Name="GUERNSEY"                                        ISO3166-1-Alpha2="GG" ISO3166-1-Alpha3="GGY" ISO3166-1-Numeric="831" />
+    <Country Name="GUINEA"                                          ISO3166-1-Alpha2="GN" ISO3166-1-Alpha3="GIN" ISO3166-1-Numeric="324" />
+    <Country Name="GUINEA-BISSAU"                                   ISO3166-1-Alpha2="GW" ISO3166-1-Alpha3="GNB" ISO3166-1-Numeric="624" />
+    <Country Name="GUYANA"                                          ISO3166-1-Alpha2="GY" ISO3166-1-Alpha3="GUY" ISO3166-1-Numeric="328" />
+    <Country Name="HAITI"                                           ISO3166-1-Alpha2="HT" ISO3166-1-Alpha3="HTI" ISO3166-1-Numeric="332" />
+    <Country Name="HEARD ISLAND AND MCDONALD ISLANDS"               ISO3166-1-Alpha2="HM" ISO3166-1-Alpha3="HMD" ISO3166-1-Numeric="334" />
+    <Country Name="HOLY SEE (VATICAN CITY STATE)"                   ISO3166-1-Alpha2="VA" ISO3166-1-Alpha3="VAT" ISO3166-1-Numeric="336" />
+    <Country Name="HONDURAS"                                        ISO3166-1-Alpha2="HN" ISO3166-1-Alpha3="HND" ISO3166-1-Numeric="340" />
+    <Country Name="HONG KONG"                                       ISO3166-1-Alpha2="HK" ISO3166-1-Alpha3="HKG" ISO3166-1-Numeric="344" />
+    <Country Name="HUNGARY"                                         ISO3166-1-Alpha2="HU" ISO3166-1-Alpha3="HUN" ISO3166-1-Numeric="348" />
+    <Country Name="ICELAND"                                         ISO3166-1-Alpha2="IS" ISO3166-1-Alpha3="ISL" ISO3166-1-Numeric="352" />
+    <Country Name="INDIA"                                           ISO3166-1-Alpha2="IN" ISO3166-1-Alpha3="IND" ISO3166-1-Numeric="356" />
+    <Country Name="INDONESIA"                                       ISO3166-1-Alpha2="ID" ISO3166-1-Alpha3="IDN" ISO3166-1-Numeric="360" />
+    <Country Name="IRAN, ISLAMIC REPUBLIC OF"                       ISO3166-1-Alpha2="IR" ISO3166-1-Alpha3="IRN" ISO3166-1-Numeric="364" />
+    <Country Name="IRAQ"                                            ISO3166-1-Alpha2="IQ" ISO3166-1-Alpha3="IRQ" ISO3166-1-Numeric="368" />
+    <Country Name="IRELAND"                                         ISO3166-1-Alpha2="IE" ISO3166-1-Alpha3="IRL" ISO3166-1-Numeric="372" />
+    <Country Name="ISLE OF MAN"                                     ISO3166-1-Alpha2="IM" ISO3166-1-Alpha3="IMN" ISO3166-1-Numeric="833" />
+    <Country Name="ISRAEL"                                          ISO3166-1-Alpha2="IL" ISO3166-1-Alpha3="ISR" ISO3166-1-Numeric="376" />
+    <Country Name="ITALY"                                           ISO3166-1-Alpha2="IT" ISO3166-1-Alpha3="ITA" ISO3166-1-Numeric="380" />
+    <Country Name="JAMAICA"                                         ISO3166-1-Alpha2="JM" ISO3166-1-Alpha3="JAM" ISO3166-1-Numeric="388" />
+    <Country Name="JAPAN"                                           ISO3166-1-Alpha2="JP" ISO3166-1-Alpha3="JPN" ISO3166-1-Numeric="392" />
+    <Country Name="JERSEY"                                          ISO3166-1-Alpha2="JE" ISO3166-1-Alpha3="JEY" ISO3166-1-Numeric="832" />
+    <Country Name="JORDAN"                                          ISO3166-1-Alpha2="JO" ISO3166-1-Alpha3="JOR" ISO3166-1-Numeric="400" />
+    <Country Name="KAZAKHSTAN"                                      ISO3166-1-Alpha2="KZ" ISO3166-1-Alpha3="KAZ" ISO3166-1-Numeric="398" />
+    <Country Name="KENYA"                                           ISO3166-1-Alpha2="KE" ISO3166-1-Alpha3="KEN" ISO3166-1-Numeric="404" />
+    <Country Name="KIRIBATI"                                        ISO3166-1-Alpha2="KI" ISO3166-1-Alpha3="KIR" ISO3166-1-Numeric="296" />
+    <Country Name="KOREA, DEMOCRATIC PEOPLE'S REPUBLIC OF"          ISO3166-1-Alpha2="KP" ISO3166-1-Alpha3="PRK" ISO3166-1-Numeric="408" />
+    <Country Name="KOREA, REPUBLIC OF"                              ISO3166-1-Alpha2="KR" ISO3166-1-Alpha3="KOR" ISO3166-1-Numeric="410" />
+    <Country Name="KUWAIT"                                          ISO3166-1-Alpha2="KW" ISO3166-1-Alpha3="KWT" ISO3166-1-Numeric="414" />
+    <Country Name="KYRGYZSTAN"                                      ISO3166-1-Alpha2="KG" ISO3166-1-Alpha3="KGZ" ISO3166-1-Numeric="417" />
+    <Country Name="LAO PEOPLE'S DEMOCRATIC REPUBLIC"                ISO3166-1-Alpha2="LA" ISO3166-1-Alpha3="LAO" ISO3166-1-Numeric="418" />
+    <Country Name="LATVIA"                                          ISO3166-1-Alpha2="LV" ISO3166-1-Alpha3="LVA" ISO3166-1-Numeric="428" />
+    <Country Name="LEBANON"                                         ISO3166-1-Alpha2="LB" ISO3166-1-Alpha3="LBN" ISO3166-1-Numeric="422" />
+    <Country Name="LESOTHO"                                         ISO3166-1-Alpha2="LS" ISO3166-1-Alpha3="LSO" ISO3166-1-Numeric="426" />
+    <Country Name="LIBERIA"                                         ISO3166-1-Alpha2="LR" ISO3166-1-Alpha3="LBR" ISO3166-1-Numeric="430" />
+    <Country Name="LIBYA"                                           ISO3166-1-Alpha2="LY" ISO3166-1-Alpha3="LBY" ISO3166-1-Numeric="434" />
+    <Country Name="LIECHTENSTEIN"                                   ISO3166-1-Alpha2="LI" ISO3166-1-Alpha3="LIE" ISO3166-1-Numeric="438" />
+    <Country Name="LITHUANIA"                                       ISO3166-1-Alpha2="LT" ISO3166-1-Alpha3="LTU" ISO3166-1-Numeric="440" />
+    <Country Name="LUXEMBOURG"                                      ISO3166-1-Alpha2="LU" ISO3166-1-Alpha3="LUX" ISO3166-1-Numeric="442" />
+    <Country Name="MACAO"                                           ISO3166-1-Alpha2="MO" ISO3166-1-Alpha3="MAC" ISO3166-1-Numeric="446" />
+    <Country Name="MACEDONIA, THE FORMER YUGOSLAV REPUBLIC OF"      ISO3166-1-Alpha2="MK" ISO3166-1-Alpha3="MKD" ISO3166-1-Numeric="807" />
+    <Country Name="MADAGASCAR"                                      ISO3166-1-Alpha2="MG" ISO3166-1-Alpha3="MDG" ISO3166-1-Numeric="450" />
+    <Country Name="MALAWI"                                          ISO3166-1-Alpha2="MW" ISO3166-1-Alpha3="MWI" ISO3166-1-Numeric="454" />
+    <Country Name="MALAYSIA"                                        ISO3166-1-Alpha2="MY" ISO3166-1-Alpha3="MYS" ISO3166-1-Numeric="458" />
+    <Country Name="MALDIVES"                                        ISO3166-1-Alpha2="MV" ISO3166-1-Alpha3="MDV" ISO3166-1-Numeric="462" />
+    <Country Name="MALI"                                            ISO3166-1-Alpha2="ML" ISO3166-1-Alpha3="MLI" ISO3166-1-Numeric="466" />
+    <Country Name="MALTA"                                           ISO3166-1-Alpha2="MT" ISO3166-1-Alpha3="MLT" ISO3166-1-Numeric="470" />
+    <Country Name="MARSHALL ISLANDS"                                ISO3166-1-Alpha2="MH" ISO3166-1-Alpha3="MHL" ISO3166-1-Numeric="584" />
+    <Country Name="MARTINIQUE"                                      ISO3166-1-Alpha2="MQ" ISO3166-1-Alpha3="MTQ" ISO3166-1-Numeric="474" />
+    <Country Name="MAURITANIA"                                      ISO3166-1-Alpha2="MR" ISO3166-1-Alpha3="MRT" ISO3166-1-Numeric="478" />
+    <Country Name="MAURITIUS"                                       ISO3166-1-Alpha2="MU" ISO3166-1-Alpha3="MUS" ISO3166-1-Numeric="480" />
+    <Country Name="MAYOTTE"                                         ISO3166-1-Alpha2="YT" ISO3166-1-Alpha3="MYT" ISO3166-1-Numeric="175" />
+    <Country Name="MEXICO"                                          ISO3166-1-Alpha2="MX" ISO3166-1-Alpha3="MEX" ISO3166-1-Numeric="484" />
+    <Country Name="MICRONESIA, FEDERATED STATES OF"                 ISO3166-1-Alpha2="FM" ISO3166-1-Alpha3="FSM" ISO3166-1-Numeric="583" />
+    <Country Name="MOLDOVA, REPUBLIC OF"                            ISO3166-1-Alpha2="MD" ISO3166-1-Alpha3="MDA" ISO3166-1-Numeric="498" />
+    <Country Name="MONACO"                                          ISO3166-1-Alpha2="MC" ISO3166-1-Alpha3="MCO" ISO3166-1-Numeric="492" />
+    <Country Name="MONGOLIA"                                        ISO3166-1-Alpha2="MN" ISO3166-1-Alpha3="MNG" ISO3166-1-Numeric="496" />
+    <Country Name="MONTENEGRO"                                      ISO3166-1-Alpha2="ME" ISO3166-1-Alpha3="MNE" ISO3166-1-Numeric="499" />
+    <Country Name="MONTSERRAT"                                      ISO3166-1-Alpha2="MS" ISO3166-1-Alpha3="MSR" ISO3166-1-Numeric="500" />
+    <Country Name="MOROCCO"                                         ISO3166-1-Alpha2="MA" ISO3166-1-Alpha3="MAR" ISO3166-1-Numeric="504" />
+    <Country Name="MOZAMBIQUE"                                      ISO3166-1-Alpha2="MZ" ISO3166-1-Alpha3="MOZ" ISO3166-1-Numeric="508" />
+    <Country Name="MYANMAR"                                         ISO3166-1-Alpha2="MM" ISO3166-1-Alpha3="MMR" ISO3166-1-Numeric="104" />
+    <Country Name="NAMIBIA"                                         ISO3166-1-Alpha2="NA" ISO3166-1-Alpha3="NAM" ISO3166-1-Numeric="516" />
+    <Country Name="NAURU"                                           ISO3166-1-Alpha2="NR" ISO3166-1-Alpha3="NRU" ISO3166-1-Numeric="520" />
+    <Country Name="NEPAL"                                           ISO3166-1-Alpha2="NP" ISO3166-1-Alpha3="NPL" ISO3166-1-Numeric="524" />
+    <Country Name="NETHERLANDS"                                     ISO3166-1-Alpha2="NL" ISO3166-1-Alpha3="NLD" ISO3166-1-Numeric="528" />
+    <Country Name="NEW CALEDONIA"                                   ISO3166-1-Alpha2="NC" ISO3166-1-Alpha3="NCL" ISO3166-1-Numeric="540" />
+    <Country Name="NEW ZEALAND"                                     ISO3166-1-Alpha2="NZ" ISO3166-1-Alpha3="NZL" ISO3166-1-Numeric="554" />
+    <Country Name="NICARAGUA"                                       ISO3166-1-Alpha2="NI" ISO3166-1-Alpha3="NIC" ISO3166-1-Numeric="558" />
+    <Country Name="NIGER"                                           ISO3166-1-Alpha2="NE" ISO3166-1-Alpha3="NER" ISO3166-1-Numeric="562" />
+    <Country Name="NIGERIA"                                         ISO3166-1-Alpha2="NG" ISO3166-1-Alpha3="NGA" ISO3166-1-Numeric="566" />
+    <Country Name="NIUE"                                            ISO3166-1-Alpha2="NU" ISO3166-1-Alpha3="NIU" ISO3166-1-Numeric="570" />
+    <Country Name="NORFOLK ISLAND"                                  ISO3166-1-Alpha2="NF" ISO3166-1-Alpha3="NFK" ISO3166-1-Numeric="574" />
+    <Country Name="NORTHERN MARIANA ISLANDS"                        ISO3166-1-Alpha2="MP" ISO3166-1-Alpha3="MNP" ISO3166-1-Numeric="580" />
+    <Country Name="NORWAY"                                          ISO3166-1-Alpha2="NO" ISO3166-1-Alpha3="NOR" ISO3166-1-Numeric="578" />
+    <Country Name="OMAN"                                            ISO3166-1-Alpha2="OM" ISO3166-1-Alpha3="OMN" ISO3166-1-Numeric="512" />
+    <Country Name="PAKISTAN"                                        ISO3166-1-Alpha2="PK" ISO3166-1-Alpha3="PAK" ISO3166-1-Numeric="586" />
+    <Country Name="PALAU"                                           ISO3166-1-Alpha2="PW" ISO3166-1-Alpha3="PLW" ISO3166-1-Numeric="585" />
+    <Country Name="PALESTINE, STATE OF"                             ISO3166-1-Alpha2="PS" ISO3166-1-Alpha3="PSE" ISO3166-1-Numeric="275" />
+    <Country Name="PANAMA"                                          ISO3166-1-Alpha2="PA" ISO3166-1-Alpha3="PAN" ISO3166-1-Numeric="591" />
+    <Country Name="PAPUA NEW GUINEA"                                ISO3166-1-Alpha2="PG" ISO3166-1-Alpha3="PNG" ISO3166-1-Numeric="598" />
+    <Country Name="PARAGUAY"                                        ISO3166-1-Alpha2="PY" ISO3166-1-Alpha3="PRY" ISO3166-1-Numeric="600" />
+    <Country Name="PERU"                                            ISO3166-1-Alpha2="PE" ISO3166-1-Alpha3="PER" ISO3166-1-Numeric="604" />
+    <Country Name="PHILIPPINES"                                     ISO3166-1-Alpha2="PH" ISO3166-1-Alpha3="PHL" ISO3166-1-Numeric="608" />
+    <Country Name="PITCAIRN"                                        ISO3166-1-Alpha2="PN" ISO3166-1-Alpha3="PCN" ISO3166-1-Numeric="612" />
+    <Country Name="POLAND"                                          ISO3166-1-Alpha2="PL" ISO3166-1-Alpha3="POL" ISO3166-1-Numeric="616" />
+    <Country Name="PORTUGAL"                                        ISO3166-1-Alpha2="PT" ISO3166-1-Alpha3="PRT" ISO3166-1-Numeric="620" />
+    <Country Name="PUERTO RICO"                                     ISO3166-1-Alpha2="PR" ISO3166-1-Alpha3="PRI" ISO3166-1-Numeric="630" />
+    <Country Name="QATAR"                                           ISO3166-1-Alpha2="QA" ISO3166-1-Alpha3="QAT" ISO3166-1-Numeric="634" />
+    <Country Name="REUNION"                                         ISO3166-1-Alpha2="RE" ISO3166-1-Alpha3="REU" ISO3166-1-Numeric="638" />
+    <Country Name="ROMANIA"                                         ISO3166-1-Alpha2="RO" ISO3166-1-Alpha3="ROU" ISO3166-1-Numeric="642" />
+    <Country Name="RUSSIAN FEDERATION"                              ISO3166-1-Alpha2="RU" ISO3166-1-Alpha3="RUS" ISO3166-1-Numeric="643" />
+    <Country Name="RWANDA"                                          ISO3166-1-Alpha2="RW" ISO3166-1-Alpha3="RWA" ISO3166-1-Numeric="646" />
+    <Country Name="SAINT BARTHÉLEMY"                                ISO3166-1-Alpha2="BL" ISO3166-1-Alpha3="BLM" ISO3166-1-Numeric="652" />
+    <Country Name="SAINT HELENA"                                    ISO3166-1-Alpha2="SH" ISO3166-1-Alpha3="SHN" ISO3166-1-Numeric="654" />
+    <Country Name="SAINT KITTS AND NEVIS"                           ISO3166-1-Alpha2="KN" ISO3166-1-Alpha3="KNA" ISO3166-1-Numeric="659" />
+    <Country Name="SAINT LUCIA"                                     ISO3166-1-Alpha2="LC" ISO3166-1-Alpha3="LCA" ISO3166-1-Numeric="662" />
+    <Country Name="SAINT MARTIN"                                    ISO3166-1-Alpha2="MF" ISO3166-1-Alpha3="MAF" ISO3166-1-Numeric="663" />
+    <Country Name="SAINT PIERRE AND MIQUELON"                       ISO3166-1-Alpha2="PM" ISO3166-1-Alpha3="SPM" ISO3166-1-Numeric="666" />
+    <Country Name="SAINT VINCENT AND THE GRENADINES"                ISO3166-1-Alpha2="VC" ISO3166-1-Alpha3="VCT" ISO3166-1-Numeric="670" />
+    <Country Name="SAMOA"                                           ISO3166-1-Alpha2="WS" ISO3166-1-Alpha3="WSM" ISO3166-1-Numeric="882" />
+    <Country Name="SAN MARINO"                                      ISO3166-1-Alpha2="SM" ISO3166-1-Alpha3="SMR" ISO3166-1-Numeric="674" />
+    <Country Name="SAO TOME AND PRINCIPE"                           ISO3166-1-Alpha2="ST" ISO3166-1-Alpha3="STP" ISO3166-1-Numeric="678" />
+    <Country Name="SAUDI ARABIA"                                    ISO3166-1-Alpha2="SA" ISO3166-1-Alpha3="SAU" ISO3166-1-Numeric="682" />
+    <Country Name="SENEGAL"                                         ISO3166-1-Alpha2="SN" ISO3166-1-Alpha3="SEN" ISO3166-1-Numeric="686" />
+    <Country Name="SERBIA"                                          ISO3166-1-Alpha2="RS" ISO3166-1-Alpha3="SRB" ISO3166-1-Numeric="688" />
+    <Country Name="SEYCHELLES"                                      ISO3166-1-Alpha2="SC" ISO3166-1-Alpha3="SYC" ISO3166-1-Numeric="690" />
+    <Country Name="SIERRA LEONE"                                    ISO3166-1-Alpha2="SL" ISO3166-1-Alpha3="SLE" ISO3166-1-Numeric="694" />
+    <Country Name="SINGAPORE"                                       ISO3166-1-Alpha2="SG" ISO3166-1-Alpha3="SGP" ISO3166-1-Numeric="702" />
+    <Country Name="SLOVAKIA"                                        ISO3166-1-Alpha2="SK" ISO3166-1-Alpha3="SVK" ISO3166-1-Numeric="703" />
+    <Country Name="SLOVENIA"                                        ISO3166-1-Alpha2="SI" ISO3166-1-Alpha3="SVN" ISO3166-1-Numeric="705" />
+    <Country Name="SOLOMON ISLANDS"                                 ISO3166-1-Alpha2="SB" ISO3166-1-Alpha3="SLB" ISO3166-1-Numeric="090" />
+    <Country Name="SOMALIA"                                         ISO3166-1-Alpha2="SO" ISO3166-1-Alpha3="SOM" ISO3166-1-Numeric="706" />
+    <Country Name="SOUTH AFRICA"                                    ISO3166-1-Alpha2="ZA" ISO3166-1-Alpha3="ZAF" ISO3166-1-Numeric="710" />
+    <Country Name="SOUTH GEORGIA AND THE SOUTH SANDWICH ISLANDS"    ISO3166-1-Alpha2="GS" ISO3166-1-Alpha3="SGS" ISO3166-1-Numeric="239" />
+    <Country Name="SPAIN"                                           ISO3166-1-Alpha2="ES" ISO3166-1-Alpha3="ESP" ISO3166-1-Numeric="724" />
+    <Country Name="SRI LANKA"                                       ISO3166-1-Alpha2="LK" ISO3166-1-Alpha3="LKA" ISO3166-1-Numeric="144" />
+    <Country Name="SUDAN"                                           ISO3166-1-Alpha2="SD" ISO3166-1-Alpha3="SDN" ISO3166-1-Numeric="729" />
+    <Country Name="SOUTH SUDAN"                                     ISO3166-1-Alpha2="SS" ISO3166-1-Alpha3="SSD" ISO3166-1-Numeric="728" />
+    <Country Name="SURINAME"                                        ISO3166-1-Alpha2="SR" ISO3166-1-Alpha3="SUR" ISO3166-1-Numeric="740" />
+    <Country Name="SVALBARD AND JAN MAYEN"                          ISO3166-1-Alpha2="SJ" ISO3166-1-Alpha3="SJM" ISO3166-1-Numeric="744" />
+    <Country Name="SWAZILAND"                                       ISO3166-1-Alpha2="SZ" ISO3166-1-Alpha3="SWZ" ISO3166-1-Numeric="748" />
+    <Country Name="SWEDEN"                                          ISO3166-1-Alpha2="SE" ISO3166-1-Alpha3="SWE" ISO3166-1-Numeric="752" />
+    <Country Name="SWITZERLAND"                                     ISO3166-1-Alpha2="CH" ISO3166-1-Alpha3="CHE" ISO3166-1-Numeric="756" />
+    <Country Name="SYRIAN ARAB REPUBLIC"                            ISO3166-1-Alpha2="SY" ISO3166-1-Alpha3="SYR" ISO3166-1-Numeric="760" />
+    <Country Name="TAIWAN, PROVINCE OF CHINA"                       ISO3166-1-Alpha2="TW" ISO3166-1-Alpha3="TWN" ISO3166-1-Numeric="158" />
+    <Country Name="TAJIKISTAN"                                      ISO3166-1-Alpha2="TJ" ISO3166-1-Alpha3="TJK" ISO3166-1-Numeric="762" />
+    <Country Name="TANZANIA, UNITED REPUBLIC OF"                    ISO3166-1-Alpha2="TZ" ISO3166-1-Alpha3="TZA" ISO3166-1-Numeric="834" />
+    <Country Name="THAILAND"                                        ISO3166-1-Alpha2="TH" ISO3166-1-Alpha3="THA" ISO3166-1-Numeric="764" />
+    <Country Name="TIMOR-LESTE"                                     ISO3166-1-Alpha2="TL" ISO3166-1-Alpha3="TLS" ISO3166-1-Numeric="626" />
+    <Country Name="TOGO"                                            ISO3166-1-Alpha2="TG" ISO3166-1-Alpha3="TGO" ISO3166-1-Numeric="768" />
+    <Country Name="TOKELAU"                                         ISO3166-1-Alpha2="TK" ISO3166-1-Alpha3="TKL" ISO3166-1-Numeric="772" />
+    <Country Name="TONGA"                                           ISO3166-1-Alpha2="TO" ISO3166-1-Alpha3="TON" ISO3166-1-Numeric="776" />
+    <Country Name="TRINIDAD AND TOBAGO"                             ISO3166-1-Alpha2="TT" ISO3166-1-Alpha3="TTO" ISO3166-1-Numeric="780" />
+    <Country Name="TUNISIA"                                         ISO3166-1-Alpha2="TN" ISO3166-1-Alpha3="TUN" ISO3166-1-Numeric="788" />
+    <Country Name="TURKEY"                                          ISO3166-1-Alpha2="TR" ISO3166-1-Alpha3="TUR" ISO3166-1-Numeric="792" />
+    <Country Name="TURKMENISTAN"                                    ISO3166-1-Alpha2="TM" ISO3166-1-Alpha3="TKM" ISO3166-1-Numeric="795" />
+    <Country Name="TURKS AND CAICOS ISLANDS"                        ISO3166-1-Alpha2="TC" ISO3166-1-Alpha3="TCA" ISO3166-1-Numeric="796" />
+    <Country Name="TUVALU"                                          ISO3166-1-Alpha2="TV" ISO3166-1-Alpha3="TUV" ISO3166-1-Numeric="798" />
+    <Country Name="UGANDA"                                          ISO3166-1-Alpha2="UG" ISO3166-1-Alpha3="UGA" ISO3166-1-Numeric="800" />
+    <Country Name="UKRAINE"                                         ISO3166-1-Alpha2="UA" ISO3166-1-Alpha3="UKR" ISO3166-1-Numeric="804" />
+    <Country Name="UNITED ARAB EMIRATES"                            ISO3166-1-Alpha2="AE" ISO3166-1-Alpha3="ARE" ISO3166-1-Numeric="784" />
+    <Country Name="UNITED KINGDOM"                                  ISO3166-1-Alpha2="GB" ISO3166-1-Alpha3="GBR" ISO3166-1-Numeric="826" />
+    <Country Name="UNITED STATES"                                   ISO3166-1-Alpha2="US" ISO3166-1-Alpha3="USA" ISO3166-1-Numeric="840" />
+    <Country Name="UNITED STATES MINOR OUTLYING ISLANDS"            ISO3166-1-Alpha2="UM" ISO3166-1-Alpha3="UMI" ISO3166-1-Numeric="581" />
+    <Country Name="URUGUAY"                                         ISO3166-1-Alpha2="UY" ISO3166-1-Alpha3="URY" ISO3166-1-Numeric="858" />
+    <Country Name="UZBEKISTAN"                                      ISO3166-1-Alpha2="UZ" ISO3166-1-Alpha3="UZB" ISO3166-1-Numeric="860" />
+    <Country Name="VANUATU"                                         ISO3166-1-Alpha2="VU" ISO3166-1-Alpha3="VUT" ISO3166-1-Numeric="548" />
+    <Country Name="VENEZUELA"                                       ISO3166-1-Alpha2="VE" ISO3166-1-Alpha3="VEN" ISO3166-1-Numeric="862" />
+    <Country Name="VIET NAM"                                        ISO3166-1-Alpha2="VN" ISO3166-1-Alpha3="VNM" ISO3166-1-Numeric="704" />
+    <Country Name="VIRGIN ISLANDS, BRITISH"                         ISO3166-1-Alpha2="VG" ISO3166-1-Alpha3="VGB" ISO3166-1-Numeric="092" />
+    <Country Name="VIRGIN ISLANDS, U.S."                            ISO3166-1-Alpha2="VI" ISO3166-1-Alpha3="VIR" ISO3166-1-Numeric="850" />
+    <Country Name="WALLIS AND FUTUNA"                               ISO3166-1-Alpha2="WF" ISO3166-1-Alpha3="WLF" ISO3166-1-Numeric="876" />
+    <Country Name="WESTERN SAHARA"                                  ISO3166-1-Alpha2="EH" ISO3166-1-Alpha3="ESH" ISO3166-1-Numeric="732" />
+    <Country Name="YEMEN"                                           ISO3166-1-Alpha2="YE" ISO3166-1-Alpha3="YEM" ISO3166-1-Numeric="887" />
+    <Country Name="ZAMBIA"                                          ISO3166-1-Alpha2="ZM" ISO3166-1-Alpha3="ZMB" ISO3166-1-Numeric="894" />
+    <Country Name="ZIMBABWE"                                        ISO3166-1-Alpha2="ZW" ISO3166-1-Alpha3="ZWE" ISO3166-1-Numeric="716" />
+</CountryCodes>
