@@ -5,8 +5,8 @@ using System.Text;
 namespace LenWeaver.Utilities {
 
     public enum SqlAction {
-        CreateDatabase,
-        CreateTable,
+        //CreateDatabase,
+        //CreateTable,
 
         Delete,
         Insert,

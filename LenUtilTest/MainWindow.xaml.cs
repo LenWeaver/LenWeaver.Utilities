@@ -39,9 +39,13 @@ namespace LenUtilTest {
         
         private void btnButton_Click            ( object sender, RoutedEventArgs e ) {
 
-            SqlBuilder      sql     = new SqlBuilder( SqlAction.CreateTable, "Member" );
+            StringBuilder           sb = new StringBuilder();
 
-            tbText.Text             = sql.ToString();
+
+            sb.AppendLine( Environment.GetFolderPath( Environment.SpecialFolder.CommonPictures ) );
+            sb.AppendLine( Environment.GetFolderPath( Environment.SpecialFolder.MyPictures ) );
+
+            tbText.Text             = sb.ToString();
         }
     }
 }

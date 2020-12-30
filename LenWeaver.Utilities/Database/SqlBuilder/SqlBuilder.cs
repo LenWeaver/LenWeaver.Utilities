@@ -76,7 +76,30 @@ namespace LenWeaver.Utilities {
         }
         private string GenerateSqlInsert() {
 
-            return "Insert";
+            StringBuilder       fields;
+            StringBuilder       values;
+
+
+            fields      = new StringBuilder();
+            values      = new StringBuilder();
+
+            foreach( SqlParameter p in Parameters ) {
+                if( fields.Length > 0 ) fields.Append( ',' );
+                fields.Append( p.Name );
+
+                if( values.Length > 0 ) values.Append( ',' );
+                values.Append( ToSql( p ) );
+            }
+
+            sql.Clear();
+            sql.Append( DatabaseParameters.InsertCommandTemplate );
+            sql.Replace( "@TABLE_NAME@",    Name );
+            sql.Replace( "@TABLE_FIELDS@",  fields.ToString() );
+            sql.Replace( "@TABLE_VALUES@",  values.ToString() );
+
+            if( ReturnsIdentity ) sql.Append( DatabaseParameters.ReturnsIdentityTemplate );
+
+            return sql.ToString();
         }
         private string GenerateSqlSelect() {
 
@@ -88,33 +111,87 @@ namespace LenWeaver.Utilities {
         }
         #endregion
         #region Static ToSql Methods
-        public static string ToSql( SqlParameter p ) {
+        public static string ToSql( SqlParameter p, IDatabaseParameters databaseParameters ) {
 
-            string result   = String.Empty;
+            DateTime    dt;
+
+            string      result   = String.Empty;
 
 
             switch( p.TypeCode ) {
-                case TypeCode.Boolean:
-                case TypeCode.Char:
-                case TypeCode.SByte:
-                case TypeCode.Byte:
-                case TypeCode.Int16:
-                case TypeCode.UInt16:
-                case TypeCode.Int32:
-                case TypeCode.UInt32:
-                case TypeCode.Int64:
-                case TypeCode.UInt64:
-                case TypeCode.Single:
-                case TypeCode.Double:
-                case TypeCode.Decimal:
-                case TypeCode.String:
-                case TypeCode.Object:
-                    result = SqlBuilder.ToSql( p.Value );
+                case DbTypeCode.Boolean:
+                case DbTypeCode.Char:
+                case DbTypeCode.SByte:
+                case DbTypeCode.Byte:
+                case DbTypeCode.Int16:
+                case DbTypeCode.UInt16:
+                case DbTypeCode.Int32:
+                case DbTypeCode.UInt32:
+                case DbTypeCode.Int64:
+                case DbTypeCode.UInt64:
+                case DbTypeCode.Single:
+                case DbTypeCode.Double:
+                case DbTypeCode.Decimal:
+                case DbTypeCode.Object:
+                    result          = SqlBuilder.ToSql( p.Value );
                     break;
 
-                case TypeCode.Empty:
+                case DbTypeCode.String:
+                    if( p.Value != null ) {
+                        result      = $"{databaseParameters.OpeningStringQuote}" +
+                                      p.Value.ToString() +
+                                      $"{databaseParameters.ClosingStringQuote}";
+                    }
+                    else {
+                        result      = databaseParameters.NullTemplate;
+                    }
                     break;
-                case TypeCode.DateTime:
+
+                case DbTypeCode.Empty:
+                    break;
+                case DbTypeCode.DateTime:
+                    if( p.Value != null ) {
+                        result      = $"{databaseParameters.OpeningDateQuote}" +
+                                      ((DateTime)p.Value).ToString( databaseParameters.DateTimeFormat ) +
+                                      $"{databaseParameters.ClosingDateQuote}";
+                    }
+                    else {
+                        result      = databaseParameters.NullTemplate;
+                    }
+                    break;
+                case DbTypeCode.Date:
+                    if( p.Value != null ) {
+                        result      = $"{databaseParameters.OpeningDateQuote}" +
+                                      ((DateTime)p.Value).ToString( databaseParameters.DateFormat ) +
+                                      $"{databaseParameters.ClosingDateQuote}";
+                    }
+                    else {
+                        result      = databaseParameters.NullTemplate;
+                    }
+                    break;
+                case DbTypeCode.Time:
+                    if( p.Value != null ) {
+                        if( p.Value is DateTime ) {
+                            dt      = (DateTime)p.Value;
+
+                            result  = $"{databaseParameters.OpeningDateQuote}" +
+                                      dt.ToString( databaseParameters.TimeFormat ) +
+                                      $"{databaseParameters.ClosingDateQuote}";
+                        }
+                        else if( p.Value is TimeSpan ts ) {
+                            dt      = new DateTime( ts.Ticks );
+                            
+                            result  = $"{databaseParameters.OpeningDateQuote}" +
+                                      dt.ToString( databaseParameters.TimeFormat ) +
+                                      $"{databaseParameters.ClosingDateQuote}";
+                        }
+                        else {
+                            throw new ArgumentException( "DateTime or TimeSpan type expected." );
+                        }
+                    }
+                    else {
+                        result      = databaseParameters.NullTemplate;
+                    }
                     break;
 
                 default:
@@ -123,9 +200,17 @@ namespace LenWeaver.Utilities {
 
             return result;
         }
+        public static string ToSql( SqlParameter p ) {
 
-        public static string ToSql( DateTime dt )                   => $"{dt.ToString( DateTimeHelpers.ISO8601DateTimeFormat )}";
-        public static string ToSql( TimeSpan ts )                   => ts.ToString( "c" );
+            return ToSql( p, SqlBuilder.DefaultDatabaseParameters );
+        }
+
+        public static string ToSql( DateTime dt )                   => $"{DefaultDatabaseParameters.OpeningDateQuote}" +
+                                                                       $"{dt.ToString( DateTimeHelpers.ISO8601DateTimeFormat )}" +
+                                                                       $"{DefaultDatabaseParameters.ClosingDateQuote}";
+        public static string ToSql( TimeSpan ts )                   => $"{DefaultDatabaseParameters.OpeningDateQuote}" +
+                                                                       ts.ToString( "hhmmss" ) +
+                                                                       $"{DefaultDatabaseParameters.ClosingDateQuote}";
         
         public static string ToSql<T>( T? value ) where T : struct  => value?.ToString() ?? "NULL";
         public static string ToSql<T>( T? value ) where T : class   => value?.ToString() ?? "NULL";
@@ -151,7 +236,8 @@ namespace LenWeaver.Utilities {
 
 
             switch( Action ) {
-                case SqlAction.CreateTable:     result = GenerateCreateTable();         break;
+                //case SqlAction.CreateDatabase:  result = GenerateCreateDatabase();      break;
+                //case SqlAction.CreateTable:     result = GenerateCreateTable();         break;
                 case SqlAction.Delete:          result = GenerateSqlDelete();           break;
                 case SqlAction.Insert:          result = GenerateSqlInsert();           break;
                 case SqlAction.Select:          result = GenerateSqlSelect();           break;

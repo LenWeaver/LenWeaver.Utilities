@@ -6,42 +6,38 @@ namespace LenWeaver.Utilities {
 
     public class SqlParameter {
 
-        public TypeCode     TypeCode        { get; set; }
-        public TypeSubCode  TypeSubCode     { get; set; }
+        public DbTypeCode   TypeCode        { get; set; }
 
         public string       Name            { get; set; }
 
         public object?      Value           { get; set; }
 
 
-        internal SqlParameter( string name, TypeCode typeCode, TypeSubCode typeSubCode, object? value ) {
+        public SqlParameter( string name, DbTypeCode typeCode, object? value ) {
 
             Name            = name;
             TypeCode        = typeCode;
-            TypeSubCode     = typeSubCode;
             Value           = value;
         }
-        internal SqlParameter( string name, TypeCode typeCode, object? value )      : this( name, typeCode,             TypeSubCode.Empty,      value ) {}
 
-        public SqlParameter( string name, bool? value )                             : this( name, TypeCode.Boolean,                             value ) {}
-        public SqlParameter( string name, byte? value )                             : this( name, TypeCode.Byte,                                value ) {}
-        public SqlParameter( string name, sbyte? value )                            : this( name, TypeCode.SByte,                               value ) {}
-        public SqlParameter( string name, char? value )                             : this( name, TypeCode.Char,                                value ) {}
-        public SqlParameter( string name, short? value )                            : this( name, TypeCode.Int16,                               value ) {}
-        public SqlParameter( string name, ushort? value )                           : this( name, TypeCode.UInt16,                              value ) {}
-        public SqlParameter( string name, int? value )                              : this( name, TypeCode.Int32,                               value ) {}
-        public SqlParameter( string name, uint? value )                             : this( name, TypeCode.UInt32,                              value ) {}
-        public SqlParameter( string name, long? value )                             : this( name, TypeCode.Int64,                               value ) {}
-        public SqlParameter( string name, ulong? value )                            : this( name, TypeCode.UInt64,                              value ) {}
-        public SqlParameter( string name, float? value )                            : this( name, TypeCode.Single,                              value ) {}
-        public SqlParameter( string name, double? value )                           : this( name, TypeCode.Double,                              value ) {}
-        public SqlParameter( string name, decimal? value )                          : this( name, TypeCode.Decimal,                             value ) {}
-        public SqlParameter( string name, string? value )                           : this( name, TypeCode.String,                              value ) {}
-
-        public SqlParameter( string name, DateTime? value )                         : this( name, TypeCode.DateTime,                            value ) {}
-        public SqlParameter( string name, DateTime? value, TypeSubCode subCode )    : this( name, TypeCode.DateTime,    subCode,                value ) {}
-        public SqlParameter( string name, TimeSpan? value )                         : this( name, TypeCode.Empty,       TypeSubCode.TimeOnly,   value ) {}
-
-        public SqlParameter( string name, byte[] value )                            : this( name, TypeCode.Byte,        TypeSubCode.Array,      value ) {}
+        public SqlParameter( string name, bool? value )         : this( name, DbTypeCode.Boolean,       value ) {}
+        public SqlParameter( string name, byte? value )         : this( name, DbTypeCode.Byte,          value ) {}
+        public SqlParameter( string name, sbyte? value )        : this( name, DbTypeCode.SByte,         value ) {}
+        public SqlParameter( string name, char? value )         : this( name, DbTypeCode.Char,          value ) {}
+        public SqlParameter( string name, short? value )        : this( name, DbTypeCode.Int16,         value ) {}
+        public SqlParameter( string name, ushort? value )       : this( name, DbTypeCode.UInt16,        value ) {}
+        public SqlParameter( string name, int? value )          : this( name, DbTypeCode.Int32,         value ) {}
+        public SqlParameter( string name, uint? value )         : this( name, DbTypeCode.UInt32,        value ) {}
+        public SqlParameter( string name, long? value )         : this( name, DbTypeCode.Int64,         value ) {}
+        public SqlParameter( string name, ulong? value )        : this( name, DbTypeCode.UInt64,        value ) {}
+        public SqlParameter( string name, float? value )        : this( name, DbTypeCode.Single,        value ) {}
+        public SqlParameter( string name, double? value )       : this( name, DbTypeCode.Double,        value ) {}
+        public SqlParameter( string name, decimal? value )      : this( name, DbTypeCode.Decimal,       value ) {}
+        public SqlParameter( string name, string? value )       : this( name, DbTypeCode.String,        value ) {}
+                                                                              
+        public SqlParameter( string name, DateTime? value )     : this( name, DbTypeCode.DateTime,      value ) {}
+        public SqlParameter( string name, TimeSpan? value )     : this( name, DbTypeCode.Time,          value ) {}
+                                                                              
+        public SqlParameter( string name, byte[] value )        : this( name, DbTypeCode.Binary,        value ) {}
     }
 }

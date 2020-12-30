@@ -9,7 +9,6 @@ namespace LenWeaver.Utilities {
 
         public char                         ClosingDateQuote        => '\'';
         public char                         ClosingStringQuote      => '\'';
-        public char                         NameValueDelimiter      => ',';
         public char                         OpeningDateQuote        => '\'';
         public char                         OpeningStringQuote      => '\'';
 
@@ -22,8 +21,8 @@ namespace LenWeaver.Utilities {
         public string                       CreateDatabaseTemplate  => "CREATE DATABASE @DATABASE_NAME@";
         public string                       CreateTableTemplate     => "CREATE TABLE @TABLE_NAME@";
 
-        public string                       NameValueTemplate       => "@FIELD_NAME@=@FIELD_VALUE@";
         public string                       NullTemplate            => "NULL";
+        public string                       ReturnsIdentityTemplate => "SELECT @@IDENTITY";
 
         public string                       DeleteCommandTemplate   => "DELETE FROM @TABLE_NAME@ WHERE";
         public string                       InsertCommandTemplate   => "INSERT INTO @TABLE_NAME@ (@TABLE_FIELDS@) VALUES (@TABLE_VALUES@)";
