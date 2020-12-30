@@ -5,6 +5,7 @@ using System.Windows.Media;
 
 namespace LenWeaver.Utilities {
 
+    [Obsolete( "Use Typeface and a double for font size instead." )]
     public class FontDescriptor {
 
         private static              FontFamilyConverter?    fontFamilyConverter     = null;

@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace LenWeaver.Utilities {
 
@@ -10,22 +8,26 @@ namespace LenWeaver.Utilities {
 
 
         public char                         ClosingDateQuote        => '\'';
-        public char                         OpeningDateQuote        => '\'';
         public char                         ClosingStringQuote      => '\'';
+        public char                         NameValueDelimiter      => ',';
+        public char                         OpeningDateQuote        => '\'';
         public char                         OpeningStringQuote      => '\'';
 
-        public string                       Name                    => "SQL Server";
+        public DatabaseType                 DatabaseType            => DatabaseType.SQLServer;
 
         public string                       DateFormat              => DateTimeHelpers.ISO8601DateFormat;
         public string                       DateTimeFormat          => DateTimeHelpers.ISO8601DateTimeFormat;
         public string                       TimeFormat              => DateTimeHelpers.ISO8601TimeFormat;
 
-        public string                       CreateDatabaseTemplate  => "CREATE DATABASE {DATABASE_NAME}";
-        public string                       CreateTableTemplate     => "CREATE TABLE {TABLE_NAME}";
+        public string                       CreateDatabaseTemplate  => "CREATE DATABASE @DATABASE_NAME@";
+        public string                       CreateTableTemplate     => "CREATE TABLE @TABLE_NAME@";
 
-        public string                       DeleteCommandTemplate   => "DELETE FROM {TABLE_NAME} WHERE";
-        public string                       InsertCommandTemplate   => "INSERT INTO {TABLE_NAME} ({TABLE_FIELDS}) VALUES ({TABLE_VALUES})";
-        public string                       UpdateCommandTemplate   => "UPDATE {TABLE_NAME} SET {NAME_VALUE_PAIRS} WHERE";
+        public string                       NameValueTemplate       => "@FIELD_NAME@=@FIELD_VALUE@";
+        public string                       NullTemplate            => "NULL";
+
+        public string                       DeleteCommandTemplate   => "DELETE FROM @TABLE_NAME@ WHERE";
+        public string                       InsertCommandTemplate   => "INSERT INTO @TABLE_NAME@ (@TABLE_FIELDS@) VALUES (@TABLE_VALUES@)";
+        public string                       UpdateCommandTemplate   => "UPDATE @TABLE_NAME@ SET @NAME_VALUE_PAIRS@ WHERE";
 
 
         public StringCharacterSubstitute    EscapedCharacters {

@@ -19,61 +19,22 @@
     <Grid                       Background="Transparent"
                                 Margin="5">
         <Grid.ColumnDefinitions>
-            <ColumnDefinition   Width="Auto"    />
-            <ColumnDefinition   Width="Auto"    />
-            <ColumnDefinition   Width="Auto"    />
-            <ColumnDefinition   Width="Auto"    />
-            <ColumnDefinition   Width="Auto"    />
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition      Height="30"     />
-            <RowDefinition      Height="30"     />
-            <RowDefinition      Height="30"     />
-            <RowDefinition      Height="30"     />
-            <RowDefinition      Height="30"     />
-            <RowDefinition      Height="Auto"   />
+            <RowDefinition      Height="Auto" />
+            <RowDefinition      Height="5" />
+            <RowDefinition />
         </Grid.RowDefinitions>
 
-        <Button                 x:Name="btnButton"      Grid.Column="1"     Grid.Row="1"
-                                Content="_Click Me"
-                                Height="28"
-                                Width="80"
-                                Click="btnButton_Click"/>
-
-        <Button                 x:Name="btnDefault"     Grid.Column="1"     Grid.Row="2"
-                                Content="_Default"
-                                IsDefault="True"
-                                Height="28"
-                                Width="80" />
-
-        <Button                 x:Name="btnCancel"      Grid.Column="1"     Grid.Row="3"
-                                Content="C_ancel"
-                                IsCancel="True"
-                                Height="28"
-                                Width="80" />
-
-        <Button                 x:Name="btnDisabled"    Grid.Column="1"     Grid.Row="4"
-                                Content="Disa_bled"
-                                IsEnabled="False"
-                                Height="28"
-                                Width="80" />
-
-        <ListBox                x:Name="lstList"        Grid.Column="3"     Grid.Row="1"    Grid.RowSpan="5" />
-
-        <Button                 x:Name="btnSayWhat"     Grid.Column="5"     Grid.Row="1"
-                                Content="_Say What"
-                                Height="28"
-                                Width="80" />
-
-        <TextBox                x:Name="txtFirstName"   Grid.Column="5"     Grid.Row="1"
-                                Width="90" />
-
-        <ComboBox               x:Name="cboCategory"    Grid.Column="5"     Grid.Row="2"
-                                Width="200" />
-
-        <LWU:MonthView          x:Name="mvMonth"        Grid.Column="4"     Grid.ColumnSpan="3"
-                                Grid.Row="3"            Grid.RowSpan="5"
-                                Width="400"             Height="300"
-                                MonthChanged="mvMonth_MonthChanged" />
+        <StackPanel             Grid.Column="0"         Grid.Row="0"
+                                Orientation="Horizontal">
+            <TextBox            x:Name="txtText"        Width="200" />
+            <Button             x:Name="btnButton"
+                                Content="Click _Me!"
+                                Margin="10 0 0 0"
+                                Click="btnButton_Click" />
+        </StackPanel>
+        
+        <TextBlock              x:Name="tbText"         Grid.Column="0"     Grid.Row="2" />
     </Grid>
 </Window>

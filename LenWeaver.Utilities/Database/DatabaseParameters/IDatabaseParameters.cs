@@ -4,8 +4,9 @@ namespace LenWeaver.Utilities {
 
     public interface IDatabaseParameters {
         char                            ClosingDateQuote            { get; }
-        char                            OpeningDateQuote            { get; }
         char                            ClosingStringQuote          { get; }
+        char                            NameValueDelimiter          { get; }
+        char                            OpeningDateQuote            { get; }
         char                            OpeningStringQuote          { get; }
 
         string                          DateFormat                  { get; }
@@ -16,9 +17,11 @@ namespace LenWeaver.Utilities {
         string                          CreateTableTemplate         { get; }
         string                          DeleteCommandTemplate       { get; }
         string                          InsertCommandTemplate       { get; }
+        string                          NameValueTemplate           { get; }
+        string                          NullTemplate                { get; }
         string                          UpdateCommandTemplate       { get; }
 
-        string                          Name                        { get; }        //Name of the database engine
+        DatabaseType                    DatabaseType                { get; }
 
         StringCharacterSubstitute       EscapedCharacters           { get; }
     }

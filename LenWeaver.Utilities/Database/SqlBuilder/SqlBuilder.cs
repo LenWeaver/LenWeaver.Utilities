@@ -6,23 +6,16 @@ namespace LenWeaver.Utilities {
 
     public class SqlBuilder {
 
-        private         string                  datetimeCloseQuote          = "'";
-        private         string                  datetimeOpenQuote           = "'";
-        private         string                  stringCloseQuote            = "'";
-        private         string                  stringOpenQuote             = "'";
-
         private         StringBuilder           sql                         = new StringBuilder();
-
-        public static   DatabaseType            DefaultDatabaseType         { get; set; }       = DatabaseType.SQLServer;
 
 
         public          bool                    ReturnsIdentity             { get; set; }       = false;
 
-        public          DatabaseType            DatabaseType                { get; set; }
-
         public          SqlAction               Action                      { get; set; }
 
         public          string                  Name                        { get; set; }
+
+        public          IDatabaseParameters     DatabaseParameters          { get; set; }
 
         public          SqlParameterCollection  Parameters                  { get; }            = new SqlParameterCollection();
         public          SqlParameterCollection  Where                       { get; }            = new SqlParameterCollection();
@@ -34,17 +27,18 @@ namespace LenWeaver.Utilities {
         /// <param name="databaseType">The type of database engine being employed.</param>
         /// <param name="action">The action the generated sql will perform.</param>
         /// <param name="name">The entity (typically a database, table or stored procedure) that is the subject of the specified SqlAction.</param>
-        public SqlBuilder( DatabaseType databaseType, SqlAction action, string name ) {
+        public SqlBuilder( IDatabaseParameters databaseParameters, SqlAction action, string name ) {
 
-            Action  = action;
-            Name    = name;
+            DatabaseParameters  = databaseParameters;
+            Action              = action;
+            Name                = name;
         }
         /// <summary>
         /// Initializes a new instance of the SqlBuilder class.
         /// </summary>
         /// <param name="action">The action the generated sql will perform.</param>
         /// <param name="name">The entity (typically a database, table or stored procedure) that is the subject of the specified SqlAction.</param>
-        public SqlBuilder( SqlAction action, string name ) : this( DefaultDatabaseType, action, name ) {}
+        public SqlBuilder( SqlAction action, string name ) : this( SqlBuilder.DefaultDatabaseParameters, action, name ) {}
 
 
         public void Clear() {
@@ -55,11 +49,21 @@ namespace LenWeaver.Utilities {
         }
 
         #region Sql Generator Methods
+        private string GenerateCreateDatabase() {
+
+            return DatabaseParameters.CreateDatabaseTemplate.Replace( "@DATABASE_NAME@", Name );
+        }
+        private string GenerateCreateTable() {
+
+            return DatabaseParameters.CreateTableTemplate.Replace( "@TABLE_NAME@", Name );
+        }
         private string GenerateSqlDelete() {
 
             if( Parameters.Count == 0 ) throw new InvalidOperationException( "Parameters collection is empty." );
 
             sql.Clear();
+            sql.Append( DatabaseParameters.DeleteCommandTemplate );
+            sql.Replace( "@TABLE_NAME@", Name );
             sql.AppendFormat( "DELETE FROM {0} WHERE", Name );
 
             for( int i = 0; i < Where.Count; i++ ) {
@@ -126,6 +130,20 @@ namespace LenWeaver.Utilities {
         public static string ToSql<T>( T? value ) where T : struct  => value?.ToString() ?? "NULL";
         public static string ToSql<T>( T? value ) where T : class   => value?.ToString() ?? "NULL";
         #endregion
+        #region Other Static Members
+        private static  IDatabaseParameters?    defaultDatabaseParameters   = null;
+
+        public static IDatabaseParameters       DefaultDatabaseParameters {
+            get {
+                if( defaultDatabaseParameters == null ) {
+                    defaultDatabaseParameters = new SqlServerParameters();
+                }
+
+                return defaultDatabaseParameters;
+            }
+            set => defaultDatabaseParameters = value;
+        }
+        #endregion
 
         public override string ToString() {
 
@@ -133,6 +151,7 @@ namespace LenWeaver.Utilities {
 
 
             switch( Action ) {
+                case SqlAction.CreateTable:     result = GenerateCreateTable();         break;
                 case SqlAction.Delete:          result = GenerateSqlDelete();           break;
                 case SqlAction.Insert:          result = GenerateSqlInsert();           break;
                 case SqlAction.Select:          result = GenerateSqlSelect();           break;

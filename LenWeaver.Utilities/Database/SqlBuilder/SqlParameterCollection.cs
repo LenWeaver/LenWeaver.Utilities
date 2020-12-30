@@ -39,5 +39,5 @@ namespace LenWeaver.Utilities {
         public SqlParameter Add( string name, byte[] value )                            => Add( new SqlParameter( name, TypeCode.Byte,      TypeSubCode.Array,      value ) );
     
         public void Clear() => base.inner.Clear();
-        }
+    }
 }

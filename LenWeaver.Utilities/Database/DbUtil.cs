@@ -7,8 +7,8 @@ namespace LenWeaver.Utilities {
 
     public sealed class DbUtil : IDisposable {
 
-        private DbConnection           con;
-        private DbProviderFactory      factory;
+        private DbConnection            con;
+        private DbProviderFactory       factory;
         
 
         public DbUtil( DbProviderFactory factory, string connectionString ) {
@@ -58,8 +58,8 @@ namespace LenWeaver.Utilities {
         }
 
 
-        public  DbConnection        Connection  => con;
-        public  DbProviderFactory   Factory     => factory;
+        public  DbConnection            Connection          => con;
+        public  DbProviderFactory       Factory             => factory;
 
 
         private void            ExecuteNonQueryInternal     ( DbTransaction? transaction, params string[] commands ) {

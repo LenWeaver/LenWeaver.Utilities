@@ -39,41 +39,9 @@ namespace LenUtilTest {
         
         private void btnButton_Click            ( object sender, RoutedEventArgs e ) {
 
-            SqlBuilder      sql;
+            SqlBuilder      sql     = new SqlBuilder( SqlAction.CreateTable, "Member" );
 
-
-            cboCategory.ItemsSource = countryCodes;
-
-            sql = new SqlBuilder( SqlAction.CreateTable, "GolfCourse" );
-            sql.Fields.Add( "GolfCourseID", typeof(int), SqlField.PrimaryKey | SqlField.AutoNumber );
-            sql.ToString();
-        }
-
-        private void mvMonth_MonthChanged( object sender, PropertyChangedValEventArgs<int> e ) {
-
-            DayView         dv;
-            MonthView       mv;
-
-
-            try {
-                mv = sender as MonthView;
-                if( mv != null ) {
-                    foreach( SpecialDate sd in specialDates ) {
-                        if( sd.Date.Month == e.NewValue ) {
-                            dv                  = mv.Days[sd.Date];
-
-                            if( dv != null ) {
-                                dv.Foreground   = Brushes.Red;
-                                dv.FontWeight   = FontWeights.Bold;
-                                dv.ToolTip      = sd.Description;
-                            }
-                        }
-                    }
-                }
-            }
-            catch( Exception ex ) {
-                ErrorMessage.Show( ex );
-            }
+            tbText.Text             = sql.ToString();
         }
     }
 }
