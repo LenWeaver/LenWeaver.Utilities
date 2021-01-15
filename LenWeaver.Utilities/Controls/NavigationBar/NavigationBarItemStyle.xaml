@@ -128,9 +128,11 @@
             </Trigger>
             <Trigger Property="IsMouseOver" Value="True">
                 <Setter Property="Background" Value="{Binding RelativeSource={RelativeSource Self}, Path=MouseOverBackground}" />
+                <Setter Property="Foreground" Value="{Binding RelativeSource={RelativeSource Self}, Path=MouseOverForeground}" />
             </Trigger>
             <Trigger Property="IsMouseOver" Value="False">
                 <Setter Property="Background" Value="Transparent" />
+                <Setter Property="Foreground" Value="Transparent" />
             </Trigger>
         </Style.Triggers>
     </Style>

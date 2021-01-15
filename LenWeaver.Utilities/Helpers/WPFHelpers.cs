@@ -18,7 +18,7 @@ namespace LenWeaver.Utilities {
         static WPFHelpers() {}
         
 
-        public static void              SetButtonCornerRadius( ButtonBase btn, CornerRadius cornerRadius ) {
+        public static void                      SetButtonCornerRadius( this ButtonBase btn, CornerRadius cornerRadius ) {
 
             Border?      brd;
 
@@ -28,7 +28,7 @@ namespace LenWeaver.Utilities {
 
             brd.CornerRadius    = cornerRadius;
         }
-        public static void              SetButtonCornerRadius( Control control, string buttonName, CornerRadius cornerRadius ) {
+        public static void                      SetButtonCornerRadius( Control control, string buttonName, CornerRadius cornerRadius ) {
 
             Button? btn;
 
@@ -43,7 +43,7 @@ namespace LenWeaver.Utilities {
                 throw new ArgumentException( $"A button named {buttonName} was not found on the specified Window." );
             }
         }
-        public static void              SetComboBoxMaxLength( ComboBox cbo, int newMaxLength ) {
+        public static void                      SetComboBoxMaxLength( this ComboBox cbo, int newMaxLength ) {
 
             TextBox         txt;
 
@@ -52,7 +52,7 @@ namespace LenWeaver.Utilities {
             txt.MaxLength   = newMaxLength;
         }
 
-        public static bool              IsFixedWidth( this FontFamily ff ) {
+        public static bool                      IsFixedWidth( this FontFamily ff ) {
 
             bool                result      = false;
 
@@ -65,7 +65,7 @@ namespace LenWeaver.Utilities {
 
             return result;
         }
-        public static bool              IsFixedWidth( this Typeface tf ) {
+        public static bool                      IsFixedWidth( this Typeface tf ) {
 
             double              iWidth;
             double              wWidth;
@@ -85,7 +85,7 @@ namespace LenWeaver.Utilities {
             return iWidth == wWidth;
         }
 
-        public static Binding           CreateBinding( object bindingSource, string propertySource ) {
+        public static Binding                   CreateBinding( object bindingSource, string propertySource ) {
             
             Binding         result;
 
@@ -96,7 +96,7 @@ namespace LenWeaver.Utilities {
             return result;
         }
 
-        public static Shapes.Path       ExtendedPathMarkupToPath( Shapes.Path p, string markup ) {
+        public static Shapes.Path               ExtendedPathMarkupToPath( Shapes.Path p, string markup ) {
 
             int                 index;
 
@@ -145,12 +145,12 @@ namespace LenWeaver.Utilities {
 
             return p;
         }
-        public static Shapes.Path       ExtendedPathMarkupToPath( string markup ) {
+        public static Shapes.Path               ExtendedPathMarkupToPath( string markup ) {
 
             return ExtendedPathMarkupToPath( new Shapes.Path(), markup );
         }
 
-        public static BitmapImage       ToBitmapImage( SysDrawing.Bitmap bmp ) {
+        public static BitmapImage               ToBitmapImage( this SysDrawing.Bitmap bmp ) {
 
             BitmapImage     result;
 
@@ -179,12 +179,12 @@ namespace LenWeaver.Utilities {
 
             return result;
         }
-        public static BitmapImage       ToBitmapImage( SysDrawing.Icon ico ) {
+        public static BitmapImage               ToBitmapImage( this SysDrawing.Icon ico ) {
 
             return ToBitmapImage( ico.ToBitmap() );
         }
 
-        public static T?                FindInTreeView<T>( ItemCollection items, Predicate<T> found ) where T : TreeViewItem {
+        public static T?                        FindInTreeView<T>( this ItemCollection items, Predicate<T> found ) where T : TreeViewItem {
 
             T?      result  = null;
 
@@ -199,7 +199,7 @@ namespace LenWeaver.Utilities {
             return result;
         }
 
-        public static IEnumerable<T>    ForEach<T>( ItemCollection items ) where T : ItemsControl {
+        public static IEnumerable<T>            ForEach<T>( this ItemCollection items ) where T : ItemsControl {
 
             foreach( T? item in items ) {
                 if( item != null ) { 
@@ -213,9 +213,34 @@ namespace LenWeaver.Utilities {
                 }
             }
         }
-        public static IEnumerable<T>    ForEach<T>( TreeView tvw ) where T : TreeViewItem {
+        public static IEnumerable<T>            ForEach<T>( this TreeView tvw ) where T : TreeViewItem {
 
             return ForEach<T>( tvw.Items );
+        }
+
+        public static IEnumerable<T>            ForEachChild<T>( this Visual parent ) where T : Visual {
+
+            int         childCount;
+
+            Visual      child;
+
+
+            for( int index = 0; index < VisualTreeHelper.GetChildrenCount( parent ); index++ ) {
+                child           = (Visual)VisualTreeHelper.GetChild( parent, index );
+
+                if( child is T ) yield return (T)child;
+
+                childCount      = VisualTreeHelper.GetChildrenCount( child );
+                if( childCount > 0 ) {
+                    foreach( Visual v in ForEachChild<T>( child ) ) {
+                        if( v is T ) yield return (T)v;
+                    }
+                }
+            }
+        }
+        public static IEnumerable<Visual>       ForEachChild( this Visual parent ) {
+
+            return ForEachChild<Visual>( parent );
         }
     }
 }

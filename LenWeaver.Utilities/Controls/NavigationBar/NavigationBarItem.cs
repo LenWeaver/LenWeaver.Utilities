@@ -11,6 +11,8 @@ namespace LenWeaver.Utilities {
 
     public class NavigationBarItem : Button {
 
+        protected                       Brush?                  savedForeground         = null;
+        protected                       Brush?                  savedSymbolForeground   = null;
         protected                       NavigationBar?          parentNavigationBar     = null;
 
 
@@ -25,6 +27,10 @@ namespace LenWeaver.Utilities {
 
         public static readonly          DependencyProperty      MouseOverBackgroundProperty =
                                         DependencyProperty.Register( nameof(MouseOverBackground), typeof(Brush), typeof(NavigationBarItem),
+                                        new PropertyMetadata( null ) );
+
+        public static readonly          DependencyProperty      MouseOverForegroundProperty =
+                                        DependencyProperty.Register( nameof(MouseOverForeground), typeof(Brush), typeof(NavigationBarItem),
                                         new PropertyMetadata( null ) );
 
         public static readonly          DependencyProperty      SymbolPathFillProperty =
@@ -93,9 +99,11 @@ namespace LenWeaver.Utilities {
 
         public NavigationBarItem() {
 
-            Click += NavigationBarItem_Click;
+            Click       += NavigationBarItem_Click;
+            MouseEnter  += NavigationBarItem_MouseEnter;
+            MouseLeave  += NavigationBarItem_MouseLeave;
         }
-                
+
 
         public double           SymbolPathStrokeThickness {
             get { return (double)GetValue( SymbolPathStrokeThicknessProperty ); }
@@ -128,6 +136,10 @@ namespace LenWeaver.Utilities {
         public Brush            MouseOverBackground {
             get { return (Brush)GetValue( MouseOverBackgroundProperty ); }
             set { SetValue( MouseOverBackgroundProperty, value ); }
+        }
+        public Brush            MouseOverForeground {
+            get => (Brush)GetValue( MouseOverForegroundProperty );
+            set => SetValue( MouseOverForegroundProperty, value );
         }
         public Brush            SymbolForeground {
             get { return (Brush)GetValue( SymbolForegroundProperty ); }
@@ -169,6 +181,29 @@ namespace LenWeaver.Utilities {
             
             if( parentNavigationBar != null ) {
                 parentNavigationBar.SelectedItem = this;
+            }
+        }
+        private void NavigationBarItem_MouseEnter( object sender, MouseEventArgs e ) {
+            
+            savedForeground             = Foreground;
+            savedSymbolForeground       = SymbolForeground;
+
+            Foreground                  = MouseOverForeground;
+            SymbolForeground            = MouseOverForeground;
+
+        }
+        private void NavigationBarItem_MouseLeave( object sender, MouseEventArgs e ) {
+            
+            if( savedForeground != null ) {
+                Foreground              = savedForeground;
+
+                savedForeground         = null;
+            }
+
+            if( savedSymbolForeground != null ) {
+                SymbolForeground        = savedSymbolForeground;
+
+                savedSymbolForeground   = null;
             }
         }
     }

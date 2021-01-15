@@ -1,11 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Media.Imaging;
-
+using System.IO;
+using System.Reflection;
 
 namespace LenWeaver.Utilities {
 
@@ -14,11 +9,11 @@ namespace LenWeaver.Utilities {
         static Helpers() {}
 
 
-        public static T Max<T>( T a, T b ) where T : IComparable<T> {
+        public static T         Max<T>( T a, T b ) where T : IComparable<T> {
 
             return a.CompareTo( b ) > 0 ? a : b;
         }
-        public static T Max<T>( params T[] items ) where T : IComparable<T> {
+        public static T         Max<T>( params T[] items ) where T : IComparable<T> {
 
             T       result;
 
@@ -37,11 +32,11 @@ namespace LenWeaver.Utilities {
 
             return result;
         }
-        public static T Min<T>( T a, T b ) where T : IComparable<T> {
+        public static T         Min<T>( T a, T b ) where T : IComparable<T> {
 
             return a.CompareTo( b ) < 0 ? a : b;
         }
-        public static T Min<T>( params T[] items ) where T : IComparable<T> {
+        public static T         Min<T>( params T[] items ) where T : IComparable<T> {
 
             T       result;
 
@@ -60,7 +55,7 @@ namespace LenWeaver.Utilities {
 
             return result;
         }
-        public static T RangeCheck<T>( T value, T lower, T upper ) where T : IComparable<T> {
+        public static T         RangeCheck<T>( T value, T lower, T upper ) where T : IComparable<T> {
 
             T       result  = value;
 
@@ -73,7 +68,7 @@ namespace LenWeaver.Utilities {
             return result;
         }
 
-        public static T? FirstNonNull<T>( params T[] items ) where T : class {
+        public static T?        FirstNonNull<T>( params T[] items ) where T : class {
 
             T?   result  = null;
 
@@ -87,7 +82,7 @@ namespace LenWeaver.Utilities {
 
             return result;
         }
-        public static T? FirstNonNull<T>( params T?[] items ) where T : struct {
+        public static T?        FirstNonNull<T>( params T?[] items ) where T : struct {
 
             T?  result  = null;
 
@@ -102,11 +97,11 @@ namespace LenWeaver.Utilities {
             return result;
         }
 
-        public static string FileSizeToString( long fileSize ) {
+        public static string    FileSizeToString( long fileSize ) {
 
             return FileSizeToString( (double)fileSize );
         }
-        public static string FileSizeToString( double fileSize ) {
+        public static string    FileSizeToString( double fileSize ) {
 
             string      result;
 
@@ -125,6 +120,30 @@ namespace LenWeaver.Utilities {
             }
             else {
                 result = $"{fileSize / 1_000_000_000_000d:N1} TB";
+            }
+
+            return result;
+        }
+        public static string    GetSettingsFilename( string extension ) {
+
+            string                  assemblyFilename;
+            string                  result;
+
+            Assembly?               entryAssembly;
+
+
+            entryAssembly           = Assembly.GetEntryAssembly();
+
+            assemblyFilename        = entryAssembly?.Location ?? String.Empty;
+
+            if( !String.IsNullOrEmpty( assemblyFilename ) ) {
+                result              = $"{Path.GetDirectoryName( assemblyFilename )}" +
+                                      $"{Path.DirectorySeparatorChar}" +
+                                      $"{Path.GetFileNameWithoutExtension( assemblyFilename )}" +
+                                      $"{extension}";
+            }
+            else {
+                throw new InvalidOperationException( "Unable to determine entry assembly filename." );
             }
 
             return result;

@@ -77,6 +77,10 @@ namespace LenWeaver.Utilities {
                                         DependencyProperty.Register( nameof(ItemMouseOverBackground), typeof(Brush), typeof(NavigationBar),
                                         new PropertyMetadata( null ) );
 
+        public static readonly          DependencyProperty      ItemMouseOverForegroundProperty =
+                                        DependencyProperty.Register( nameof(ItemMouseOverForeground), typeof(Brush), typeof(NavigationBar),
+                                        new PropertyMetadata( null ) );
+
         public static readonly          DependencyProperty      LowerContentProperty =
                                         DependencyProperty.Register( nameof(LowerContent), typeof(object), typeof(NavigationBar),
                                         new PropertyMetadata( null ) );
@@ -204,7 +208,7 @@ namespace LenWeaver.Utilities {
                 }
             }
             else {
-                addedBeforeTemplate.Add( item );    //MainWindow template has not been loaded yet.  Save items
+                addedBeforeTemplate.Add( item );    //Window template has not been loaded yet.  Save items
                                                     //and add them to the StackPanel's from MainWindow_Load.
             }
         }
@@ -255,6 +259,7 @@ namespace LenWeaver.Utilities {
             if( item.Foreground == null && ItemForeground != null )                     item.Foreground             = ItemForeground;
             if( item.FontFamily == null && ItemFontFamily != null )                     item.FontFamily             = ItemFontFamily;
             if( item.MouseOverBackground == null && ItemMouseOverBackground != null )   item.MouseOverBackground    = ItemMouseOverBackground;
+            if( item.MouseOverForeground == null && ItemMouseOverBackground != null )   item.MouseOverForeground    = ItemMouseOverForeground;
 
             item.ParentNavigationBar    = this;
             item.FontSize               = ItemFontSize;
@@ -359,6 +364,10 @@ namespace LenWeaver.Utilities {
         public Brush                    ItemMouseOverBackground {
             get { return (Brush)GetValue( ItemMouseOverBackgroundProperty ); }
             set { SetValue( ItemMouseOverBackgroundProperty, value ); }
+        }
+        public Brush                    ItemMouseOverForeground {
+            get => (Brush)GetValue( ItemMouseOverForegroundProperty );
+            set => SetValue( ItemMouseOverForegroundProperty, value );
         }
         public Brush                    OpenCloseForeground {
             get { return (Brush)GetValue( OpenCloseForegroundProperty ); }

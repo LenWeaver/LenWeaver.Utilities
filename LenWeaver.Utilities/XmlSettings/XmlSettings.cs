@@ -26,12 +26,12 @@ namespace LenWeaver.Utilities {
         public XmlSettings() : this( String.Empty ) { }
 
 
-        public string Filename {
+        public string                   Filename {
             get { return _filename; }
             set { _filename = value; }
         }
 
-        public XmlCommentCollection Comments {
+        public XmlCommentCollection     Comments {
             get {
                 if( _commentsList == null ) {
                     _commentsList = new XmlCommentCollection();
@@ -40,7 +40,7 @@ namespace LenWeaver.Utilities {
                 return _commentsList;
             }
         }
-        public XmlSectionList Sections {
+        public XmlSectionList           Sections {
             get {
                 if( _sectionList == null ) {
                     _sectionList = new XmlSectionList();
@@ -50,7 +50,7 @@ namespace LenWeaver.Utilities {
             }
         }
 
-        public void Load() {
+        public void                     Load() {
 
             XmlAttribute    attr;
             XmlDocument     xmlDoc;
@@ -92,7 +92,7 @@ namespace LenWeaver.Utilities {
                 throw new ApplicationException( "Unable to load xml document.", ex );
             }
         }
-        public void Save() {
+        public void                     Save() {
 
             XmlAttribute    attribute;
             XmlDocument     xmlDoc;
@@ -157,7 +157,7 @@ namespace LenWeaver.Utilities {
             }
         }
 
-        public XmlKey?   GetValue( string sectionName, string keyName ) {
+        public XmlKey?                  GetValue( string sectionName, string keyName ) {
 
             XmlKey?     result      = null;
 
@@ -172,7 +172,7 @@ namespace LenWeaver.Utilities {
             return result;
         }
 
-        public bool     GetValue( string sectionName, string keyName, bool defaultValue ) {
+        public bool                     GetValue( string sectionName, string keyName, bool defaultValue ) {
 
             bool        result      = defaultValue;
 
@@ -186,7 +186,7 @@ namespace LenWeaver.Utilities {
 
             return result;
         }
-        public int      GetValue( string sectionName, string keyName, int defaultValue ) {
+        public int                      GetValue( string sectionName, string keyName, int defaultValue ) {
 
             int         result      = defaultValue;
 
@@ -200,7 +200,7 @@ namespace LenWeaver.Utilities {
 
             return result;
         }
-        public long     GetValue( string sectionName, string keyName, long defaultValue ) {
+        public long                     GetValue( string sectionName, string keyName, long defaultValue ) {
 
             long        result      = defaultValue;
 
@@ -214,7 +214,7 @@ namespace LenWeaver.Utilities {
 
             return result;
         }
-        public float    GetValue( string sectionName, string keyName, float defaultValue ) {
+        public float                    GetValue( string sectionName, string keyName, float defaultValue ) {
 
             float       result      = defaultValue;
 
@@ -228,7 +228,7 @@ namespace LenWeaver.Utilities {
 
             return result;
         }
-        public double   GetValue( string sectionName, string keyName, double defaultValue ) {
+        public double                   GetValue( string sectionName, string keyName, double defaultValue ) {
 
             double      result      = defaultValue;
 
@@ -242,7 +242,7 @@ namespace LenWeaver.Utilities {
 
             return result;
         }
-        public decimal  GetValue( string sectionName, string keyName, decimal defaultValue ) {
+        public decimal                  GetValue( string sectionName, string keyName, decimal defaultValue ) {
 
             decimal     result      = defaultValue;
 
@@ -256,7 +256,7 @@ namespace LenWeaver.Utilities {
 
             return result;
         }
-        public string   GetValue( string sectionName, string keyName, string defaultValue ) {
+        public string                   GetValue( string sectionName, string keyName, string defaultValue ) {
 
             string      result      = defaultValue;
 
@@ -270,7 +270,7 @@ namespace LenWeaver.Utilities {
 
             return result;
         }
-        public DateTime GetValue( string sectionName, string keyName, DateTime defaultValue ) {
+        public DateTime                 GetValue( string sectionName, string keyName, DateTime defaultValue ) {
 
             DateTime    result      = defaultValue;
 
@@ -285,7 +285,7 @@ namespace LenWeaver.Utilities {
             return result;
         }
 
-        public T GetValue<T>( string sectionName, string keyName, T defaultValue ) {
+        public T                        GetValue<T>( string sectionName, string keyName, T defaultValue ) {
 
             T           result      = defaultValue;
 
@@ -300,7 +300,7 @@ namespace LenWeaver.Utilities {
             return result;
         }
 
-        public void SetValue( string sectionName, XmlKey key ) {
+        public void                     SetValue( string sectionName, XmlKey key ) {
 
             XmlSection  section;
 
@@ -309,7 +309,7 @@ namespace LenWeaver.Utilities {
             section.SetValue( key );
         }
 
-        private void ProcessXmlSection( XmlSection section, XmlNode node ) {
+        private void                    ProcessXmlSection( XmlSection section, XmlNode node ) {
 
             string          name;
             string          type;
