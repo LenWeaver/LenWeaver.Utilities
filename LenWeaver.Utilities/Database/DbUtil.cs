@@ -2,10 +2,13 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Common;
+using Microsoft.Data.SqlClient;
+
 
 namespace LenWeaver.Utilities {
 
-    public sealed class DbUtil : IDisposable {
+    /*
+    public sealed class DbUtil : IDatabase, IDisposable {
 
         private DbConnection            con;
         private DbProviderFactory       factory;
@@ -90,6 +93,31 @@ namespace LenWeaver.Utilities {
                 if( con.State != ConnectionState.Closed && !alreadyOpened ) con.Close();
             }
         }
+        private void            ExecuteNonQueryInternal     ( DbTransaction? transaction, string command ) {
+
+            bool        alreadyOpened   = true;
+
+            DbCommand?  cmd             = null;
+
+
+            try {
+                if( con.State != ConnectionState.Open ) {
+                    con.Open();
+                    alreadyOpened       = false;
+                }
+
+                cmd                     = con.CreateCommand();
+                cmd.CommandTimeout      = con.ConnectionTimeout;
+                cmd.CommandType         = CommandType.Text;
+                cmd.Transaction         = transaction;
+                cmd.CommandText         = command;
+                cmd.ExecuteNonQuery();
+            }
+            finally {
+                if( cmd != null ) cmd.Dispose();
+                if( con.State != ConnectionState.Closed && !alreadyOpened ) con.Close();
+            }
+        }
         private object          ExecuteScalarInternal       ( DbTransaction? transaction, string command ) {
 
             bool        alreadyOpened   = true;
@@ -112,7 +140,9 @@ namespace LenWeaver.Utilities {
                 cmd.CommandText         = command;
                 cmd.Transaction         = transaction;
 
+
                 result                  = cmd.ExecuteScalar();
+
             }
             finally {
                 if( cmd != null ) cmd.Dispose();
@@ -181,9 +211,17 @@ namespace LenWeaver.Utilities {
 
             ExecuteNonQueryInternal( transaction, commands );
         }
+        public void             ExecuteNonQuery             ( DbTransaction transaction, string command ) {
+
+            ExecuteNonQueryInternal( transaction, command );
+        }
         public void             ExecuteNonQuery             ( params string[] commands ) {
 
             ExecuteNonQueryInternal( null, commands );
+        }
+        public void             ExecuteNonQuery             ( string command ) {
+
+            ExecuteNonQueryInternal( null, command );
         }
 
         public object           ExecuteScalar               ( DbTransaction transaction, string command ) {
@@ -228,9 +266,17 @@ namespace LenWeaver.Utilities {
 
             return ExecuteInternal( transaction, commands );
         }
+        public DataSet          Execute                     ( DbTransaction transaction, string command ) {
+
+            return ExecuteInternal( transaction, command );
+        }
         public DataSet          Execute                     ( params string[] commands ) {
 
             return ExecuteInternal( null, commands );
+        }
+        public DataSet          Execute                     ( string command ) {
+
+            return ExecuteInternal( null, command );
         }
 
 
@@ -240,5 +286,7 @@ namespace LenWeaver.Utilities {
                 con.Close();
             }
         }
+
     }
+        */
 }

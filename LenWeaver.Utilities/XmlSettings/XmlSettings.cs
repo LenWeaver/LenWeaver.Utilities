@@ -316,25 +316,30 @@ namespace LenWeaver.Utilities {
             string          value;
 
             XmlAttribute    attr;
+            XmlNodeList?    nodeList;
 
 
             foreach( XmlNode? n in node.ChildNodes ) {
                 if( n != null ) { 
                     if( n.NodeType == XmlNodeType.Comment ) {
-                        section.Comments.Add( n.Value );
+                        section.Comments.Add( n.Value ?? String.Empty );
                     }
                 }
             }
 
-            foreach( XmlNode? n in node.SelectNodes( "key" ) ) {
-                if( n != null ) { 
-                    name    = n.Attributes["name"].Value;
-                    value   = n.Attributes["value"].Value;
+            nodeList = node!.SelectNodes( "key" );
 
-                    attr    = n.Attributes["type"];
-                    type    = attr != null ? attr.Value : "String";
+            if( nodeList is not null ) {
+                foreach( XmlNode? n in nodeList ) {
+                    if( n != null ) { 
+                        name    = n.Attributes["name"].Value;
+                        value   = n.Attributes["value"].Value;
 
-                    section.Keys.Add( name, value, type );
+                        attr    = n.Attributes["type"];
+                        type    = attr != null ? attr.Value : "String";
+
+                        section.Keys.Add( name, value, type );
+                    }
                 }
             }
         }

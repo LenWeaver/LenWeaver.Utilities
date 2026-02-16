@@ -23,11 +23,12 @@ namespace LenWeaver.Utilities {
         }
         public static void Show( Window? owner, string text, string caption ) {
         
-            ErrorMessageWindow  emw;
+            ErrorMessageWindow?     emw;
 
 
             try {
                 emw                     = new ErrorMessageWindow();
+                emw.Icon                = System.Drawing.SystemIcons.Error.ToBitmapImage();
                 emw.Title               = caption;
                 emw.ErrorMessageText    = text;
 
@@ -46,6 +47,9 @@ namespace LenWeaver.Utilities {
             catch( Exception ex ) {
                 MessageBox.Show( ex.Message );
             }
+            finally {
+                emw = null;
+            }
         }
         public static void Show( string text, string caption ) {
 
@@ -62,12 +66,13 @@ namespace LenWeaver.Utilities {
         public static void Show( Window? owner, Exception ex, string caption ) {
             
             ErrorMessageEventArgs   args;
-            ErrorMessageWindow      emw;
+            ErrorMessageWindow?     emw;
             Exception?              exc     = ex;
 
 
             try {
                 emw                     = new ErrorMessageWindow();
+                emw.Icon                = System.Drawing.SystemIcons.Error.ToBitmapImage();
                 emw.Title               = caption;
                 emw.ExceptionType       = StringHelpers.PascalCaseToDisplayString( ex.GetType().Name );
                 emw.ErrorMessageText    = exc.Message;
@@ -79,7 +84,7 @@ namespace LenWeaver.Utilities {
                 }
 
                 if( owner != null ) {
-                        emw.Owner = owner;
+                    emw.Owner = owner;
                 }
                 else if( DefaultOwner != null ) {
                     emw.Owner = DefaultOwner;
@@ -99,6 +104,9 @@ namespace LenWeaver.Utilities {
             }
             catch( Exception excep ) {
                 MessageBox.Show( excep.Message );
+            }
+            finally {
+                emw = null;
             }
         }
         public static void Show( Exception ex, string caption ) {

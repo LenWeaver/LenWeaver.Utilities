@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 
 
 namespace LenWeaver.Utilities {
@@ -10,7 +11,7 @@ namespace LenWeaver.Utilities {
 
         static NullableConvert() {}
 
-
+        [MethodImpl( MethodImplOptions.AggressiveInlining )]
         public static bool      IsAnyNull( object o )               => o == null || Convert.IsDBNull( o );
 
 

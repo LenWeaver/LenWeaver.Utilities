@@ -91,17 +91,17 @@
         
             <TextBlock              x:Name="tbSample"
                                     TextWrapping="Wrap">
-                <Run FontSize="11" Text="{StaticResource TestTextLineOne}"/>
+                <Run                FontSize="11" Text="{StaticResource TestTextLineOne}"/>
                 <LineBreak />
-                <Run FontSize="13" Text="{StaticResource TestTextLineTwo}" />
+                <Run                FontSize="13" Text="{StaticResource TestTextLineTwo}" />
                 <LineBreak />
-                <Run FontSize="15" Text="{StaticResource TestTextLineThree}" />
+                <Run                FontSize="15" Text="{StaticResource TestTextLineThree}" />
                 <LineBreak />
-                <Run FontSize="17" Text="{StaticResource TestTextLineFour}" />
+                <Run                FontSize="17" Text="{StaticResource TestTextLineFour}" />
                 <LineBreak />
-                <Run FontSize="19" Text="{StaticResource TestTextLineFive}" />
+                <Run                FontSize="19" Text="{StaticResource TestTextLineFive}" />
                 <LineBreak />
-                <Run FontSize="21" Text="{StaticResource TestTextLineSix}" />
+                <Run                FontSize="21" Text="{StaticResource TestTextLineSix}" />
             </TextBlock>
         </StackPanel>
             

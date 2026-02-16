@@ -1,0 +1,72 @@
+﻿<Window x:Class="LenWeaver.Utilities.NoticeBoxInternal"
+        x:ClassModifier="internal"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:LenWeaver.Utilities"
+        mc:Ignorable="d"
+        Height="600"            Width="1200"
+        Icon="/LenWeaver.Utilities;component/Images/Symbol-ContextMenu.png"
+        MaxHeight="450"         MaxWidth="800"
+        ShowInTaskbar="False"
+        SizeToContent="WidthAndHeight"
+        ResizeMode="NoResize">
+    
+    <Window.Resources>
+		<local:DoubleToGridLengthConverter x:Key="DoubleToGridLengthConverter" />
+        
+        <ResourceDictionary x:Key="Window">
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary x:Name="RegularControls"    Source="/LenWeaver.Utilities;component/WPF Styles/RegularButton.xaml" />
+                <ResourceDictionary x:Name="ThreeDControls"     Source="/LenWeaver.Utilities;component/WPF Styles/ThreeD_Button.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+	</Window.Resources>
+    
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition   Width="20px"  />            <!-- Spacer          -->
+            <ColumnDefinition   Width="Auto"  />            <!-- NoticeBoxImage  -->
+            <ColumnDefinition   Width="16px"   />           <!-- Spacer          -->
+            <ColumnDefinition   Width="*"     />            <!-- Text or Content -->
+            <ColumnDefinition   Width="36px"  />            <!-- Spacer          -->
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition      Height="20px" />            <!-- Spacer          -->
+            <RowDefinition      Height="Auto" />            <!-- Text or Content -->
+            <RowDefinition      Height="20px" />            <!-- Spacer          -->
+            <RowDefinition      Height="Auto" />            <!-- Buttons         -->
+        </Grid.RowDefinitions>
+        
+        <Image                  x:Name="imgImage"           Grid.Column="1"     Grid.Row="1"
+                                Height="{x:Static   local:NoticeBox.IconSize}"
+                                Width="{x:Static    local:NoticeBox.IconSize}"
+                                Visibility="Collapsed" />
+	
+            <ScrollViewer VerticalScrollBarVisibility="Auto"    Grid.Column="3" Grid.Row="1"
+                          HorizontalScrollBarVisibility="Disabled"
+                          MaxHeight="300">
+                <TextBlock x:Name="tbMessage"
+                           TextWrapping="Wrap"
+                           FontSize="14"/>
+            </ScrollViewer>
+
+
+        <Border                 x:Name="bdrButtons"         Grid.Column="0"     Grid.ColumnSpan="5"     Grid.Row="3"
+                                Height="45">
+            <Grid               x:Name="grdButtons"
+                                Background="LightGray">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition                       Width="*" />
+                    <ColumnDefinition                       Width="{Binding Source={x:Static local:NoticeBox.PixelsBetweenButtons}, Converter={StaticResource DoubleToGridLengthConverter}}" />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition                          Height="*" />
+                    <RowDefinition                          Height="{Binding Source={x:Static local:NoticeBox.ButtonHeight}, Converter={StaticResource DoubleToGridLengthConverter}}" />
+                    <RowDefinition                          Height="*" />
+                </Grid.RowDefinitions>
+            </Grid>
+        </Border>
+    </Grid>
+</Window>

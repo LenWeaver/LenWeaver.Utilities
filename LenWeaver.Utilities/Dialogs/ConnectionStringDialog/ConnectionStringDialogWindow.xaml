@@ -1,0 +1,94 @@
+﻿<Window x:Class="LenWeaver.Utilities.ConnectionStringDialogWindow"
+        x:ClassModifier="internal"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:LenWeaver.Utilities"
+        mc:Ignorable="d"
+        Icon="/LenWeaver.Utilities;component/Images/Database-Connect.png"
+        Title="Connection String Editor..."
+        Height="300"
+        Width="400"
+        ResizeMode="NoResize"
+        WindowStartupLocation="CenterOwner">
+    
+    <Window.Resources>
+        <Style x:Key="FocusVisual">
+            <Setter Property="Control.Template">
+                <Setter.Value>
+                    <ControlTemplate>
+                        <Rectangle Margin="2" StrokeDashArray="1 2" Stroke="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}" SnapsToDevicePixels="true" StrokeThickness="1"/>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <SolidColorBrush x:Key="Button.Static.Background"       Color="#FFDDDDDD"/>
+        <SolidColorBrush x:Key="Button.Static.Border"           Color="#FF707070"/>
+        <SolidColorBrush x:Key="Button.MouseOver.Background"    Color="#FFBEE6FD"/>
+        <SolidColorBrush x:Key="Button.MouseOver.Border"        Color="#FF3C7FB1"/>
+        <SolidColorBrush x:Key="Button.Pressed.Background"      Color="#FFC4E5F6"/>
+        <SolidColorBrush x:Key="Button.Pressed.Border"          Color="#FF2C628B"/>
+        <SolidColorBrush x:Key="Button.Disabled.Background"     Color="#FFF4F4F4"/>
+        <SolidColorBrush x:Key="Button.Disabled.Border"         Color="#FFADB2B5"/>
+        <SolidColorBrush x:Key="Button.Disabled.Foreground"     Color="#FF838383"/>
+    </Window.Resources>
+    
+    <Window.CommandBindings>
+        <CommandBinding                     Command             = "ApplicationCommands.Close"
+                                            CanExecute          = "CommandClose_CanExecute"
+                                            Executed            = "CommandClose_Executed" />
+        
+        <CommandBinding                     Command             = "ApplicationCommands.Save"
+                                            CanExecute          = "CommandSave_CanExecute"
+                                            Executed            = "CommandSave_Executed" />
+    </Window.CommandBindings>
+    
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition               Width="*" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition                  Height="*" />
+            <RowDefinition                  Height="5px" />
+            <RowDefinition                  Height="Auto" />
+        </Grid.RowDefinitions>
+        
+        <TabControl                         x:Name="tabDbType"      Grid.Column="0"     Grid.Row="0"
+                                            Margin="5px">
+            <TabItem                        x:Name="tiSQLServer"
+                                            Header="SQL Server">
+                
+            </TabItem>
+        </TabControl>
+        
+        <Border                             x:Name="bdrButtons"     Grid.Column="0"     Grid.Row="2"
+                                            Background="LightGray"
+                                            BorderBrush="Gray"
+                                            BorderThickness="0 1 0 0"
+                                            Height="32px">
+            
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition       Width="*" />
+                    <ColumnDefinition       Width="90px" />
+                    <ColumnDefinition       Width="90px" />
+                    <ColumnDefinition       Width="5px" />
+                </Grid.ColumnDefinitions>
+                
+                <Button                     x:Name="btnSave"
+                                            Grid.Column="1"
+                                            Content="_Save"
+                                            Command="ApplicationCommands.Save"
+                                            Margin="4px" />
+                
+                <Button                     x:Name="btnClose"
+                                            Grid.Column="2"
+                                            Content="_Close"
+                                            Command="ApplicationCommands.Close"
+                                            Margin="4px" />
+            </Grid>
+            
+        </Border>
+    </Grid>
+</Window>

@@ -18,7 +18,7 @@ namespace LenWeaver.Utilities {
             base.ClearList();
         }
 
-        public DayView this[int index] {
+        public new DayView this[int index] {
             get => base.inner[index];
         }
         public DayView? this[DateTime date] {

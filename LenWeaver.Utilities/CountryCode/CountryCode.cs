@@ -44,7 +44,7 @@ namespace LenWeaver.Utilities {
             string              name;
             string              numeric;
 
-            Stream?             s       = null;
+            Stream?             s           = null;
             XmlDocument         xml;
             XmlNodeList         nodes;
 

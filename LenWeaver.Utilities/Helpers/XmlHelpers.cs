@@ -16,6 +16,7 @@ namespace LenWeaver.Utilities {
 
             try {
                 result          = xml.CreateAttribute( name );
+
                 result.Value    = value;
             }
             catch( Exception ex ) {

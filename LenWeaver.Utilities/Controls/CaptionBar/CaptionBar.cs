@@ -210,10 +210,10 @@ namespace LenWeaver.Utilities {
             Binding                 binding;
 
 
-            WPFHelpers.SetButtonCornerRadius( this, "btnClose",     new CornerRadius( 5d ) );
-            WPFHelpers.SetButtonCornerRadius( this, "btnMaximize",  new CornerRadius( 5d ) );
-            WPFHelpers.SetButtonCornerRadius( this, "btnMinimize",  new CornerRadius( 5d ) );
-            WPFHelpers.SetButtonCornerRadius( this, "btnRestore",   new CornerRadius( 5d ) );
+            WPFHelpers.SetCornerRadius( this, "btnClose",     new CornerRadius( 5d ) );
+            WPFHelpers.SetCornerRadius( this, "btnMaximize",  new CornerRadius( 5d ) );
+            WPFHelpers.SetCornerRadius( this, "btnMinimize",  new CornerRadius( 5d ) );
+            WPFHelpers.SetCornerRadius( this, "btnRestore",   new CornerRadius( 5d ) );
 
             window                  = Window.GetWindow( this );
             if( window == null ) throw new InvalidOperationException( "Unable to reference host window." );

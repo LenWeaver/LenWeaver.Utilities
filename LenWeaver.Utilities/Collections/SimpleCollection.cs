@@ -18,7 +18,7 @@ namespace LenWeaver.Utilities {
         }
         public void Clear() {
 
-            base.inner.Clear();
+            base.ClearList();
         }
         public void Remove( T item ) {
 

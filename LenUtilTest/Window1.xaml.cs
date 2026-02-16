@@ -18,5 +18,9 @@ namespace LenUtilTest {
         public Window1() {
             InitializeComponent();
         }
+
+        private void MonthView_DateChanged(object sender, LenWeaver.Utilities.PropertyChangedRefEventArgs<LenWeaver.Utilities.DayView> e) {
+
+        }
     }
 }

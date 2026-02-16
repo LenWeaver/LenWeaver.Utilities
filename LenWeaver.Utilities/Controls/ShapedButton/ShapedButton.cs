@@ -77,7 +77,7 @@ namespace LenWeaver.Utilities {
 
 
         public string ShapeMarkup {
-            get{ return (string)GetValue(ShapeMarkupProperty ); }
+            get{ return (string)GetValue( ShapeMarkupProperty ); }
             set { 
                 SetValue( ShapeMarkupProperty, value );
 

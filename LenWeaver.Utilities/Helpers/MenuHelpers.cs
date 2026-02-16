@@ -40,7 +40,7 @@ namespace LenWeaver.Utilities {
 
             bool                itemFound;
 
-            T?                   result     = null;
+            T?                  result      = null;
 
             ItemCollection      menuItems   = items;
 
@@ -49,19 +49,15 @@ namespace LenWeaver.Utilities {
                 for( int tokenIndex = 0; tokenIndex < menuTokens.Length; tokenIndex++ ) {
                     itemFound = false;
 
-#pragma warning disable CS8602 // The 'menuItems' argument, quite obviously can not be null.
-                    foreach( object? o in menuItems ) {
-#pragma warning restore CS8602
-                        if( o is null ) {
+                    foreach ( object? o in menuItems ) {
+                        if ( o is null ) {
                             throw new ArgumentNullException( "items argument contains a null." );
                         }
                         else if( o is Separator && menuTokens[tokenIndex] == "-" ) {
                             itemFound = true;
                             break;
                         }
-#pragma warning disable CS8602 // The Header property can not be null for menu items.
                         else if( o is T && ((T)o).Header.ToString().Replace( "_", "" ) == menuTokens[tokenIndex].Replace( "_", "" ) ) {
-#pragma warning restore CS8602
                             itemFound = true;
 
                             result = (T)o;

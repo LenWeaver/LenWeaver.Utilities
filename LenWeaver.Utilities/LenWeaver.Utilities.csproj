@@ -1,7 +1,9 @@
-﻿<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
+    <!-- <Project Sdk="Microsoft.NET.Sdk.WindowsDesktop"> -->
+    
   <PropertyGroup>
-    <TargetFramework>net5.0-windows</TargetFramework>
+    <TargetFramework>net6.0-windows</TargetFramework>
     <Nullable>enable</Nullable>
     <UseWPF>true</UseWPF>
     <Platforms>AnyCPU;x64</Platforms>
@@ -103,6 +105,12 @@
     <None Remove="Images\Mail-04.png" />
     <None Remove="Images\Mail-05.png" />
     <None Remove="Images\Mail-06.png" />
+    <None Remove="Images\Message-Error.png" />
+    <None Remove="Images\Message-Exclamation.png" />
+    <None Remove="Images\Message-Information.png" />
+    <None Remove="Images\Message-Question.png" />
+    <None Remove="Images\Message-Stop.png" />
+    <None Remove="Images\Message-Warning.png" />
     <None Remove="Images\Node-All.png" />
     <None Remove="Images\Node-Child-01.png" />
     <None Remove="Images\Node-Child-02.png" />
@@ -300,10 +308,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="System.Drawing.Common" Version="4.6.0" />
-  </ItemGroup>
-
-  <ItemGroup>
     <Reference Include="SQLDatabase.Net">
       <HintPath>C:\Users\lenwe\.nuget\packages\sqldatabase.net.dll\2.7.0\lib\netstandard2.0\AnyCPU\SQLDatabase.Net.dll</HintPath>
     </Reference>
@@ -311,6 +315,8 @@
 
   <ItemGroup>
     <EmbeddedResource Include="CountryCode\ISO3166.xml" />
+    <PackageReference Include="Microsoft.Data.SqlClient" Version="4.1.0" />
+    <PackageReference Include="System.Drawing.Common" Version="6.0.0" />
     <Resource Include="Images\Arrow-01-Down-Stop.png" />
     <Resource Include="Images\Arrow-01-Down.png" />
     <Resource Include="Images\Arrow-01-Left-Stop.png" />
@@ -405,6 +411,12 @@
     <Resource Include="Images\Mail-04.png" />
     <Resource Include="Images\Mail-05.png" />
     <Resource Include="Images\Mail-06.png" />
+    <Resource Include="Images\Message-Error.png" />
+    <Resource Include="Images\Message-Exclamation.png" />
+    <Resource Include="Images\Message-Information.png" />
+    <Resource Include="Images\Message-Question.png" />
+    <Resource Include="Images\Message-Stop.png" />
+    <Resource Include="Images\Message-Warning.png" />
     <Resource Include="Images\Node-All.png" />
     <Resource Include="Images\Node-Child-01.png" />
     <Resource Include="Images\Node-Child-02.png" />

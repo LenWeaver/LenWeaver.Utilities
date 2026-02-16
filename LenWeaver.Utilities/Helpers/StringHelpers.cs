@@ -7,7 +7,7 @@ namespace LenWeaver.Utilities {
 
     public static class StringHelpers {
 
-        private static  string[][]      englishDigitMatrix;
+        private static  readonly string[][]      englishDigitMatrix;
 
 
         static StringHelpers() {
@@ -35,6 +35,45 @@ namespace LenWeaver.Utilities {
                                     new string[] { "Nineteen",  "",         ""          } };
         }
 
+        /// <summary>
+        /// Searches target string for searchSpec.  searchOrigin determines the where the search
+        /// will begin.  The search will start at target[searchOrigin] and proceed by checking
+        /// one character before searchOrigin, one character after, two characters before, etc.
+        /// </summary>
+        /// <param name="target">The string to be searched.</param>
+        /// <param name="searchOrigin">The zero-based location with target to begin the search.</param>
+        /// <param name="searchSpec">The character to search for.</param>
+        /// <returns></returns>
+        public static int FindNear( string target, int searchOrigin, char searchSpec ) {
+
+            int after       = searchOrigin;
+            int before      = searchOrigin;
+            int result      = -1;
+
+
+            if( target[searchOrigin] == searchSpec ) {
+                result = searchSpec;
+            }
+            else {
+                while( before > 0 && after < target.Length && result == -1 ) {
+                    if( target[before] == searchSpec ) {
+                        result = before;
+                    }
+                    else {
+                        before--;
+
+                        if( target[after] == searchSpec ) {
+                            result = after;
+                        }
+                        else {
+                            after++;
+                        }
+                    }
+                }
+            }
+
+            return result;
+        }
         
         /// <summary>
         /// Inserts spaces before every upper case character.

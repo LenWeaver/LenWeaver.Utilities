@@ -10,7 +10,8 @@
                 <ControlTemplate                    TargetType="{x:Type local:NavigationBar}">
                     <Border                         x:Name="brdBorder"
                                                     Background="{TemplateBinding Background}"
-                                                    BorderThickness="0">
+                                                    BorderBrush="{TemplateBinding BorderBrush}"
+                                                    BorderThickness="{TemplateBinding BorderThickness}">
                         <DockPanel                  x:Name="dpDock"
                                                     LastChildFill="False"
                                                     Margin="0 0 0 5">

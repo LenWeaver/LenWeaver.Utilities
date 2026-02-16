@@ -83,7 +83,7 @@ namespace LenWeaver.Utilities {
         private static void CornerRadius_Changed    ( DependencyObject d, DependencyPropertyChangedEventArgs e ) {
 
             if( d is DayView dv && dv.btnToggle != null && e.NewValue != null && e.NewValue is CornerRadius cr ) {
-                WPFHelpers.SetButtonCornerRadius( dv.btnToggle, cr );
+                WPFHelpers.SetCornerRadius( dv.btnToggle, cr );
             }
         }
         #endregion
@@ -213,7 +213,7 @@ namespace LenWeaver.Utilities {
                     btnToggle.Checked   += btnToggle_Checked;
                     btnToggle.Unchecked += btnToggle_Unchecked;
 
-                    WPFHelpers.SetButtonCornerRadius( btnToggle, CornerRadius );
+                    WPFHelpers.SetCornerRadius( btnToggle, CornerRadius );
                 }
             }
         }

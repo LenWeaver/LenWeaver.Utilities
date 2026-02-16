@@ -26,7 +26,7 @@ namespace LenWeaver.Utilities {
             return Add( IssueSeverity.Critical, field, description );
         }
 
-        public ValidationIssue this[int index] {
+        public new ValidationIssue this[int index] {
             get => base.inner[index];
         }
         public ValidationIssueCollection this[string field] {

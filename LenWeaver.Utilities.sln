@@ -7,6 +7,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LenWeaver.Utilities", "LenW
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LenUtilTest", "LenUtilTest\LenUtilTest.csproj", "{600513E0-77F1-4BBA-98C6-0FE2FBECAF6D}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LenWeaver.Generators", "..\LenWeaver.Generators\LenWeaver.Generators\LenWeaver.Generators.csproj", "{25B7284A-271F-4EBA-BAC1-8B2071C6290D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -31,6 +33,14 @@ Global
 		{600513E0-77F1-4BBA-98C6-0FE2FBECAF6D}.Release|Any CPU.Build.0 = Release|Any CPU
 		{600513E0-77F1-4BBA-98C6-0FE2FBECAF6D}.Release|x64.ActiveCfg = Release|x64
 		{600513E0-77F1-4BBA-98C6-0FE2FBECAF6D}.Release|x64.Build.0 = Release|x64
+		{25B7284A-271F-4EBA-BAC1-8B2071C6290D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{25B7284A-271F-4EBA-BAC1-8B2071C6290D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{25B7284A-271F-4EBA-BAC1-8B2071C6290D}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{25B7284A-271F-4EBA-BAC1-8B2071C6290D}.Debug|x64.Build.0 = Debug|Any CPU
+		{25B7284A-271F-4EBA-BAC1-8B2071C6290D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{25B7284A-271F-4EBA-BAC1-8B2071C6290D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{25B7284A-271F-4EBA-BAC1-8B2071C6290D}.Release|x64.ActiveCfg = Release|Any CPU
+		{25B7284A-271F-4EBA-BAC1-8B2071C6290D}.Release|x64.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

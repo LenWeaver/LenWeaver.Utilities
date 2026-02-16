@@ -1,6 +1,7 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:local="clr-namespace:LenWeaver.Utilities">
+    
 
     <SolidColorBrush x:Key="Button.Cancel.Background"       Color="#FFFF4500"/>
     <SolidColorBrush x:Key="Button.Default.Background"      Color="#FF32CD32"/>
@@ -62,7 +63,7 @@
         </Setter>
     </Style>
     
-    <Style TargetType="{x:Type Button}">
+    <Style x:Name="ThreeD_Button" x:Key="ThreeD_Button" TargetType="{x:Type Button}">
         <Setter Property="FocusVisualStyle"                             Value="{StaticResource FocusVisual}"/>
         <Setter Property="Background"                                   Value="{StaticResource Button.Static.Gradient}"/>
         <Setter Property="BorderBrush"                                  Value="{StaticResource Button.Static.Border}"/>
@@ -90,7 +91,7 @@
                     </Border>
                     <ControlTemplate.Triggers>
                         <Trigger    Property="IsDefaulted"              Value="True">
-                            <Setter Property="Background"                            Value="{StaticResource Button.Default.Gradient}" />
+                            <Setter Property="Background"                                               Value="{StaticResource Button.Default.Gradient}" />
                             <Setter Property="BorderBrush"              TargetName="border"             Value="{DynamicResource {x:Static SystemColors.HighlightBrushKey}}"/>
                         </Trigger>
                         <Trigger    Property="IsCancel"                 Value="True">

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
 
@@ -9,17 +10,17 @@ namespace LenWeaver.Utilities {
         static Helpers() {}
 
 
-        public static T         Max<T>( T a, T b ) where T : IComparable<T> {
+        public static T                                     Max<T>( T a, T b ) where T : IComparable<T> {
 
             return a.CompareTo( b ) > 0 ? a : b;
         }
-        public static T         Max<T>( params T[] items ) where T : IComparable<T> {
+        public static T                                     Max<T>( params T[] items ) where T : IComparable<T> {
 
             T       result;
 
 
             if( items == null || items.Length == 0 ) {
-                throw new ArgumentException( "items parameter must not be null and must contain at least one item." );
+                throw new ArgumentException( $"{nameof(items)} parameter must not be null and must contain at least one item." );
             }
 
             result = items[0];
@@ -32,17 +33,17 @@ namespace LenWeaver.Utilities {
 
             return result;
         }
-        public static T         Min<T>( T a, T b ) where T : IComparable<T> {
+        public static T                                     Min<T>( T a, T b ) where T : IComparable<T> {
 
             return a.CompareTo( b ) < 0 ? a : b;
         }
-        public static T         Min<T>( params T[] items ) where T : IComparable<T> {
+        public static T                                     Min<T>( params T[] items ) where T : IComparable<T> {
 
             T       result;
 
 
             if( items == null || items.Length == 0 ) {
-                throw new ArgumentException( "items parameter must not be null and must contain at least one item." );
+                throw new ArgumentException( $"{nameof(items)} parameter must not be null and must contain at least one item." );
             }
 
             result = items[0];
@@ -55,20 +56,24 @@ namespace LenWeaver.Utilities {
 
             return result;
         }
-        public static T         RangeCheck<T>( T value, T lower, T upper ) where T : IComparable<T> {
+        public static T                                     RangeCheck<T>( T value, T lower, T upper ) where T : IComparable<T> {
 
             T       result  = value;
 
 
-            if( lower.CompareTo( upper ) > 0 ) throw new ArgumentException( "The 'lower' parameter is greater than the 'upper' parameter." );
+            if( lower.CompareTo( upper ) > 0 ) throw new ArgumentException( $"The '{nameof(lower)}' parameter is greater than the '{nameof(upper)}' parameter." );
 
-            if( value.CompareTo( lower ) < 0 ) result = lower;
-            if( value.CompareTo( upper ) > 0 ) result = upper;
+            if( value.CompareTo( lower ) < 0 ) {
+                result = lower;
+            }
+            else {
+                if( value.CompareTo( upper ) > 0 ) result = upper;
+            }
 
             return result;
         }
 
-        public static T?        FirstNonNull<T>( params T[] items ) where T : class {
+        public static T?                                    FirstNonNull<T>( params T[] items ) where T : class {
 
             T?   result  = null;
 
@@ -82,7 +87,7 @@ namespace LenWeaver.Utilities {
 
             return result;
         }
-        public static T?        FirstNonNull<T>( params T?[] items ) where T : struct {
+        public static T?                                    FirstNonNull<T>( params T?[] items ) where T : struct {
 
             T?  result  = null;
 
@@ -97,11 +102,11 @@ namespace LenWeaver.Utilities {
             return result;
         }
 
-        public static string    FileSizeToString( long fileSize ) {
+        public static string                                FileSizeToString( long fileSize ) {
 
             return FileSizeToString( (double)fileSize );
         }
-        public static string    FileSizeToString( double fileSize ) {
+        public static string                                FileSizeToString( double fileSize ) {
 
             string      result;
 
@@ -124,7 +129,7 @@ namespace LenWeaver.Utilities {
 
             return result;
         }
-        public static string    GetSettingsFilename( string extension ) {
+        public static string                                GetSettingsFilename( string extension ) {
 
             string                  assemblyFilename;
             string                  result;
@@ -132,8 +137,11 @@ namespace LenWeaver.Utilities {
             Assembly?               entryAssembly;
 
 
-            entryAssembly           = Assembly.GetEntryAssembly();
+            if( extension.Length > 0 && extension[0] != '.' ) {
+                extension = $".{extension}";
+            }
 
+            entryAssembly           = Assembly.GetEntryAssembly();
             assemblyFilename        = entryAssembly?.Location ?? String.Empty;
 
             if( !String.IsNullOrEmpty( assemblyFilename ) ) {
@@ -147,6 +155,20 @@ namespace LenWeaver.Utilities {
             }
 
             return result;
+        }
+
+        public static IEnumerable<NamedValue<TEnum>>        EnumToNamedValue<TEnum>() where TEnum : struct {
+
+            List<NamedValue<TEnum>>         list    = new();
+
+
+            if( !typeof(TEnum).IsEnum ) throw new ArgumentException( $"Generic type {nameof(TEnum)} must be an enumerated type." );
+
+            foreach( TEnum n in Enum.GetValues( typeof(TEnum) ) ) {
+                list.Add( new NamedValue<TEnum>( n!.ToString() ?? String.Empty, n ) );
+            }
+
+            return list.ToArray();
         }
     }
 }

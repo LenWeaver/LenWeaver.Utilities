@@ -10,25 +10,50 @@ namespace LenWeaver.Utilities {
 
     public class NavigationBar : ItemsControl {
 
-        protected readonly  double              DefaultOpenedWidth      = 160d;
+        internal static     FontFamily?         defaultFontFamily           = null;
+        internal static     FontFamily?         defaultSymbolFontFamily     = null;
 
-        protected           bool                animationInProgress     = false;
-        protected           double?             openedWidth             = null;
-        protected           DoubleAnimation?    aniClose                = null;
-        protected           DoubleAnimation?    aniOpen                 = null;
-        protected           Border?             brdBorder               = null;
-        protected           Button?             btnClose                = null;
-        protected           Button?             btnOpen                 = null;
-        protected           ContentPresenter?   cpLowerContent          = null;
-        protected           ContentPresenter?   cpTitleContent          = null;
-        protected           ContentPresenter?   cpUpperContent          = null;
-        protected           NavigationBarItem?  selectedItem            = null;
-        protected           StackPanel?         spBottomItems           = null;
-        protected           StackPanel?         spItems                 = null;
-        protected           ArrayList           addedBeforeTemplate     = new ArrayList();
+        protected readonly  double              DefaultOpenedWidth          = 160d;
+
+        protected           bool                animationInProgress         = false;
+        protected           double?             openedWidth                 = null;
+        protected           DoubleAnimation?    aniClose                    = null;
+        protected           DoubleAnimation?    aniOpen                     = null;
+        protected           Border?             brdBorder                   = null;
+        protected           Button?             btnClose                    = null;
+        protected           Button?             btnOpen                     = null;
+        protected           ContentPresenter?   cpLowerContent              = null;
+        protected           ContentPresenter?   cpTitleContent              = null;
+        protected           ContentPresenter?   cpUpperContent              = null;
+        protected           NavigationBarItem?  selectedItem                = null;
+        protected           StackPanel?         spBottomItems               = null;
+        protected           StackPanel?         spItems                     = null;
+        protected           ArrayList           addedBeforeTemplate         = new ArrayList();
 
 
-        #region Static Methods
+        #region Static Properties
+        public static FontFamily DefaultFontFamily {
+            get {
+                if( defaultFontFamily == null ) {
+                    defaultFontFamily = new FontFamily( "Segoe UI" );
+                }
+
+                return defaultFontFamily;
+            }
+            set => defaultFontFamily = value;
+        }
+        public static FontFamily DefaultSymbolFontFamily {
+            get {
+                if( defaultSymbolFontFamily == null ) {
+                    defaultSymbolFontFamily = new FontFamily( "Segoe MDL2 Assets" );
+                }
+
+                return defaultSymbolFontFamily;
+            }
+            set => defaultSymbolFontFamily = value;
+        }
+        #endregion
+        #region DependencyProperty Definitions
         public static readonly          DependencyProperty      AddToProperty =
                                         DependencyProperty.RegisterAttached( "AddTo", typeof(ItemLocation), typeof(NavigationBar),
                                         new PropertyMetadata( ItemLocation.Top ) );
@@ -47,7 +72,7 @@ namespace LenWeaver.Utilities {
 
         public static readonly          DependencyProperty      ItemFontFamilyProperty =
                                         DependencyProperty.Register( nameof(ItemFontFamily), typeof(FontFamily), typeof(NavigationBar),
-                                        new PropertyMetadata( new FontFamily( "Segoe UI" ) ) );
+                                        new PropertyMetadata( DefaultFontFamily ) );
 
         public static readonly          DependencyProperty      ItemFontSizeProperty =
                                         DependencyProperty.Register( nameof(ItemFontSize), typeof(double), typeof(NavigationBar),
@@ -71,15 +96,35 @@ namespace LenWeaver.Utilities {
 
         public static readonly          DependencyProperty      ItemForegroundProperty =
                                         DependencyProperty.Register( nameof(ItemForeground), typeof(Brush), typeof(NavigationBar),
-                                        new PropertyMetadata( null ) );
+                                        new PropertyMetadata( Brushes.Black ) );
 
         public static readonly          DependencyProperty      ItemMouseOverBackgroundProperty =
                                         DependencyProperty.Register( nameof(ItemMouseOverBackground), typeof(Brush), typeof(NavigationBar),
-                                        new PropertyMetadata( null ) );
+                                        new PropertyMetadata( SystemColors.MenuHighlightBrush ) );
 
         public static readonly          DependencyProperty      ItemMouseOverForegroundProperty =
                                         DependencyProperty.Register( nameof(ItemMouseOverForeground), typeof(Brush), typeof(NavigationBar),
-                                        new PropertyMetadata( null ) );
+                                        new PropertyMetadata( SystemColors.HighlightTextBrush ) );
+
+        public static readonly          DependencyProperty      ItemSymbolPaddingProperty =
+                                        DependencyProperty.Register( nameof(ItemSymbolPadding), typeof(Thickness?), typeof(NavigationBar),
+                                        new PropertyMetadata( new Thickness( 1d ) ) );
+
+        public static readonly          DependencyProperty      ItemSymbolFontFamilyProperty =
+                                        DependencyProperty.Register( nameof(ItemSymbolFontFamily), typeof(FontFamily), typeof(NavigationBar),
+                                        new PropertyMetadata( NavigationBar.DefaultSymbolFontFamily ) );
+
+        public static readonly          DependencyProperty      ItemSymbolForegroundProperty =
+                                        DependencyProperty.Register( nameof(ItemSymbolForeground), typeof(Brush), typeof(NavigationBar),
+                                        new PropertyMetadata( Brushes.Black ) );
+
+        public static readonly          DependencyProperty      ItemSymbolPathFillProperty =
+                                        DependencyProperty.Register( nameof(ItemSymbolPathFill), typeof(Brush), typeof(NavigationBar),
+                                        new PropertyMetadata( Brushes.Black ) );
+
+        public static readonly          DependencyProperty      ItemSymbolPathStrokeProperty =
+                                        DependencyProperty.Register( nameof(ItemSymbolPathStroke), typeof(Brush), typeof(NavigationBar),
+                                        new PropertyMetadata( Brushes.White ) );
 
         public static readonly          DependencyProperty      LowerContentProperty =
                                         DependencyProperty.Register( nameof(LowerContent), typeof(object), typeof(NavigationBar),
@@ -97,9 +142,17 @@ namespace LenWeaver.Utilities {
                                         DependencyProperty.Register( nameof(ShowOpenCloseButtons), typeof(bool), typeof(NavigationBar),
                                         new PropertyMetadata( true ) );
 
+        public static readonly          DependencyProperty      ShowSelectionIndicatorProperty =
+                                        DependencyProperty.Register( nameof(ShowSelectionIndicator), typeof(bool), typeof(NavigationBar),
+                                        new PropertyMetadata( true ) );
+
         public static readonly          DependencyProperty      StartOpenedProperty =
                                         DependencyProperty.Register( nameof(StartOpened), typeof(bool), typeof(NavigationBar),
                                         new PropertyMetadata( false ) );
+
+        public static readonly          DependencyProperty      SuppressToolTipWhenOpenProperty =
+                                        DependencyProperty.Register( nameof(SuppressToolTipWhenOpen), typeof(bool), typeof(NavigationBar),
+                                        new PropertyMetadata( true ) );
 
         public static readonly          DependencyProperty      TitleContentProperty =
                                         DependencyProperty.Register( nameof(TitleContent), typeof(object), typeof(NavigationBar),
@@ -148,7 +201,7 @@ namespace LenWeaver.Utilities {
         }
 
 
-        protected override void AddChild        ( object value ) {
+        protected override void         AddChild( object value ) {
 
             //base.AddChild( value );
 
@@ -158,7 +211,7 @@ namespace LenWeaver.Utilities {
                 AddNavigationBarItem( item );
             }
         }
-        protected override void OnItemsChanged  ( NotifyCollectionChangedEventArgs e ) {
+        protected override void         OnItemsChanged( NotifyCollectionChangedEventArgs e ) {
 
             UIElement?       element;
 
@@ -179,8 +232,8 @@ namespace LenWeaver.Utilities {
                 }
             }
             else if( e.Action == NotifyCollectionChangedAction.Add ) {
-                for( int index = 0; index < e.NewItems.Count; index++ ) {
-                    element = e.NewItems[index] as UIElement;
+                for( int index = 0; index < (e?.NewItems?.Count ?? 0); index++ ) {
+                    element = e?.NewItems?[index] as UIElement;
 
                     if( element is NavigationBarItem item ) {
                         SetNavigationBarItemProperties( item );
@@ -209,7 +262,7 @@ namespace LenWeaver.Utilities {
             }
             else {
                 addedBeforeTemplate.Add( item );    //Window template has not been loaded yet.  Save items
-                                                    //and add them to the StackPanel's from MainWindow_Load.
+                                                    //and add them to the StackPanel from NavigationBar_Loaded.
             }
         }
         protected void                  ConfigureOpenCloseButtons( ImageSide value ) {
@@ -261,13 +314,18 @@ namespace LenWeaver.Utilities {
             if( item.MouseOverBackground == null && ItemMouseOverBackground != null )   item.MouseOverBackground    = ItemMouseOverBackground;
             if( item.MouseOverForeground == null && ItemMouseOverBackground != null )   item.MouseOverForeground    = ItemMouseOverForeground;
 
+            if( item.SymbolFontFamily == null && ItemSymbolFontFamily != null )         item.SymbolFontFamily       = ItemSymbolFontFamily;
+            if( item.SymbolForeground == null && ItemSymbolForeground != null )         item.SymbolForeground       = ItemSymbolForeground;
+            if( item.SymbolPadding == null && ItemSymbolPadding != null )               item.SymbolPadding          = ItemSymbolPadding;
+            if( item.SymbolPathFill == null && ItemSymbolPathFill != null )             item.SymbolPathFill         = ItemSymbolPathFill;
+            if( item.SymbolPathStroke == null && ItemSymbolPathStroke != null )         item.SymbolPathStroke       = ItemSymbolPathStroke;
+
             item.ParentNavigationBar    = this;
             item.FontSize               = ItemFontSize;
             item.FontStyle              = ItemFontStyle;
             item.FontWeight             = ItemFontWeight;
             item.Foreground             = ItemForeground;
             item.Height                 = ItemHeight;
-            
         }
         protected double                CalculateOpenedWidth() {
 
@@ -314,9 +372,17 @@ namespace LenWeaver.Utilities {
             get { return (bool)GetValue( ShowOpenCloseButtonsProperty ); }
             set { SetValue( ShowOpenCloseButtonsProperty, value ); }
         }
+        public bool                     ShowSelectionIndicator {
+            get => (bool)GetValue( ShowSelectionIndicatorProperty );
+            set => SetValue( ShowSelectionIndicatorProperty, value );
+        }
         public bool                     StartOpened {
             get { return (bool)GetValue( StartOpenedProperty ); }
             set { SetValue( StartOpenedProperty, value ); }
+        }
+        public bool                     SuppressToolTipWhenOpen {
+            get => (bool)GetValue( SuppressToolTipWhenOpenProperty );
+            set => SetValue( SuppressToolTipWhenOpenProperty, value );
         }
         public double                   ClosedWidth {
             get { return (double)GetValue( ClosedWidthProperty ); }
@@ -357,6 +423,10 @@ namespace LenWeaver.Utilities {
             get { return (FontWeight)GetValue( ItemFontWeightProperty ); }
             set { SetValue( ItemFontWeightProperty, value ); }
         }
+        public Thickness?               ItemSymbolPadding {
+            get => (Thickness)GetValue( ItemSymbolPaddingProperty );
+            set { SetValue( ItemSymbolPaddingProperty, value ); }
+        }
         public Brush                    ItemForeground {
             get { return (Brush)GetValue( ItemForegroundProperty ); }
             set { SetValue( ItemForegroundProperty, value ); }
@@ -369,6 +439,18 @@ namespace LenWeaver.Utilities {
             get => (Brush)GetValue( ItemMouseOverForegroundProperty );
             set => SetValue( ItemMouseOverForegroundProperty, value );
         }
+        public Brush                    ItemSymbolForeground {
+            get => (Brush)GetValue( ItemSymbolForegroundProperty );
+            set => SetValue( ItemSymbolForegroundProperty, value );
+        }
+        public Brush                    ItemSymbolPathFill {
+            get => (Brush)GetValue( ItemSymbolPathFillProperty );
+            set => SetValue( ItemSymbolPathFillProperty, value );
+        }
+        public Brush                    ItemSymbolPathStroke {
+            get => (Brush)GetValue( ItemSymbolPathStrokeProperty );
+            set => SetValue( ItemSymbolPathStrokeProperty, value );
+        }
         public Brush                    OpenCloseForeground {
             get { return (Brush)GetValue( OpenCloseForegroundProperty ); }
             set { SetValue( OpenCloseForegroundProperty, value ); }
@@ -380,6 +462,10 @@ namespace LenWeaver.Utilities {
         public FontFamily               ItemFontFamily {
             get { return (FontFamily)GetValue( ItemFontFamilyProperty ); }
             set { SetValue( ItemFontFamilyProperty, value ); }
+        }
+        public FontFamily               ItemSymbolFontFamily {
+            get => (FontFamily)GetValue( ItemSymbolFontFamilyProperty );
+            set => SetValue( ItemSymbolFontFamilyProperty, value );
         }
 
         public  NavigationBarItem?      SelectedItem {
@@ -404,7 +490,7 @@ namespace LenWeaver.Utilities {
                         oldItem                         = selectedItem;
                         selectedItem                    = value;
 
-                        if( selectedItem != null ) { 
+                        if( selectedItem != null && ShowSelectionIndicator ) { 
                             selectedItem.SelectedIndicator  = SelectedItemIndicator;
                         }
 
@@ -478,7 +564,7 @@ namespace LenWeaver.Utilities {
                 }
             }
             else { 
-                Width                   = Helpers.Max( openedWidth ?? DefaultOpenedWidth, DefaultOpenedWidth );
+                Width                       = Helpers.Max( openedWidth ?? DefaultOpenedWidth, DefaultOpenedWidth );
             }
         }
         

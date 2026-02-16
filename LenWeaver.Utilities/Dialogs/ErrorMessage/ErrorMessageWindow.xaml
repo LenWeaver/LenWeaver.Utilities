@@ -4,7 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:LenWeaver.Utilities" mc:Ignorable="d"
-        Title="An Error Has Occured" Width="450" ResizeMode="NoResize"
+        Title="An Error Has Occured" Width="600" ResizeMode="NoResize"
         WindowStartupLocation="CenterOwner" ShowInTaskbar="False" SizeToContent="Height">
 
     <StackPanel Margin="5">

@@ -46,6 +46,11 @@ namespace LenUtilTest {
             sb.AppendLine( Environment.GetFolderPath( Environment.SpecialFolder.MyPictures ) );
 
             tbText.Text             = sb.ToString();
+
+
+            var x = new Window1();
+
+            x.ShowDialog();
         }
     }
 }

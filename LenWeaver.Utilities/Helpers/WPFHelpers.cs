@@ -5,20 +5,21 @@ using System.IO;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
-using System.Windows.Data;
+using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using Shapes = System.Windows.Shapes;
-using SysDrawing = System.Drawing;
+
+using Shapes        = System.Windows.Shapes;
+
 
 namespace LenWeaver.Utilities {
 
     public static class WPFHelpers {
 
         static WPFHelpers() {}
-        
 
-        public static void                      SetButtonCornerRadius( this ButtonBase btn, CornerRadius cornerRadius ) {
+
+        public static void                      SetCornerRadius( this ButtonBase btn, CornerRadius cornerRadius ) {
 
             Border?      brd;
 
@@ -28,7 +29,7 @@ namespace LenWeaver.Utilities {
 
             brd.CornerRadius    = cornerRadius;
         }
-        public static void                      SetButtonCornerRadius( Control control, string buttonName, CornerRadius cornerRadius ) {
+        public static void                      SetCornerRadius( Control control, string buttonName, CornerRadius cornerRadius ) {
 
             Button? btn;
 
@@ -37,13 +38,13 @@ namespace LenWeaver.Utilities {
 
             btn                     = control.Template?.FindName( buttonName, control ) as Button;
             if( btn != null ) {
-                SetButtonCornerRadius( btn, cornerRadius );
+                SetCornerRadius( btn, cornerRadius );
             }
             else {
                 throw new ArgumentException( $"A button named {buttonName} was not found on the specified Window." );
             }
         }
-        public static void                      SetComboBoxMaxLength( this ComboBox cbo, int newMaxLength ) {
+        public static void                      SetMaxLength( this ComboBox cbo, int newMaxLength ) {
 
             TextBox         txt;
 
@@ -51,49 +52,21 @@ namespace LenWeaver.Utilities {
             txt             = (TextBox)cbo.Template.FindName( "PART_EditableTextBox", cbo );
             txt.MaxLength   = newMaxLength;
         }
+        public static void                      SetSelectedBackground( this TabItem ti, Brush b ) {
 
-        public static bool                      IsFixedWidth( this FontFamily ff ) {
+            var border = ti.Template.FindName( "innerBorder", ti ) as Border;
 
-            bool                result      = false;
-
-            
-            foreach( Typeface tf in ff.GetTypefaces() ) {
-                result  = tf.IsFixedWidth();
-
-                break;
-            }
-
-            return result;
-        }
-        public static bool                      IsFixedWidth( this Typeface tf ) {
-
-            double              iWidth;
-            double              wWidth;
-
-            FormattedText       ft;
-
-
-            ft          = new FormattedText( "i", System.Globalization.CultureInfo.CurrentCulture,
-                                             FlowDirection.LeftToRight, tf, 10d, Brushes.Black, 1.25d );
-            iWidth      = ft.Width;
-
-            ft          = new FormattedText( "W", System.Globalization.CultureInfo.CurrentCulture,
-                                             FlowDirection.LeftToRight, tf, 10d, Brushes.Black, 1.25d );
-            wWidth      = ft.Width;
-
-
-            return iWidth == wWidth;
+            if( border is not null ) border.Background = b;
         }
 
-        public static Binding                   CreateBinding( object bindingSource, string propertySource ) {
-            
-            Binding         result;
+        public static int                       Add( this CommandBindingCollection bindings, ICommand command,
+                                                     ExecutedRoutedEventHandler executedHandler, CanExecuteRoutedEventHandler canExecuteHandler ) {
 
+            return bindings.Add( new CommandBinding( command, executedHandler, canExecuteHandler ) );
+        }
+        public static int                       Add( this CommandBindingCollection bindings, ICommand command, ExecutedRoutedEventHandler executedHandler ) {
 
-            result              = new Binding( propertySource );
-            result.Source       = bindingSource;
-
-            return result;
+            return bindings.Add( new CommandBinding( command, executedHandler ) );
         }
 
         public static Shapes.Path               ExtendedPathMarkupToPath( Shapes.Path p, string markup ) {
@@ -126,8 +99,8 @@ namespace LenWeaver.Utilities {
                         nameValues  = token.Split( '=' );
                         if( nameValues.Length == 2 ) {
                             switch( nameValues[0] ) {
-                                case "FILL":            p.Fill              = (Brush)bc.ConvertFromInvariantString( nameValues[1] );    break;
-                                case "STROKE":          p.Stroke            = (Brush)bc.ConvertFromInvariantString( nameValues[1] );    break;
+                                case "FILL":            p.Fill              = (Brush?)bc?.ConvertFromInvariantString( nameValues[1] );  break;
+                                case "STROKE":          p.Stroke            = (Brush?)bc?.ConvertFromInvariantString( nameValues[1] );  break;
                                 case "STROKETHICKNESS": p.StrokeThickness   = Double.Parse( nameValues[1] );                            break;
                             }
                         }
@@ -150,38 +123,41 @@ namespace LenWeaver.Utilities {
             return ExtendedPathMarkupToPath( new Shapes.Path(), markup );
         }
 
-        public static BitmapImage               ToBitmapImage( this SysDrawing.Bitmap bmp ) {
+        public static T                         FindInContent<T>( this ContentControl cc, string name ) where T : FrameworkElement {
 
-            BitmapImage     result;
+            ContentControl?     con         = cc;
 
-            MemoryStream?   ms          = null;;
+            T?                  result      = null;
 
 
-            try {
-                ms                  = new MemoryStream();
-
-                bmp.Save( ms, ImageFormat.Png );
-
-                ms.Position         = 0;
-
-                result              = new BitmapImage();
-                result.BeginInit();
-                result.StreamSource = ms;
-                result.CacheOption  = BitmapCacheOption.OnLoad;
-                result.EndInit();
-            }
-            catch( Exception ex ) {
-                throw new ApplicationException( "Unable to convert Bitmap to BitmapImage.", ex );
-            }
-            finally {
-                if( ms != null ) ms.Dispose();
+            while( result == null ) {
+                if( con?.Content is T && String.CompareOrdinal( ((FrameworkElement)con.Content).Name, name ) == 0 ) {
+                    result = con.Content as T;
+                }
+                else if( con?.Content != null && con.Content is ContentControl ) {
+                    con = con.Content as ContentControl;
+                }
             }
 
             return result;
         }
-        public static BitmapImage               ToBitmapImage( this SysDrawing.Icon ico ) {
+        public static T?                        FindInContent<T>( this ContentControl cc ) where T : class {
 
-            return ToBitmapImage( ico.ToBitmap() );
+            ContentControl?     con         = cc;
+
+            T?                  result      = null;
+
+
+            while( result == null ) {
+                if( con?.Content is T ) {
+                    result = con.Content as T;
+                }
+                else if( con?.Content != null && con.Content is ContentControl ) {
+                    con = con.Content as ContentControl;
+                }
+            }
+
+            return result;
         }
 
         public static T?                        FindInTreeView<T>( this ItemCollection items, Predicate<T> found ) where T : TreeViewItem {
