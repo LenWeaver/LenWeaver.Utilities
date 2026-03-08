@@ -8,7 +8,7 @@ using System.Windows.Data;
 
 namespace LenWeaver.Utilities {
 
-    public class Int32ToUft32CharConverter : IValueConverter {
+    public class Int32ToUtf32CharConverter : IValueConverter {
 
 
         public object Convert( object value, Type targetType, object parameter, CultureInfo culture ) {

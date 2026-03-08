@@ -101,26 +101,29 @@ namespace LenWeaver.Utilities {
         }
         public static string ToDisplayString( int number, bool order ) {
         
-            bool single             = false;
-            bool teen               = false;
-            bool tens               = false;
+            bool            single          = false;
+            bool            teen            = false;
+            bool            tens            = false;
             
-            int countPlace          = 0;
-            int sign                = 1;
-            int tempNumber          = number;
+            int             countPlace      = 0;
+            int             sign            = 1;
+            int             tempNumber      = number;
             
-            string returnString     = String.Empty;
+            string          returnString    = String.Empty;
+
+            StringBuilder   sb              = new StringBuilder();
 
             
             if( number < 0 ) {
                 sign *= -1;
-                returnString += "negative ";
+                sb.Append( "negative" );
             }
             
             //count the billions (int max is over two billion)
             countPlace = (tempNumber / 1_000_000_000) * sign;
             if( countPlace > 0 ) {
-                returnString += ToDisplayString( countPlace, false ) + " Billion ";
+                sb.Append( ToDisplayString( countPlace, false ) );
+                sb.Append( " Billion " );
             }
             
             tempNumber -= (1_000_000_000 * countPlace) * sign;
@@ -128,7 +131,8 @@ namespace LenWeaver.Utilities {
             //count the millions
             countPlace = (tempNumber / 1_000_000) * sign;
             if( countPlace > 0 ) {
-                returnString += ToDisplayString( countPlace, false ) + " Million ";
+                sb.Append( ToDisplayString( countPlace, false ) );
+                sb.Append( " Million " );
             }
             
             tempNumber -= (1_000_000 * countPlace) * sign;
@@ -136,7 +140,8 @@ namespace LenWeaver.Utilities {
             //count the thousands
             countPlace = (tempNumber / 1_000) * sign;
             if( countPlace > 0 ) {
-                returnString += ToDisplayString( countPlace, false ) + " Thousand ";
+                sb.Append( ToDisplayString( countPlace, false ) );
+                sb.Append( " Thousand " );
             }
             
             tempNumber -= (1_000 * countPlace) * sign;
@@ -146,7 +151,8 @@ namespace LenWeaver.Utilities {
             //hundreds of millions, etc.
             countPlace = (tempNumber / 100) * sign;
             if( countPlace > 0 ) {
-                returnString += englishDigitMatrix[countPlace][0] + " Hundred ";
+                sb.Append( ToDisplayString( countPlace, false ) );
+                sb.Append( " Hundred " );
             }
             
             tempNumber -= (100 * countPlace) * sign;
@@ -159,7 +165,8 @@ namespace LenWeaver.Utilities {
                     teen = true;
                 }
                 else {
-                    returnString += englishDigitMatrix[countPlace][2] + " ";
+                    sb.Append( englishDigitMatrix[countPlace][2] );
+                    sb.Append( ' ' );
                 }
             }
             
@@ -179,40 +186,42 @@ namespace LenWeaver.Utilities {
                 
                 //catch the teens, and the number ten as well
                 if( teen ) {
-                    returnString += englishDigitMatrix[10 + tempNumber][0];
+                    sb.Append( englishDigitMatrix[10 + tempNumber][0] );
                     //catch the position order
                     if( order ) {
-                        returnString += "th";
+                        sb.Append( "th" );
                     }
                 }
                 else if( tempNumber > 0 ) {
                     //catch the position order for single digits
-                    if(order) {
-                        returnString += englishDigitMatrix[tempNumber][1];
+                    if( order ) {
+                        sb.Append( englishDigitMatrix[tempNumber][1] );
                     }
                     else {
-                        returnString += englishDigitMatrix[tempNumber][0];
+                        sb.Append( englishDigitMatrix[tempNumber][0] );
                     }
                 }
-                else if( tempNumber == 0 && returnString.Length == 0 ) {
+                else if( tempNumber == 0 && sb.Length == 0 ) {
                     //need to catch the solitary number 0
                     //nothing will have been caught before this,
                     //so returnString will be empty.
-                    if(order) {
-                        returnString += englishDigitMatrix[tempNumber][1];
+                    if( order ) {
+                        sb.Append( englishDigitMatrix[tempNumber][1] );
                     }
                     else {
-                        returnString += englishDigitMatrix[tempNumber][0];
+                        sb.Append( englishDigitMatrix[tempNumber][0] );
                     }                
                 }
             }
             
-            returnString = returnString.Trim();
+            sb = new StringBuilder( sb.ToString().Trim() );
             
             //check if it ended on a signifier greater than or
             //equal to the hundreds - it won't have any order
             //qualifiers, we need to add them
             if( order ) {
+                returnString = sb.ToString().Trim();
+
                 if( returnString.EndsWith( "Billion" ) ||
                     returnString.EndsWith( "Million" ) ||
                     returnString.EndsWith( "Thousand" ) ||

@@ -39,7 +39,7 @@
                                      VerticalAlignment="Center"
                                      Visibility="Collapsed" 
                                      Stretch="Fill" 
-                                     StretchDirection="Both" 
+                                     StretchDirection="Both"
                                      Width="{TemplateBinding Height}">
                                 <Path x:Name="pPath" 
                                       Fill="{TemplateBinding PathFill}" 

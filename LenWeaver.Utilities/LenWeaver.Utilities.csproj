@@ -3,10 +3,29 @@
     <!-- <Project Sdk="Microsoft.NET.Sdk.WindowsDesktop"> -->
     
   <PropertyGroup>
-    <TargetFramework>net6.0-windows</TargetFramework>
+    <TargetFramework>net10.0-windows7.0</TargetFramework>
     <Nullable>enable</Nullable>
     <UseWPF>true</UseWPF>
     <Platforms>AnyCPU;x64</Platforms>
+    <PackageIcon>Symbol-Recycle-02.png</PackageIcon>
+    <AssemblyVersion>2.0.0.0</AssemblyVersion>
+    <FileVersion>2.0.0.0</FileVersion>
+  </PropertyGroup>
+    
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <Deterministic>False</Deterministic>
+  </PropertyGroup>
+    
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <Deterministic>False</Deterministic>
+  </PropertyGroup>
+    
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <Deterministic>False</Deterministic>
+  </PropertyGroup>
+    
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <Deterministic>False</Deterministic>
   </PropertyGroup>
 
   <ItemGroup>
@@ -121,7 +140,6 @@
     <None Remove="Images\Node-Root.png" />
     <None Remove="Images\Note-01.png" />
     <None Remove="Images\Note-02.png" />
-    <None Remove="Images\Note-03.png" />
     <None Remove="Images\Note-04.png" />
     <None Remove="Images\Note-05.png" />
     <None Remove="Images\Note-06.png" />
@@ -273,7 +291,6 @@
     <None Remove="Images\Symbol-Percent.png" />
     <None Remove="Images\Symbol-Print.png" />
     <None Remove="Images\Symbol-Recycle-01.png" />
-    <None Remove="Images\Symbol-Recycle-02.png" />
     <None Remove="Images\Symbol-Remove.png" />
     <None Remove="Images\Symbol-Report-Add.png" />
     <None Remove="Images\Symbol-Report-Delete.png" />
@@ -315,8 +332,7 @@
 
   <ItemGroup>
     <EmbeddedResource Include="CountryCode\ISO3166.xml" />
-    <PackageReference Include="Microsoft.Data.SqlClient" Version="4.1.0" />
-    <PackageReference Include="System.Drawing.Common" Version="6.0.0" />
+    <PackageReference Include="Microsoft.Data.SqlClient" Version="6.1.4" />
     <Resource Include="Images\Arrow-01-Down-Stop.png" />
     <Resource Include="Images\Arrow-01-Down.png" />
     <Resource Include="Images\Arrow-01-Left-Stop.png" />
@@ -611,6 +627,17 @@
     <Resource Include="Images\Toolbar-Help.png" />
     <Resource Include="Images\Toolbar-Save.png" />
     <Resource Include="Images\Toolbar-Unassign.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="Images\Note-03.png">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
+    <None Update="Images\Symbol-Recycle-02.png">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
   </ItemGroup>
 
 </Project>

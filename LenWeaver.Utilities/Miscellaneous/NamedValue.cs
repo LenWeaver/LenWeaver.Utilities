@@ -5,7 +5,7 @@ using System.Text;
 
 namespace LenWeaver.Utilities {
 
-    public class NamedValue<T> {
+    public class NamedValue<T> : IComparable<NamedValue<T>> {
 
         public  string  Name    { get; set; }
 
@@ -22,6 +22,14 @@ namespace LenWeaver.Utilities {
         public override string ToString() {
             
             return Name;
+        }
+
+
+        public int CompareTo( NamedValue<T>? other ) {
+            
+            if( other is null ) throw new ArgumentNullException( nameof(other), "Parameter cannot be null." );
+
+            return Name.CompareTo( other.Name );
         }
     }
 }

@@ -1,129 +1,100 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
+using System.Globalization;
 using System.Text;
 using System.Windows;
+using System.Windows.Input;
 using System.Windows.Media;
+
 
 namespace LenWeaver.Utilities {
 
-    [Obsolete( "Use Typeface and a double for font size instead." )]
-    public class FontDescriptor {
+    public sealed class FontDescriptor : IComparable<FontDescriptor> {
 
-        private static              FontFamilyConverter?    fontFamilyConverter     = null;
-        private static              FontStretchConverter?   fontStretchConverter    = null;
-        private static              FontStyleConverter?     fontStyleConverter      = null;
-        private static              FontWeightConverter?    fontWeightConverter     = null;
+        public  double              Size            { get; init; }
 
-        public  static  readonly    FontStyle               DefaultFontStyle        = FontStyles.Normal;
-        public  static  readonly    FontWeight              DefaultFontWeight       = FontWeights.Normal;
-        public  static  readonly    FontStretch             DefaultFontStretch      = FontStretches.Normal;
+        public  FontStretch         Stretch         { get; init; }
+        public  FontStyle           Style           { get; init; }
+        public  FontWeight          Weight          { get; init; }
+
+        public  FontFamily          Family          { get; init; }
 
 
-        public  double              Size        { get; set; }
+        public FontDescriptor( string s ) {
 
-        public  FontFamily          Family      { get; set; }
-        public  FontStretch         Stretch     { get; set; }
-        public  FontStyle           Style       { get; set; }
-        public  FontWeight          Weight      { get; set; }
+            // Expected format:
+            // "{Family.Source} {Size}pt - {Stretch}, {Style}, {Weight}"
 
+            // Split at " - "
+            var parts = s.Split( " - ", StringSplitOptions.TrimEntries );
+            if( parts.Length != 2 )
+                throw new FormatException( "Invalid font descriptor format." );
 
-        public FontDescriptor( string asString ) {
+            // --- LEFT SIDE: "FamilyName 12pt" ---
+            var left = parts[0];
 
-            string[]                tokens;
+            // Size is always the last token before "pt"
+            var leftTokens = left.Split( ' ', StringSplitOptions.RemoveEmptyEntries );
+            if( leftTokens.Length < 2 ) throw new FormatException( "Invalid family/size format." );
 
+            // Parse size
+            var sizeToken = leftTokens[^1];
+            if( !sizeToken.EndsWith( "pt" ) ) throw new FormatException( "Font size must end with 'pt'." );
 
-            try {
-                tokens          = asString.Split( ';' );
+            var sizeString = sizeToken[..^2]; // remove "pt"
+            if( !double.TryParse( sizeString, out var size ) ) throw new FormatException( "Invalid font size." );
 
-                if( tokens.Length == 5 && FontFamilyConverter.CanConvertFrom( typeof(string) ) &&
-                    FontStyleConverter.CanConvertFrom( typeof(string) ) && FontWeightConverter.CanConvertFrom( typeof(string) ) &&
-                    FontStretchConverter.CanConvertFrom( typeof(string) ) && tokens[0] != null && tokens[1] != null &&
-                    tokens[2] != null && tokens[3] != null && tokens[4] != null ) {
+            Size = size;
 
-                    Family      = (FontFamily)FontFamilyConverter.ConvertFromInvariantString( tokens[0].ToString() );
-                    Size        = Double.Parse( tokens[1].ToString() );
-                    Style       = (FontStyle)FontStyleConverter.ConvertFromInvariantString( tokens[2].ToString() );
-                    Weight      = (FontWeight)FontWeightConverter.ConvertFromInvariantString( tokens[3].ToString() );
-                    Stretch     = (FontStretch)FontStretchConverter.ConvertFromInvariantString( tokens[4].ToString() );
-                }
-                else {
-                    throw new ArgumentException( "Argument asString does not contain the necessary elements of a FontDescriptor." );
-                }
-            }
-            catch( Exception ex ) {
-                throw new ArgumentException( "Unable to convert string to FontDescriptor.", ex );
-            }
+            // Family is everything before the size token
+            var familyName = string.Join( ' ', leftTokens[..^1] );
+            Family = new FontFamily( familyName );
+
+            // --- RIGHT SIDE: "{Stretch}, {Style}, {Weight}" ---
+            var rightTokens = parts[1].Split( ',', StringSplitOptions.TrimEntries );
+            if( rightTokens.Length != 3 ) throw new FormatException( "Invalid stretch/style/weight format." );
+
+            // Parse Stretch
+            if( !Enum.TryParse<FontStretch>( rightTokens[0], out var stretch ) ) throw new FormatException( "Invalid FontStretch value." );
+            Stretch = stretch;
+
+            // Parse Style
+            if( !Enum.TryParse<FontStyle>( rightTokens[1], out var style ) ) throw new FormatException( "Invalid FontStyle value." );
+            Style = style;
+
+            // Parse Weight
+            if( !Enum.TryParse<FontWeight>( rightTokens[2], out var weight ) ) throw new FormatException( "Invalid FontWeight value." );
+            Weight = weight;
         }
-        public FontDescriptor( FontFamily family, double size, FontStyle style, FontWeight weight, FontStretch stretch ) {
+        public FontDescriptor( FontFamily ff, double fs, FontStretch stretch, FontStyle style, FontWeight weight ) {
 
-            Family      = family;
-            Size        = size;
-            Style       = style;
-            Weight      = weight;
-            Stretch     = stretch;
+            Family          = ff;
+            Size            = fs;
+            Stretch         = stretch;
+            Style           = style;
+            Weight          = weight;
         }
-        public FontDescriptor( FontFamily family, double size, FontStyle style, FontWeight weight ) : this( family, size, style, weight, DefaultFontStretch ) {}
-        public FontDescriptor( FontFamily family, double size, FontStyle style ) : this( family, size, style, DefaultFontWeight, DefaultFontStretch ) {}
-        public FontDescriptor( FontFamily family, double size ) : this( family, size, DefaultFontStyle, DefaultFontWeight, DefaultFontStretch ) {}
+        public FontDescriptor( FontFamily ff, double fs, Typeface tf ) : this( ff, fs, tf.Stretch, tf.Style, tf.Weight ) {}
 
 
-        #region Static Converter Properties
-        public static FontFamilyConverter FontFamilyConverter {
-            get {
-                if( fontFamilyConverter == null ) {
-                    fontFamilyConverter = new FontFamilyConverter();
-                }
+        public Typeface Typeface => new Typeface( Family, Style, Weight, Stretch );
 
-                return fontFamilyConverter;
-            }
-        }
-        public static FontStretchConverter FontStretchConverter {
-            get {
-                if( fontStretchConverter == null ) {
-                    fontStretchConverter = new FontStretchConverter();
-                }
-
-                return fontStretchConverter;
-            }
-        }
-        public static FontStyleConverter FontStyleConverter {
-            get {
-                if( fontStyleConverter == null ) {
-                    fontStyleConverter = new FontStyleConverter();
-                }
-
-                return fontStyleConverter;
-            }
-        }
-        public static FontWeightConverter FontWeightConverter {
-            get {
-                if( fontWeightConverter == null ) {
-                    fontWeightConverter = new FontWeightConverter();
-                }
-
-                return fontWeightConverter;
-            }
-        }
-        #endregion
+        public override string ToString() => $"{Family.Source} {Size}pt - {Stretch}, {Style}, {Weight}";
 
 
-        public override string ToString() {
+        public int CompareTo( FontDescriptor? other ) {
 
-            StringBuilder           sb;
+            int result;
 
 
-            sb = new StringBuilder();
-            sb.Append( FontFamilyConverter.ConvertToInvariantString( Family ) );
-            sb.Append( ";" );
-            sb.Append( Size.ToString() );
-            sb.Append( ";" );
-            sb.Append( FontStyleConverter.ConvertToInvariantString( Style ) );
-            sb.Append( ";" );
-            sb.Append( FontWeightConverter.ConvertToInvariantString( Weight ) );
-            sb.Append( ";" );
-            sb.Append( FontStretchConverter.ConvertToInvariantString( Stretch ) );
-            sb.Append( ";" );
+            if( other is null ) ArgumentNullException.ThrowIfNull( other, nameof( other) );
 
-            return sb.ToString();
+            result = Family.Source.CompareTo( other.Family.Source );
+            if( result == 0 ) result = Size.CompareTo( other.Size );
+            if( result == 0 ) result = Typeface.CompareTo( other.Typeface );
+
+            return result;
         }
     }
 }

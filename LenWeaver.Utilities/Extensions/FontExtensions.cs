@@ -24,131 +24,97 @@ namespace LenWeaver.Utilities {
         //Fonts I often use in my projects.
         public static FontFamily        GlobalMonospace {
             get {
-                if( globalMonospace is null ) {
-                    globalMonospace = new FontFamily( "Global Monospace" );
+                CreateIfNecessary( ref globalMonospace, "Global Monospace" );
 
-                    if( !Fonts.SystemFontFamilies.Contains( globalMonospace ) ) {
-                        throw new ArgumentException( "FontFamily: Global Monospace, does not seem to exist." );
-                    }
-                }
-
-                return globalMonospace;
+                return globalMonospace!;
             }
         }
         public static FontFamily        GlobalSansSerif {
             get {
-                if( globalSansSerif is null ) {
-                    globalSansSerif = new FontFamily( "Global Sans Serif" );
+                CreateIfNecessary( ref globalSansSerif, "Global Sans Serif" );
 
-                    if( !Fonts.SystemFontFamilies.Contains( globalSansSerif ) ) {
-                        throw new ArgumentException( "FontFamily: Global Sans Serif, does not seem to exist." );
-                    }
-                }
-
-                return globalSansSerif;
+                return globalSansSerif!;
             }
         }
         public static FontFamily        GlobalUserInterface {
             get {
-                if( globalUserInterface is null ) {
-                    globalUserInterface = new FontFamily( "Global User Interface" );
+                CreateIfNecessary( ref globalUserInterface, "Global User Interface" );
 
-                    if( !Fonts.SystemFontFamilies.Contains( globalUserInterface ) ) {
-                        throw new ArgumentException( "FontFamily: Global User Interface, does not seem to exist." );
-                    }
-                }
-
-                return globalUserInterface;
+                return globalUserInterface!;
             }
         }
         public static FontFamily        SegoeFluentIcons {
             get {
-                if( segoeFluentIcons is null ) {
-                    segoeFluentIcons = new FontFamily( "Segoe Fluent Icons" );
+                CreateIfNecessary( ref segoeFluentIcons, "Segoe Fluent Icons" );
 
-                    if( !Fonts.SystemFontFamilies.Contains( segoeFluentIcons ) ) {
-                        throw new ArgumentException( "FontFamily: Segoe Fluent Icons, does not seem to exist." );
-                    }
-                }
-
-                return segoeFluentIcons;
+                return segoeFluentIcons!;
             }
         }
         public static FontFamily        SegoeMDL2Assets {
             get {
-                if( segoeMDL2Assets is null ) {
-                    segoeMDL2Assets = new FontFamily( "Segoe MDL2 Assets" );
+                CreateIfNecessary( ref segoeMDL2Assets, "Segoe MDL2 Assets" );
 
-                    if( !Fonts.SystemFontFamilies.Contains( segoeMDL2Assets ) ) {
-                        throw new ArgumentException( "FontFamily: Segoe MDL2 Assets, does not seem to exist." );
-                    }
-                }
-
-                return segoeMDL2Assets;
+                return segoeMDL2Assets!;
             }
         }
         public static FontFamily        SegoeUI {
             get {
-                if( segoeUI is null ) {
-                    segoeUI = new FontFamily( "Segoe UI" );
+                CreateIfNecessary( ref segoeUI, "Segoe UI" );
 
-                    if( !Fonts.SystemFontFamilies.Contains( segoeUI ) ) {
-                        throw new ArgumentException( "FontFamily: Segoe UI, does not seem to exist." );
-                    }
-                }
-
-                return segoeUI;
+                return segoeUI!;
             }
         }
         public static FontFamily        SegoeUISymbol {
             get {
-                if( segoeUISymbol is null ) {
-                    segoeUISymbol = new FontFamily( "Segoe UI Symbol" );
+                CreateIfNecessary( ref segoeUISymbol, "Segoe UI Symbol" );
 
-                    if( !Fonts.SystemFontFamilies.Contains( segoeUISymbol ) ) {
-                        throw new ArgumentException( "FontFamily: Segoe UI Symbol, does not seem to exist." );
-                    }
-                }
-
-                return segoeUISymbol;
+                return segoeUI!;
             }
         }
 
 
-        public static bool              IsFixedWidth( this FontFamily ff ) {
-
-            bool                result      = false;
+        extension( FontFamily ff ) {
+            public bool         IsFixedWidth {
+                get {
+                    bool                result      = false;
 
             
-            foreach( Typeface tf in ff.GetTypefaces() ) {
-                result  = tf.IsFixedWidth();
+                    foreach( Typeface tf in ff.GetTypefaces() ) {
+                        result  = tf.IsFixedWidth;
 
-                break;
+                        break;
+                    }
+
+                    return result;
+                }
             }
-
-            return result;
         }
-        public static bool              IsFixedWidth( this Typeface tf ) {
+        extension( Typeface tf ) {
+            public bool          IsFixedWidth {
+                get {
 
-            double              iWidth;
-            double              wWidth;
+                    double              iWidth;
+                    double              wWidth;
 
-            FormattedText       ft;
-
-
-            ft          = new FormattedText( "i", System.Globalization.CultureInfo.CurrentCulture,
-                                             FlowDirection.LeftToRight, tf, 10d, Brushes.Black, 1d );
-            iWidth      = ft.Width;
-
-            ft          = new FormattedText( "W", System.Globalization.CultureInfo.CurrentCulture,
-                                             FlowDirection.LeftToRight, tf, 10d, Brushes.Black, 1d );
-            wWidth      = ft.Width;
+                    FormattedText       ft;
 
 
-            return iWidth == wWidth;
+                    ft          = new FormattedText( "i", System.Globalization.CultureInfo.CurrentCulture,
+                                                     FlowDirection.LeftToRight, tf, 10d, Brushes.Black, 1d );
+                    iWidth      = ft.Width;
+
+                    ft          = new FormattedText( "W", System.Globalization.CultureInfo.CurrentCulture,
+                                                     FlowDirection.LeftToRight, tf, 10d, Brushes.Black, 1d );
+                    wWidth      = ft.Width;
+
+
+                    return iWidth == wWidth;
+                }
+            }
         }
 
-        public static string            AsString( this SegoeMDL2Assets assetName ) {
+
+        public static string            ToCharacter( this SegoeMDL2Assets assetName ) {
 
             return Char.ConvertFromUtf32( (int)assetName );
         }
@@ -156,6 +122,30 @@ namespace LenWeaver.Utilities {
         public static FlowDirection     GetFlowDirection( this System.Globalization.CultureInfo culture ) {
 
             return culture.TextInfo.IsRightToLeft ? FlowDirection.RightToLeft : FlowDirection.LeftToRight;
+        }
+
+        public static int               CompareTo( this FontStretch stretch, FontStretch other ) {
+
+            return stretch.ToOpenTypeStretch().CompareTo( other.ToOpenTypeStretch() );
+        }
+        public static int               CompareTo( this FontStyle style, FontStyle other ) {
+
+            return style.GetHashCode().CompareTo( other.GetHashCode() );
+        }
+        public static int               CompareTo( this FontWeight weight, FontWeight other ) {
+
+            return weight.ToOpenTypeWeight().CompareTo( other.ToOpenTypeWeight() );
+        }
+        public static int               CompareTo( this Typeface tf, Typeface other ) {
+
+            int result;
+
+
+            result = tf.Stretch.CompareTo( other.Stretch );
+            if( result == 0 ) result = tf.Style.CompareTo( other.Style );
+            if( result == 0 ) result = tf.Weight.CompareTo( other.Weight );
+
+            return result;
         }
 
         public static Typeface?         GetTypeface( this FontFamily ff, FontStretch fontStretch, FontStyle fontStyle, FontWeight fontWeight ) {
@@ -179,6 +169,18 @@ namespace LenWeaver.Utilities {
         public static Typeface?         GetTypeface( this Control c ) {
 
             return c.FontFamily.GetTypeface( c );
+        }
+
+
+        private static void             CreateIfNecessary( ref FontFamily? ff, string fontFamilyName ) {
+
+            if( ff is null ) {
+                ff = new FontFamily( fontFamilyName );
+
+                if( !Fonts.SystemFontFamilies.Contains( ff ) ) {
+                    throw new ArgumentException( $"FontFamily: {fontFamilyName}, does not seem to exist." );
+                }
+            }
         }
     }
 }

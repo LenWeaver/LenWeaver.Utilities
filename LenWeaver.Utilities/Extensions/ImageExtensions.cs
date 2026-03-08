@@ -12,32 +12,7 @@ namespace LenWeaver.Utilities {
     public static class ImageExtensions {
 
         static ImageExtensions() {}
-
-
-        public static Color             ToGreyScale( this Color c, byte alphaChannel ) {
-
-            byte        averageRGB;
-
-
-            averageRGB = (byte)(((int)c.R + (int)c.G + (int)c.B) / 3);
-
-            return Color.FromArgb( alphaChannel, averageRGB, averageRGB, averageRGB );
-        }
-        public static Color             ToGreyScale( this Color c ) {
-
-            return c.ToGreyScale( Byte.MaxValue );
-        }
-
-        public static Color             ToGreyScale( this SolidColorBrush scb ) {
-
-            return scb.Color.ToGreyScale();
-        }
-        public static Color             ToGreyScale( this GradientBrush gb ) {
-
-            if( gb.GradientStops.Count == 0 ) throw new ArgumentException( "Specified GradientBrush has no gradient stops." );
-                
-            return gb.GradientStops[0].Color.ToGreyScale();
-        }
+        
 
         public static BitmapImage       CreateBitmapImage( Uri uri, int pixelHeight, int pixelWidth ) {
 

@@ -50,6 +50,7 @@ namespace LenWeaver.Utilities {
 
             CountryCode[]       result;
 
+            #nullable disable
 
             try {
                 s                   = typeof(CountryCode).Assembly.GetManifestResourceStream( ISO3166XmlFile );

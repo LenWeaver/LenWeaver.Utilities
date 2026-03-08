@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Numerics;
 using System.Reflection;
 
 namespace LenWeaver.Utilities {
@@ -169,6 +170,30 @@ namespace LenWeaver.Utilities {
             }
 
             return list.ToArray();
+        }
+        public static IReadOnlyDictionary<string,T>   ToReadOnlyDictionary<T,TEnum>( this TEnum e ) where T : IBinaryInteger<T>
+                                                                                                    where TEnum : Enum {
+
+            IBinaryInteger<T>[]     values;
+
+            string[]                names;
+
+            Dictionary<string,T>    result = new();
+
+
+            if( !typeof(TEnum).IsEnum ) throw new ArgumentException( $"Generic type must be an enumerated type." );
+
+
+            names       = Enum.GetNames( typeof(TEnum) );
+            values      = (IBinaryInteger<T>[])Enum.GetValues( typeof(TEnum ) );
+            
+            if( names.Length != values.Length ) throw new System.ComponentModel.InvalidEnumArgumentException( $"Enum Names count: {names.Length}, Values count: {values.Length}." );
+
+            for( int index = 0; index < names.Length; index++ ) {
+                result.Add( names[index], (T)values[index] );
+            }
+
+            return result.AsReadOnly<string,T>();
         }
     }
 }

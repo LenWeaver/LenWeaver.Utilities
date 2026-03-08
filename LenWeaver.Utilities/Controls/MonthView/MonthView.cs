@@ -36,7 +36,7 @@ namespace LenWeaver.Utilities {
         public static readonly      double                  DefaultLabelFontSize            = 12d;
         public static readonly      FontStyle               DefaultLabelFontStyle           = FontStyles.Normal;
         public static readonly      FontWeight              DefaultLabelFontWeight          = FontWeights.Normal;
-        public static readonly      FontFamily              DefaultLabelFontFamily          = new FontFamily( "Segoe UI" );
+        public static readonly      FontFamily              DefaultLabelFontFamily          = FontExtensions.SegoeUI;
 
         protected                   DateTime                displayDate                     = DateTime.Today;
         protected                   DateTime?               selectedDate                    = DateTime.Today;

@@ -19,7 +19,8 @@ namespace LenWeaver.Utilities {
         static WPFHelpers() {}
 
 
-        public static void                      SetCornerRadius( this ButtonBase btn, CornerRadius cornerRadius ) {
+        
+        [Obsolete()] public static void                      SetCornerRadius( this ButtonBase btn, CornerRadius cornerRadius ) {
 
             Border?      brd;
 

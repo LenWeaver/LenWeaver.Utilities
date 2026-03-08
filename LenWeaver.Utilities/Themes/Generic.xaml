@@ -15,6 +15,7 @@
         <ResourceDictionary Source="/LenWeaver.Utilities;component/Controls/ShapedButton/ShapedButtonStyle.xaml"            />
         <ResourceDictionary Source="/LenWeaver.Utilities;component/Controls/SymbolView/SymbolViewStyle.xaml"                />
         <ResourceDictionary Source="/LenWeaver.Utilities;component/Controls/ToggleSwitch/ToggleSwitchStyle.xaml"            />
+        <ResourceDictionary Source="/LenWeaver.Utilities;component/Controls/PopupBox/PopupBoxStyle.xaml"                    />
     </ResourceDictionary.MergedDictionaries>
 
 </ResourceDictionary>

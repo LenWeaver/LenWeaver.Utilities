@@ -1,15 +1,23 @@
 ﻿<Window x:Class="LenWeaver.Utilities.FontSelectionDialogWindow"
+        x:FieldModifier="internal"
+        x:Name="FontSelectionDialogInternal"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:scm="clr-namespace:System.ComponentModel;assembly=WindowsBase"
         xmlns:local="clr-namespace:LenWeaver.Utilities"
-        xmlns:sys="clr-namespace:System;assembly=System.Runtime" mc:Ignorable="d"
-        Title="Font Selection..." Height="450" Width="800" ShowInTaskbar="False"
-        WindowStartupLocation="CenterOwner" ResizeMode="NoResize"
+        xmlns:sys="clr-namespace:System;assembly=System.Runtime"
+        mc:Ignorable="d"
+        
+        Title="Font Selection..."
+        Height="450px"          Width="800px"
+        ShowInTaskbar="False"
+        WindowStartupLocation="CenterOwner"
+        ResizeMode="NoResize"
         Icon="/LenWeaver.Utilities;component/Images/Symbol-Font-01.png"
-        MinHeight="300" MinWidth="500" WindowStyle="SingleBorderWindow">
+        MinHeight="300px"       MinWidth="500px"
+        WindowStyle="SingleBorderWindow">
 
     <Window.Resources>
         <sys:String x:Key="TestTextLineOne">The quick brown fox jumps over the lazy dog.</sys:String>
@@ -19,11 +27,6 @@
         <sys:String x:Key="TestTextLineFive">No!  Do, or do not.  There is no try.</sys:String>
         <sys:String x:Key="TestTextLineSix">You don't need to see his identification.  These aren't the droids you're looking for.  You can go about your business.  Move along.</sys:String>
 
-        <CollectionViewSource x:Key="SortedFontSizes" Source="{Binding Path=fontSizes}">
-            <CollectionViewSource.SortDescriptions>
-                <scm:SortDescription />
-            </CollectionViewSource.SortDescriptions>
-        </CollectionViewSource>
     </Window.Resources>
     
     <Grid                           Background="{x:Static SystemColors.WindowBrush}">
@@ -52,7 +55,6 @@
                                     HorizontalAlignment="Stretch"
                                     Margin="5 0 5 5"
                                     SelectionChanged="lstFontFamily_SelectionChanged"
-                                    ItemsSource="{x:Static Fonts.SystemFontFamilies}"
                                     VerticalAlignment="Stretch"/>
         </DockPanel>
 
@@ -62,8 +64,7 @@
                                     FontWeight="Bold"
                                     Margin="5"/>
 
-            <ComboBox               x:Name="cboFontSize"        DockPanel.Dock="Top"
-                                    ItemsSource="{Binding Source={StaticResource SortedFontSizes}}" />
+            <ComboBox               x:Name="cboFontSize"        DockPanel.Dock="Top" />
             <TextBlock              x:Name="tbFontSize"         DockPanel.Dock="Top"
                                     Margin="0 0 0 15"
                                     Text="Font Size:" />
@@ -87,21 +88,21 @@
         <StackPanel                 x:Name="spSample"           Grid.Column="5"         Grid.Row="1">
             <TextBlock              FontWeight="Bold"
                                     Text="Sample Text:"
-                                    Margin="5"/>
+                                    Margin="5px" />
         
             <TextBlock              x:Name="tbSample"
                                     TextWrapping="Wrap">
-                <Run                FontSize="11" Text="{StaticResource TestTextLineOne}"/>
+                <Run                FontSize="11pt" Text="{StaticResource TestTextLineOne}"/>
                 <LineBreak />
-                <Run                FontSize="13" Text="{StaticResource TestTextLineTwo}" />
+                <Run                FontSize="13pt" Text="{StaticResource TestTextLineTwo}" />
                 <LineBreak />
-                <Run                FontSize="15" Text="{StaticResource TestTextLineThree}" />
+                <Run                FontSize="15pt" Text="{StaticResource TestTextLineThree}" />
                 <LineBreak />
-                <Run                FontSize="17" Text="{StaticResource TestTextLineFour}" />
+                <Run                FontSize="17pt" Text="{StaticResource TestTextLineFour}" />
                 <LineBreak />
-                <Run                FontSize="19" Text="{StaticResource TestTextLineFive}" />
+                <Run                FontSize="19pt" Text="{StaticResource TestTextLineFive}" />
                 <LineBreak />
-                <Run                FontSize="21" Text="{StaticResource TestTextLineSix}" />
+                <Run                FontSize="21pt" Text="{StaticResource TestTextLineSix}" />
             </TextBlock>
         </StackPanel>
             

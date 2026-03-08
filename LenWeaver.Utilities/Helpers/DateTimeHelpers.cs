@@ -16,9 +16,6 @@ namespace LenWeaver.Utilities {
         public const string     ISO8601TimeFormat       = "HH:mm:ss";
 
 
-        static DateTimeHelpers() {}
-
-        
         public static string LongDateFormat {
             get {
                 if( longDateFormat == null ) {
@@ -61,7 +58,16 @@ namespace LenWeaver.Utilities {
             start   = new DateTime( year,  1,  1,  0,  0,  0,   0 );
             end     = new DateTime( year, 12, 31, 23, 59, 59, 998 );
         }
+        public static void GetDateRangeYear( int year, out DateOnly start, out DateOnly end ) {
+
+            start   = new DateOnly( year,  1,  1 );
+            end     = new DateOnly( year, 12, 31 );
+        }
         public static void GetDateRangeYear( DateTime date, out DateTime start, out DateTime end ) {
+
+            GetDateRangeYear( date.Year, out start, out end );
+        }
+        public static void GetDateRangeYear( DateOnly date, out DateOnly start, out DateOnly end ) {
 
             GetDateRangeYear( date.Year, out start, out end );
         }
@@ -70,10 +76,20 @@ namespace LenWeaver.Utilities {
             start   = new DateTime( date.Year, date.Month, 1, 0, 0, 0, 0 );
             end     = start.AddMonths( 1 ).AddMilliseconds( -2 );
         }
+        public static void GetDateRangeMonth( DateOnly date, out DateOnly start, out DateOnly end ) {
+
+            start   = new DateOnly( date.Year, date.Month, 1 );
+            end     = start.AddMonths( 1 ).AddDays( -1 );
+        }
         public static void GetDateRangeWeek( DateTime date, out DateTime start, out DateTime end ) {
 
             start   = date.Date.AddDays( -(int)date.DayOfWeek );
             end     = start.AddDays( 7 ).AddMilliseconds( -2 );
+        }
+        public static void GetDateRangeWeek( DateOnly date, out DateOnly start, out DateOnly end ) {
+
+            start   = date.AddDays( -(int)date.DayOfWeek );
+            end     = start.AddDays( 6 );
         }
 
         public static string TimeSpanToString( TimeSpan ts ) {
@@ -113,6 +129,16 @@ namespace LenWeaver.Utilities {
 
             return (start, end);
         }
+        public static (DateOnly start, DateOnly end) GetDateRangeYear( DateOnly date ) {
+
+            DateOnly        end;
+            DateOnly        start;
+
+
+            GetDateRangeYear( date, out start, out end );
+
+            return (start, end);
+        }
         public static (DateTime start, DateTime end) GetDateRangeMonth( DateTime date ) {
 
             DateTime        end;
@@ -123,6 +149,16 @@ namespace LenWeaver.Utilities {
 
             return (start, end);
         }
+        public static (DateOnly start, DateOnly end) GetDateRangeMonth( DateOnly date ) {
+
+            DateOnly        end;
+            DateOnly        start;
+
+
+            GetDateRangeMonth( date, out start, out end );
+
+            return( start, end);
+        }
         public static (DateTime start, DateTime end) GetDateRangeWeek( DateTime date ) {
 
             DateTime        end;
@@ -130,6 +166,12 @@ namespace LenWeaver.Utilities {
 
 
             GetDateRangeWeek( date, out start, out end );
+
+            return (start, end);
+        }
+        public static (DateOnly start, DateOnly end) GetDateRangeWeek( DateOnly date ) {
+
+            GetDateRangeWeek( date, out DateOnly start, out DateOnly end );
 
             return (start, end);
         }

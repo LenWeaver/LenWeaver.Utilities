@@ -28,7 +28,7 @@ namespace LenWeaver.Utilities {
             string[]    tokens      = (parameter?.ToString() ?? "True,False").Split( ',' ) ;
 
 
-            if( tokens.Length != 2 ) throw new ArgumentException( "Argument 'parameter' must be a comma delimited string containing " +
+            if( tokens.Length != 2 ) throw new ArgumentException( $"Argument '{nameof(parameter)}' must be a comma delimited string containing " +
                                                                   "two tokens." );
 
             return asBoolean ? tokens[0] : tokens[1];

@@ -35,7 +35,7 @@ namespace LenWeaver.Utilities {
         public static FontFamily DefaultFontFamily {
             get {
                 if( defaultFontFamily == null ) {
-                    defaultFontFamily = new FontFamily( "Segoe UI" );
+                    defaultFontFamily = FontExtensions.SegoeUI;
                 }
 
                 return defaultFontFamily;
@@ -45,7 +45,7 @@ namespace LenWeaver.Utilities {
         public static FontFamily DefaultSymbolFontFamily {
             get {
                 if( defaultSymbolFontFamily == null ) {
-                    defaultSymbolFontFamily = new FontFamily( "Segoe MDL2 Assets" );
+                    defaultSymbolFontFamily = FontExtensions.SegoeMDL2Assets;
                 }
 
                 return defaultSymbolFontFamily;
@@ -556,7 +556,7 @@ namespace LenWeaver.Utilities {
                     aniOpen                 = new DoubleAnimation();
                     aniOpen.From            = Width;
                     aniOpen.To              = openedWidth ?? DefaultOpenedWidth;
-                    aniOpen.Duration        = new Duration( TimeSpan.FromMilliseconds( 300d ) );
+                    aniOpen.Duration        = new Duration( TimeSpan.FromMilliseconds( 200d ) );
                     aniOpen.FillBehavior    = FillBehavior.HoldEnd;
                     aniOpen.Completed       += aniOpen_Completed!;
                     

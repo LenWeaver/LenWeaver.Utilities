@@ -23,7 +23,7 @@ namespace LenWeaver.Utilities {
         #region IComparable<DateStampedItem<T>> Implementation
         public int CompareTo( DateStampedItem<T>? other ) {
 
-            if( other is null ) throw new ArgumentNullException( nameof(other) );
+            ArgumentNullException.ThrowIfNull( other );
 
             return DateStamp.CompareTo( other.DateStamp );
         }

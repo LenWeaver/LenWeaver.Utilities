@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Windows;
 using System.Windows.Media;
 
@@ -7,17 +8,17 @@ namespace LenWeaver.Utilities {
 
     public class FontSelectionDialog {
 
-        private             bool                        allowFontSizeSelection;
-        private             bool                        allowTypefaceSelection;
+        private                 bool                        allowFontSizeSelection;
+        private                 bool                        allowTypefaceSelection;
 
-        private             double                      fontSize;
+        private                 double                      fontSize;
 
-        private             FontStretch                 fontStretch;
-        private             FontStyle                   fontStyle;
-        private             FontWeight                  fontWeight;
-        private             FontFamily?                 fontFamily;
+        private                 FontStretch                 fontStretch;
+        private                 FontStyle                   fontStyle;
+        private                 FontWeight                  fontWeight;
+        private                 FontFamily?                 fontFamily;
 
-        private readonly    FontSelectionDialogWindow   fontSelection;
+        private readonly        FontSelectionDialogWindow   fontSelection;
 
 
         public FontSelectionDialog() {
@@ -65,13 +66,28 @@ namespace LenWeaver.Utilities {
             get { return fontWeight; }
             set { fontWeight = value; }
         }
+        public FontDescriptor   SelectedFontDescriptor {
+            get {
+                if( FontFamily is null ) throw new ApplicationException( $"No {nameof(FontFamily)} selected." );
+
+                return new FontDescriptor( FontFamily, FontSize, FontStretch, FontStyle, FontWeight );
+            }
+            set {
+                FontFamily      = value.Family;
+                FontSize        = value.Size;
+
+                FontStretch     = value.Stretch;
+                FontStyle       = value.Style;
+                FontWeight      = value.Weight;
+            }
+        }
         public FontFamily?      FontFamily {
             get { return fontFamily; }
             set { fontFamily = value; }
         }
 
 
-        public bool? ShowDialog() {
+        public bool?            ShowDialog() {
 
             bool?               result;
 
@@ -105,6 +121,8 @@ namespace LenWeaver.Utilities {
                     break;
                 }
             }
+
+            if( fontSelection.cboFontSize.SelectedIndex == -1 ) fontSelection.cboFontSize.SelectedIndex = 5;
 
             result                  = fontSelection.ShowDialog();
 

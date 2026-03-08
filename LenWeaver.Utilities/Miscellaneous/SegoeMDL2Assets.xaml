@@ -1,6 +1,7 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:sys="clr-namespace:System;assembly=mscorlib"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:local="clr-namespace:LenWeaver.Utilities"
                     x:Name="SegoeMDL2Assets">
 
     <sys:Int32 x:Key="GlobalNavigationButton">0xe700</sys:Int32>

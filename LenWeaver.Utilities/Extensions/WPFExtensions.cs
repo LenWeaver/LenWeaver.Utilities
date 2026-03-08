@@ -1,15 +1,75 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Text;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Controls.Primitives;
 using System.Windows.Media;
 
 namespace LenWeaver.Utilities {
 
-    public static class GridExtensions {
+    public static class WPFExtensions {
 
-        static GridExtensions() {}
+        static WPFExtensions() {}
 
 
+        #region ButtonBase Extensions
+        extension( ButtonBase btn ) {
+            public CornerRadius CornerRadius {
+                get {
+                    Border?      brd;
+
+
+                    brd                 = btn?.Template.FindName( "border", btn ) as Border;
+                    if( brd == null ) throw new ArgumentException( $"Specified button control does not seem to have a border." );
+
+                    return brd.CornerRadius;
+                }
+                set {
+                    Border?      brd;
+
+
+                    brd                 = btn?.Template.FindName( "border", btn ) as Border;
+                    if( brd == null ) throw new ArgumentException( $"Specified button control does not seem to have a border." );
+
+                    brd.CornerRadius    = value;
+                }
+            }
+        }
+
+        public static void PerformClick( this ButtonBase btn ) {
+
+            btn.RaiseEvent( new RoutedEventArgs( Button.ClickEvent ) );
+        }
+        #endregion
+        #region Drawing And DrawingGroup Extensions
+        extension( DrawingGroup group ) {
+
+            public Rect RenderBounds {
+                get {
+                    Rect    result  = Rect.Empty;
+                    
+
+                    foreach( GeometryDrawing gd in group.Children ) {
+                        result.Union( gd.Geometry.GetRenderBounds( gd.Pen ) );
+                    }
+
+                    return result;
+                }
+            }
+        }
+
+        public static void Normalize( this DrawingGroup group, double adjustX, double adjustY ) {
+
+            TranslateTransform  normalize   = new TranslateTransform( adjustX, adjustY );
+
+            foreach( GeometryDrawing gd in group.Children ) {
+                gd.Geometry                 = gd.Geometry.Clone();
+                gd.Geometry.Transform       = normalize;
+            }
+        }
+        #endregion
+        #region Grid Extensions
         public static ColumnDefinition  Add( this ColumnDefinitionCollection cols, double value, GridUnitType gut ) {
             
             ColumnDefinition    result  = new();
@@ -90,5 +150,7 @@ namespace LenWeaver.Utilities {
 
             return control;
         }
+        #endregion
+
     }
 }

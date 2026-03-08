@@ -8,7 +8,11 @@
         <Setter Property="Control.Template">
             <Setter.Value>
                 <ControlTemplate>
-                    <Rectangle Margin="2" SnapsToDevicePixels="true" Stroke="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}" StrokeThickness="1" StrokeDashArray="1 2"/>
+                    <Rectangle                              Margin="2"
+                                                            SnapsToDevicePixels="true"
+                                                            Stroke="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}"
+                                                            StrokeThickness="1"
+                                                            StrokeDashArray="1 2"/>
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
@@ -38,30 +42,36 @@
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type local:ShapedButton}">
                     <Grid>
-                        <!-- The name of the below Path object should be the same as the ShapedButton.PathName static string. -->
-                        <Path x:Name="buttonPath"   Stroke="{TemplateBinding BorderBrush}" Stretch="Fill"  Fill="{TemplateBinding Background}"
-                                Data="{Binding Path=(local:ShapedButton.ShapeMarkup), RelativeSource={RelativeSource Mode=Self}, Converter={StaticResource PathMarkupConverter}}" />
-
-                        <ContentPresenter x:Name="contentPresenter" Focusable="True" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" 
-                                        Margin="{TemplateBinding Padding}" RecognizesAccessKey="True" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" 
-                                        VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                        <local:GeometryPresenter            x:Name="buttonPath"
+                                                            StrokeBrush="{TemplateBinding BorderBrush}"
+                                                            FillBrush="{TemplateBinding Background}"
+                                                            PathMarkup="{Binding Path=(local:ShapedButton.ShapeMarkup),
+                                                                       RelativeSource={RelativeSource TemplatedParent}}" />
+                        
+                        <ContentPresenter                   x:Name="contentPresenter"
+                                                            Focusable="true"
+                                                            HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" 
+                                                            Margin="{TemplateBinding Padding}"
+                                                            RecognizesAccessKey="true"
+                                                            SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" 
+                                                            VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
                     </Grid>
 
                     <ControlTemplate.Triggers>
-                        <Trigger Property="IsDefaulted" Value="true">
-                            <Setter Property="Stroke" TargetName="buttonPath" Value="{DynamicResource {x:Static SystemColors.HighlightBrushKey}}"/>
+                        <Trigger    Property="IsDefaulted"  Value="true">
+                            <Setter Property="StrokeBrush"  TargetName="buttonPath" Value="{DynamicResource {x:Static SystemColors.HighlightBrushKey}}"/>
                         </Trigger>
-                        <Trigger Property="IsMouseOver" Value="true">
-                            <Setter Property="Fill" TargetName="buttonPath" Value="{StaticResource Button.MouseOver.Background}"/>
-                            <Setter Property="Stroke" TargetName="buttonPath" Value="{StaticResource Button.MouseOver.Border}"/>
+                        <Trigger    Property="IsMouseOver"  Value="true">
+                            <Setter Property="FillBrush"    TargetName="buttonPath" Value="{StaticResource Button.MouseOver.Background}"/>
+                            <Setter Property="StrokeBrush"  TargetName="buttonPath" Value="{StaticResource Button.MouseOver.Border}"/>
                         </Trigger>
-                        <Trigger Property="IsPressed" Value="true">
-                            <Setter Property="Fill" TargetName="buttonPath" Value="{StaticResource Button.Pressed.Background}"/>
-                            <Setter Property="Stroke" TargetName="buttonPath" Value="{StaticResource Button.Pressed.Border}"/>
+                        <Trigger    Property="IsPressed"    Value="true">
+                            <Setter Property="FillBrush"    TargetName="buttonPath" Value="{StaticResource Button.Pressed.Background}"/>
+                            <Setter Property="StrokeBrush"  TargetName="buttonPath" Value="{StaticResource Button.Pressed.Border}"/>
                         </Trigger>
-                        <Trigger Property="IsEnabled" Value="false">
-                            <Setter Property="Fill" TargetName="buttonPath" Value="{StaticResource Button.Disabled.Background}"/>
-                            <Setter Property="Stroke" TargetName="buttonPath" Value="{StaticResource Button.Disabled.Border}"/>
+                        <Trigger    Property="IsEnabled"    Value="false">
+                            <Setter Property="FillBrush"    TargetName="buttonPath" Value="{StaticResource Button.Disabled.Background}"/>
+                            <Setter Property="StrokeBrush"  TargetName="buttonPath" Value="{StaticResource Button.Disabled.Border}"/>
                             <Setter Property="TextElement.Foreground" TargetName="contentPresenter" Value="{StaticResource Button.Disabled.Foreground}"/>
                         </Trigger>
                     </ControlTemplate.Triggers>
