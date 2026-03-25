@@ -9,7 +9,8 @@ namespace LenWeaver.Utilities {
 
         public int Compare( FontFamily? x, FontFamily? y ) {
 
-            if( x is null || y is null ) throw new ArgumentNullException();
+            ArgumentNullException.ThrowIfNull( x );
+            ArgumentNullException.ThrowIfNull( y );
 
             return x.Source.CompareTo( y.Source );
         }

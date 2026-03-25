@@ -42,6 +42,27 @@ namespace LenWeaver.Utilities {
             btn.RaiseEvent( new RoutedEventArgs( Button.ClickEvent ) );
         }
         #endregion
+        #region ComboBox Extensions
+        extension( ComboBox cbo ) {
+            public int MaxInputLength {
+                get {
+                    TextBox         txt;
+
+
+                    txt             = (TextBox)cbo.Template.FindName( "PART_EditableTextBox", cbo );
+
+                    return txt.MaxLength;
+                }
+                set {
+                    TextBox         txt;
+
+
+                    txt             = (TextBox)cbo.Template.FindName( "PART_EditableTextBox", cbo );
+                    txt.MaxLength   = value;
+                }
+            }
+        }
+        #endregion
         #region Drawing And DrawingGroup Extensions
         extension( DrawingGroup group ) {
 
@@ -50,8 +71,10 @@ namespace LenWeaver.Utilities {
                     Rect    result  = Rect.Empty;
                     
 
-                    foreach( GeometryDrawing gd in group.Children ) {
-                        result.Union( gd.Geometry.GetRenderBounds( gd.Pen ) );
+                    foreach( Drawing d in group.Children ) {
+                        if( d is GeometryDrawing gd ) {
+                            result.Union( gd.Geometry.GetRenderBounds( gd.Pen ) );
+                        }
                     }
 
                     return result;
@@ -63,10 +86,39 @@ namespace LenWeaver.Utilities {
 
             TranslateTransform  normalize   = new TranslateTransform( adjustX, adjustY );
 
-            foreach( GeometryDrawing gd in group.Children ) {
-                gd.Geometry                 = gd.Geometry.Clone();
-                gd.Geometry.Transform       = normalize;
+            foreach( Drawing d in group.Children ) {
+                if( d is GeometryDrawing gd ) {
+                    gd.Geometry                 = gd.Geometry.Clone();
+                    gd.Geometry.Transform       = normalize;
+                }
             }
+        }
+        #endregion
+        #region Geometry Extensions
+        extension( Geometry geo ) {
+            public FillRule? FillRule {
+                get {
+                    FillRule?   result  = null;
+                    
+                    if( geo is PathGeometry pg ) {
+                        result = pg.FillRule;
+                    }
+
+                    return result;
+                }
+            }
+        }
+
+        public static string ToPathMarkup( this Geometry geo ) {
+
+            string  result  = geo.ToString();
+
+
+            if( result.StartsWith( "F0", StringComparison.InvariantCultureIgnoreCase ) || result.StartsWith( "F1", StringComparison.InvariantCultureIgnoreCase ) ) {
+                result = result.Substring( 2 );
+            }
+
+            return result.Trim();
         }
         #endregion
         #region Grid Extensions
@@ -151,6 +203,5 @@ namespace LenWeaver.Utilities {
             return control;
         }
         #endregion
-
     }
 }

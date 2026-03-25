@@ -202,14 +202,9 @@ namespace LenWeaver.Utilities {
             Binding                 binding;
 
 
-            WPFHelpers.SetCornerRadius( this, "btnClose",     new CornerRadius( 5d ) );
-            WPFHelpers.SetCornerRadius( this, "btnMaximize",  new CornerRadius( 5d ) );
-            WPFHelpers.SetCornerRadius( this, "btnMinimize",  new CornerRadius( 5d ) );
-            WPFHelpers.SetCornerRadius( this, "btnRestore",   new CornerRadius( 5d ) );
-
-            window                  = Window.GetWindow( this );
+            window                          = Window.GetWindow( this );
             if( window == null ) throw new InvalidOperationException( "Unable to reference host window." );
-            window.SizeChanged      += Window_SizeChanged;
+            window.SizeChanged              += Window_SizeChanged;
 
             window.CommandBindings.Add( new CommandBinding( SystemCommands.CloseWindowCommand,
                                                             CloseWindow_Executed, CloseWindow_CanExecute ) );
@@ -245,11 +240,17 @@ namespace LenWeaver.Utilities {
                 BindingOperations.SetBinding( this, CaptionBar.IconImageSourceProperty, binding );
             }
 
-            btnClose                = this?.Template.FindName( nameof(btnClose),    this )  as Button;
-            btnIcon                 = this?.Template.FindName( nameof(btnIcon),     this )  as Button;
-            btnMaximize             = this?.Template.FindName( nameof(btnMaximize), this )  as Button;
-            btnMinimize             = this?.Template.FindName( nameof(btnMinimize), this )  as Button;
-            btnRestore              = this?.Template.FindName( nameof(btnRestore),  this )  as Button;
+            btnClose                        = this?.Template.FindName( nameof(btnClose),    this )  as Button;
+            btnIcon                         = this?.Template.FindName( nameof(btnIcon),     this )  as Button;
+            btnMaximize                     = this?.Template.FindName( nameof(btnMaximize), this )  as Button;
+            btnMinimize                     = this?.Template.FindName( nameof(btnMinimize), this )  as Button;
+            btnRestore                      = this?.Template.FindName( nameof(btnRestore),  this )  as Button;
+
+            btnClose!.CornerRadius          = new CornerRadius( 5d );
+            btnIcon!.CornerRadius           = new CornerRadius( 5d );
+            btnMaximize!.CornerRadius       = new CornerRadius( 5d );
+            btnMinimize!.CornerRadius       = new CornerRadius( 5d );
+            btnRestore!.CornerRadius        = new CornerRadius( 5d );
 
             SetVisibilityWindowButtons();
         }

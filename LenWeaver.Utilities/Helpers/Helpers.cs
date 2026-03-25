@@ -171,8 +171,8 @@ namespace LenWeaver.Utilities {
 
             return list.ToArray();
         }
-        public static IReadOnlyDictionary<string,T>   ToReadOnlyDictionary<T,TEnum>( this TEnum e ) where T : IBinaryInteger<T>
-                                                                                                    where TEnum : Enum {
+        public static IReadOnlyDictionary<string,T>         ToReadOnlyDictionary<T,TEnum>( this TEnum e ) where T : IBinaryInteger<T>
+                                                                                                      where TEnum : Enum {
 
             IBinaryInteger<T>[]     values;
 

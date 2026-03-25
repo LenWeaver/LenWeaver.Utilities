@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Globalization;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
@@ -8,13 +10,13 @@ namespace LenWeaver.Utilities {
     public static class FontExtensions {
 
         #region Static Property Backing Fields
-        private static FontFamily?              globalMonospace         = null;
-        private static FontFamily?              globalSansSerif         = null;
-        private static FontFamily?              globalUserInterface     = null;
-        private static FontFamily?              segoeFluentIcons        = null;
-        private static FontFamily?              segoeMDL2Assets         = null;
-        private static FontFamily?              segoeUI                 = null;
-        private static FontFamily?              segoeUISymbol           = null;
+        private static FontFamily?      globalMonospace         = null;
+        private static FontFamily?      globalSansSerif         = null;
+        private static FontFamily?      globalUserInterface     = null;
+        private static FontFamily?      segoeFluentIcons        = null;
+        private static FontFamily?      segoeMDL2Assets         = null;
+        private static FontFamily?      segoeUI                 = null;
+        private static FontFamily?      segoeUISymbol           = null;
         #endregion
 
 
@@ -74,15 +76,46 @@ namespace LenWeaver.Utilities {
 
 
         extension( FontFamily ff ) {
-            public bool         IsFixedWidth {
+            public bool                 IsEmojiFont {
                 get {
-                    bool                result      = false;
+                    bool                result  = true;
+
+
+                    foreach( Typeface tf in ff.GetTypefaces() ) {
+                        if( !tf.IsEmojiFont ) {
+                            result = false;
+                            break;
+                        }
+                    }
+
+                    return result;
+                }
+            }
+            public bool                 IsMonospace {
+                get {
+                    bool                result      = true;
 
             
                     foreach( Typeface tf in ff.GetTypefaces() ) {
-                        result  = tf.IsFixedWidth;
+                        if( !tf.IsMonospaceFont ) {
+                            result  = false;
+                            break;
+                        }
+                    }
 
-                        break;
+                    return result;
+                }
+            }
+            public bool                 IsSymbolFont {
+                get {
+                    bool                result      = true;
+
+
+                    foreach( Typeface tf in ff.GetTypefaces() ) {
+                        if( !tf.IsSymbolFont ) {
+                            result  = false;
+                            break;
+                        }
                     }
 
                     return result;
@@ -90,39 +123,109 @@ namespace LenWeaver.Utilities {
             }
         }
         extension( Typeface tf ) {
-            public bool          IsFixedWidth {
+            public bool                 IsEmojiFont {
                 get {
+                    bool            result  = false;
 
-                    double              iWidth;
-                    double              wWidth;
+                    GlyphTypeface   gtf;
 
-                    FormattedText       ft;
+                    if( tf.TryGetGlyphTypeface( out gtf ) ) {
+                        foreach( KeyValuePair<int,ushort> k in gtf.CharacterToGlyphMap ) {
 
+                            if( (k.Key >= 0x1F300 && k.Key <= 0x1FAFF) ||
+                                (k.Key >= 0x2600  && k.Key <= 0x26FF) ) {
 
-                    ft          = new FormattedText( "i", System.Globalization.CultureInfo.CurrentCulture,
-                                                     FlowDirection.LeftToRight, tf, 10d, Brushes.Black, 1d );
-                    iWidth      = ft.Width;
+                                result = true;
 
-                    ft          = new FormattedText( "W", System.Globalization.CultureInfo.CurrentCulture,
-                                                     FlowDirection.LeftToRight, tf, 10d, Brushes.Black, 1d );
-                    wWidth      = ft.Width;
+                                break;
+                            }
+                        }
 
+                        result = result || tf.FontFamily.Source.Contains( "emoji", StringComparison.OrdinalIgnoreCase );
+                    }
 
-                    return iWidth == wWidth;
+                    return result;
                 }
+            }
+            public bool                 IsGlyphBacked {
+                get => tf.TryGetGlyphTypeface( out _ );
+            }
+            public bool                 IsMonospaceFont {
+                get {
+                    ushort                      iMapIndex;
+                    ushort                      wMapIndex;
+
+                    double                      charWidth;
+                    double                      iWidth;
+                    double                      wWidth;
+
+                    FormattedText               ft;
+                    GlyphTypeface               gtf;
+
+                    IDictionary<ushort,double>  advWidths;
+                    IDictionary<int,ushort>     chrMap;
+
+
+                    if( tf.TryGetGlyphTypeface( out gtf ) ) {
+                        advWidths               = gtf.AdvanceWidths;
+                        chrMap                  = gtf.CharacterToGlyphMap;
+
+                        if( chrMap.TryGetValue( 'i', out iMapIndex ) && chrMap.TryGetValue( 'W', out wMapIndex ) ) {
+                            iWidth              = advWidths[iMapIndex];
+                            wWidth              = advWidths[wMapIndex];
+                        }
+                        else {
+                            charWidth           = -1d;
+                            iWidth              =  0d;
+                            wWidth              =  0d;
+
+                            foreach( KeyValuePair<ushort,double> kvp in gtf.AdvanceWidths ) {
+                                if( charWidth == -1d ) {
+                                    charWidth   = kvp.Value;
+                                }
+                                else if( Math.Abs( charWidth - kvp.Value ) > Typeface.WidthEqualityTolerance ) {
+                                    return false;
+                                }
+                            }
+                        }
+                    }
+                    else {
+                        ft                      = new FormattedText( "i", CultureInfo.CurrentCulture, CultureInfo.CurrentCulture.FlowDirection,
+                                                                     tf, 10d, Brushes.Black, 1d );
+                        iWidth                  = ft.Width;
+
+                        ft                      = new FormattedText( "W", CultureInfo.CurrentCulture, CultureInfo.CurrentCulture.FlowDirection,
+                                                                     tf, 10d, Brushes.Black, 1d );
+                        wWidth                  = ft.Width;
+                    }
+
+                    return Math.Abs( iWidth - wWidth ) < Typeface.WidthEqualityTolerance;
+                }
+            }
+            public bool                 IsSymbolFont {
+                get {
+                    bool            result  = false;
+
+                    GlyphTypeface   gtf;
+
+                    if( tf.TryGetGlyphTypeface( out gtf ) ) {
+                        result = gtf.Symbol;
+                    }
+
+                    return result;
+                }
+            }
+
+            public static double        WidthEqualityTolerance {
+                get => 0.001d;
+            }
+        }
+        extension( CultureInfo ci ) {
+            public FlowDirection        FlowDirection {
+                get => ci.TextInfo.IsRightToLeft ? FlowDirection.RightToLeft : FlowDirection.LeftToRight;
             }
         }
 
-
-        public static string            ToCharacter( this SegoeMDL2Assets assetName ) {
-
-            return Char.ConvertFromUtf32( (int)assetName );
-        }
-
-        public static FlowDirection     GetFlowDirection( this System.Globalization.CultureInfo culture ) {
-
-            return culture.TextInfo.IsRightToLeft ? FlowDirection.RightToLeft : FlowDirection.LeftToRight;
-        }
 
         public static int               CompareTo( this FontStretch stretch, FontStretch other ) {
 
@@ -147,6 +250,24 @@ namespace LenWeaver.Utilities {
 
             return result;
         }
+        
+        public static TypefaceMetrics   GetMetrics( this Typeface tf ) {
+
+            TypefaceMetrics       result;
+
+            
+            result  =   tf.IsMonospaceFont ? TypefaceMetrics.Monospace : TypefaceMetrics.Proportional;
+
+            if( tf.IsSymbolFont )   result |=   TypefaceMetrics.Symbol;
+            if( tf.IsEmojiFont )    result |=   TypefaceMetrics.Emoji;
+
+            return result;
+        }
+
+        public static string            ToCharacter( this SegoeMDL2Assets assetName ) {
+
+            return Char.ConvertFromUtf32( (int)assetName );
+        }
 
         public static Typeface?         GetTypeface( this FontFamily ff, FontStretch fontStretch, FontStyle fontStyle, FontWeight fontWeight ) {
 
@@ -170,6 +291,10 @@ namespace LenWeaver.Utilities {
 
             return c.FontFamily.GetTypeface( c );
         }
+        public static Typeface?         GetTypeface( this IReadOnlyFontProperties uf ) {
+
+            return new Typeface( uf.FontFamily, uf.FontStyle, uf.FontWeight, uf.FontStretch );
+        }
 
 
         private static void             CreateIfNecessary( ref FontFamily? ff, string fontFamilyName ) {
@@ -182,5 +307,18 @@ namespace LenWeaver.Utilities {
                 }
             }
         }
+    }
+
+    [Flags()]
+    public enum TypefaceMetrics : ushort {
+        None            = 0b_0000_0000_0000_0000,
+
+        Monospace       = 0b_0000_0000_0000_0001,
+        Proportional    = 0b_0000_0000_0000_0010,
+
+        Symbol          = 0b_0000_0000_0000_0100,
+        Emoji           = 0b_0000_0000_0000_1000,
+
+        NotGlyphBacked  = 0b_1000_0000_0000_0000
     }
 }

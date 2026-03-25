@@ -10,10 +10,10 @@ namespace LenWeaver.Utilities {
 
     public class GeometryGroupPresenter : FrameworkElement {
 
-        private string                                  pathCache       = String.Empty;
+        private                 string                  pathCache       = String.Empty;
 
-        private Rect                                    drawingRect     = Rect.Empty;
-        private Size                                    renderSize      = Size.Empty;
+        private                 Rect                    drawingRect     = new Rect( 0d, 0d, 0d, 0d );
+        private                 Size                    renderSize      = Size.Empty;
 
         private readonly        DrawingGroup            drawingGroup    = new DrawingGroup();
         private readonly        PlacementDescriptor     placement       = new PlacementDescriptor();
@@ -57,11 +57,11 @@ namespace LenWeaver.Utilities {
         public GeometryGroupPresenter() {}
 
 
-        public string ExtendedPathMarkup {
+        public string   ExtendedPathMarkup {
             get => (string)GetValue( ExtendedPathMarkupProperty );
             set => SetValue( ExtendedPathMarkupProperty, value?.Trim() ?? String.Empty );
         }
-        public Stretch Stretch {
+        public Stretch  Stretch {
             get => (Stretch)GetValue( StretchProperty );
             set => SetValue( StretchProperty, value );
         }
@@ -85,8 +85,8 @@ namespace LenWeaver.Utilities {
                             gd              = new GeometryDrawing();
                             
                             gd.Brush        = gdd.Brush;
-                            gd.Pen          = new Pen( gdd.PenBrush, gdd.PenThickness );
-                            gd.Geometry     = gdd.Geometry.Clone();
+                            gd.Pen          = new Pen( gdd.PenBrush, gdd.PenThickness ?? 1d );
+                            gd.Geometry     = gdd.Geometry!.Clone();
 
                             drawingGroup.Children.Add( gd );
                         }
@@ -171,7 +171,7 @@ namespace LenWeaver.Utilities {
             Size        result;
 
             
-            if( !drawingRect.IsEmpty ) {
+            if( !drawingRect.IsEmpty && drawingRect.Height != 0d && drawingRect.Bottom != 0d ) {
                 result              = new Size( 0d, 0d );
             }
             else {

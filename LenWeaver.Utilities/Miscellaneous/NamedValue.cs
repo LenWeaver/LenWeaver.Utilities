@@ -31,5 +31,11 @@ namespace LenWeaver.Utilities {
 
             return Name.CompareTo( other.Name );
         }
+
+
+        public (string Name, T Value) Deconstruct() {
+
+            return (Name, Value);
+        }
     }
 }

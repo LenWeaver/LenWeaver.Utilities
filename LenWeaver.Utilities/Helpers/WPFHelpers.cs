@@ -30,7 +30,7 @@ namespace LenWeaver.Utilities {
 
             brd.CornerRadius    = cornerRadius;
         }
-        public static void                      SetCornerRadius( Control control, string buttonName, CornerRadius cornerRadius ) {
+        [Obsolete()] public static void                      SetCornerRadius( Control control, string buttonName, CornerRadius cornerRadius ) {
 
             Button? btn;
 
@@ -45,11 +45,11 @@ namespace LenWeaver.Utilities {
                 throw new ArgumentException( $"A button named {buttonName} was not found on the specified Window." );
             }
         }
-        public static void                      SetMaxLength( this ComboBox cbo, int newMaxLength ) {
+        [Obsolete()] public static void                      SetMaxLength( this ComboBox cbo, int newMaxLength ) {
 
             TextBox         txt;
 
-            
+
             txt             = (TextBox)cbo.Template.FindName( "PART_EditableTextBox", cbo );
             txt.MaxLength   = newMaxLength;
         }

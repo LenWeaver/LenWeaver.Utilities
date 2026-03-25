@@ -46,7 +46,7 @@ namespace LenWeaver.Utilities {
                 lstExceptions.Items.Add( new ErrorMessageItem( "Type:",         StringHelpers.PascalCaseToDisplayString( ex.GetType().Name ) ) );
                 lstExceptions.Items.Add( new ErrorMessageItem( "Source:",       ex?.Source ?? String.Empty ) );
 
-                foreach( string s in ex!.StackTrace!.Split( '\n' ) ) {
+                foreach( string s in (ex?.StackTrace ?? "\n").Split( '\n' ) ) {
                     if( firstStack ) {
                         nv = new NamedValue<string>( "Stack Trace:", s.Replace( '\n', ' ' ).Trim() );
 

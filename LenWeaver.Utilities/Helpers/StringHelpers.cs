@@ -33,7 +33,9 @@ namespace LenWeaver.Utilities {
                                     new string[] { "Seventeen", "",         ""          },
                                     new string[] { "Eighteen",  "",         ""          },
                                     new string[] { "Nineteen",  "",         ""          } };
+
         }
+
 
         /// <summary>
         /// Searches target string for searchSpec.  searchOrigin determines the where the search
@@ -80,6 +82,7 @@ namespace LenWeaver.Utilities {
         /// </summary>
         /// <param name="pascalCase">A string of text in PascalCase without spaces.</param>
         /// <returns>A version of pascalCase with a space inserted before each upper case character.</returns>
+        [Obsolete( "ToDisplayString() extension method now available." )]
         public static string PascalCaseToDisplayString( string pascalCase ) {
 
             Char                c;
@@ -241,5 +244,7 @@ namespace LenWeaver.Utilities {
 
             return ToDisplayString( number, order: false );
         }
+
+
     }
 }

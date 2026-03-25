@@ -74,7 +74,7 @@ namespace LenWeaver.Utilities {
                 emw                     = new ErrorMessageWindow();
                 emw.Icon                = System.Drawing.SystemIcons.Error.ToBitmapImage();
                 emw.Title               = caption;
-                emw.ExceptionType       = StringHelpers.PascalCaseToDisplayString( ex.GetType().Name );
+                emw.ExceptionType       = ex.GetType().Name.ToDisplayString();
                 emw.ErrorMessageText    = exc.Message;
 
                 while( exc != null ) {
