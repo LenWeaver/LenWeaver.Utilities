@@ -42,6 +42,30 @@ namespace LenWeaver.Utilities {
             btn.RaiseEvent( new RoutedEventArgs( Button.ClickEvent ) );
         }
         #endregion
+        #region Control Extensions
+        // extension( Control ctrl ) {
+        //    public CornerRadius CornerRadius {
+        //        get {
+        //            Border?      brd;
+
+
+        //            brd                 = ctrl?.Template.FindName( "border", ctrl ) as Border;
+        //            if( brd == null ) throw new ArgumentException( $"Specified control does not seem to have a border." );
+
+        //            return brd.CornerRadius;
+        //        }
+        //        set {
+        //            Border?      brd;
+
+
+        //            brd                 = ctrl?.Template.FindName( "border", ctrl ) as Border;
+        //            if( brd == null ) throw new ArgumentException( $"Specified control does not seem to have a border." );
+
+        //            brd.CornerRadius    = value;
+        //        }
+        //    }
+        //}
+        #endregion
         #region ComboBox Extensions
         extension( ComboBox cbo ) {
             public int MaxInputLength {

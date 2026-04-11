@@ -43,7 +43,7 @@ namespace LenWeaver.Utilities {
 
             try {
                 lstExceptions.Items.Add( new ErrorMessageItem( "Message:",      ex.Message ) );
-                lstExceptions.Items.Add( new ErrorMessageItem( "Type:",         StringHelpers.PascalCaseToDisplayString( ex.GetType().Name ) ) );
+                lstExceptions.Items.Add( new ErrorMessageItem( "Type:",         ex.GetType().Name.ToDisplayString() ) );
                 lstExceptions.Items.Add( new ErrorMessageItem( "Source:",       ex?.Source ?? String.Empty ) );
 
                 foreach( string s in (ex?.StackTrace ?? "\n").Split( '\n' ) ) {

@@ -3,7 +3,7 @@
     <!-- <Project Sdk="Microsoft.NET.Sdk.WindowsDesktop"> -->
     
   <PropertyGroup>
-    <TargetFramework>net10.0-windows7.0</TargetFramework>
+    <TargetFramework>net10.0-windows</TargetFramework>
     <Nullable>enable</Nullable>
     <UseWPF>true</UseWPF>
     <Platforms>AnyCPU;x64</Platforms>
@@ -31,6 +31,8 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove=".gitattributes" />
+    <None Remove=".gitignore" />
     <None Remove="CountryCode\ISO3166.xml" />
     <None Remove="Images\Arrow-01-Down-Stop.png" />
     <None Remove="Images\Arrow-01-Down.png" />
@@ -327,14 +329,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Reference Include="SQLDatabase.Net">
-      <HintPath>C:\Users\lenwe\.nuget\packages\sqldatabase.net.dll\2.7.0\lib\netstandard2.0\AnyCPU\SQLDatabase.Net.dll</HintPath>
-    </Reference>
-  </ItemGroup>
-
-  <ItemGroup>
     <EmbeddedResource Include="CountryCode\ISO3166.xml" />
-    <PackageReference Include="Microsoft.Data.SqlClient" Version="6.1.4" />
     <Resource Include="Images\Arrow-01-Down-Stop.png" />
     <Resource Include="Images\Arrow-01-Down.png" />
     <Resource Include="Images\Arrow-01-Left-Stop.png" />

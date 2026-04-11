@@ -14,7 +14,8 @@ namespace LenWeaver.Utilities {
             string      text;
 
 
-            if( values is null )        throw new ArgumentNullException();
+            ArgumentNullException.ThrowIfNull( values );
+
             if( values.Length != 2 )    throw new ArgumentException( $"{nameof(values)} array parameter must have two elements." );
 
 

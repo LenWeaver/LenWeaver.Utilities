@@ -278,7 +278,7 @@ namespace LenWeaver.Utilities {
             FontDescriptor      fd;
 
 
-            if( PART_TextBox is null ) throw new NullReferenceException( $"{nameof(PopupBox)}.{nameof(PART_TextBox)} is null in {nameof(UpdateDisplayText)}." );
+            if( PART_TextBox is null ) return;  //throw new NullReferenceException( $"{nameof(PopupBox)}.{nameof(PART_TextBox)} is null in {nameof(UpdateDisplayText)}." );
 
             UnalteredDisplayText    = displayText;
 
