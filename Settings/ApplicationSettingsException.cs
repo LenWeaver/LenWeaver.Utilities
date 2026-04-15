@@ -7,13 +7,35 @@ namespace LenWeaver.Utilities {
 
     public class ApplicationSettingsException : Exception {
 
-        public ApplicationSettingsException( [CallerMemberName] string? memberName = null,
-                                             [CallerFilePath] string? filePath = null,
-                                             [CallerLineNumber] int? lineNumber = null ) : base() {}
-        public ApplicationSettingsException( string message ) : this() {}
-        public ApplicationSettingsException( string message, Exception innerException ) : base( message, innerException ) {}
+        public  int?        LineNumber      { get; internal set; }
+
+        public  string?     FilePath        { get; internal set; }
+        public  string?     MemberName      { get; internal set; }
+
+
+        public ApplicationSettingsException( [CallerMemberName] string? memberName  = null,
+                                             [CallerFilePath]   string? filePath    = null,
+                                             [CallerLineNumber] int?    lineNumber  = null ) : base() {}
+        public ApplicationSettingsException( string message,
+                                             [CallerMemberName] string? memberName  = null,
+                                             [CallerFilePath]   string? filePath    = null,
+                                             [CallerLineNumber] int?    lineNumber  = null ) : base( message ) {
         
+            MemberName      = memberName;
+            FilePath        = filePath;
 
+            LineNumber      = lineNumber;
+        }
+        public ApplicationSettingsException( string message,
+                                             Exception innerException,
+                                             [CallerMemberName] string? memberName  = null,
+                                             [CallerFilePath]   string? filePath    = null,
+                                             [CallerLineNumber] int? lineNumber     = null ): base( message, innerException ) {
 
+            MemberName      = memberName;
+            FilePath        = filePath;
+
+            LineNumber      = lineNumber;
+        }
     }
 }

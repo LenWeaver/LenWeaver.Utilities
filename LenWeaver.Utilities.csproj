@@ -11,7 +11,7 @@
     <AssemblyVersion>2.0.0.0</AssemblyVersion>
     <FileVersion>2.0.0.0</FileVersion>
     <IncrementVersionOnBuild>2.yyyy.Mdd.Hmm</IncrementVersionOnBuild>
-    <Version>2.2026.325.1235</Version>
+    <Version>2.2026.411.2336</Version>
   </PropertyGroup>
     
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
@@ -635,6 +635,10 @@
       <Pack>True</Pack>
       <PackagePath>\</PackagePath>
     </None>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Remove="C:\Users\Len Weaver\source\repos\GlobalSuppressions.cs" />
   </ItemGroup>
 
 </Project>

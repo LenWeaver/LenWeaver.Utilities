@@ -31,7 +31,7 @@ namespace LenWeaver.Utilities {
         public SqlParameter Add( string name, decimal? value )                          => Add( new SqlParameter( name, DbTypeCode.Decimal,                           value ) );
         public SqlParameter Add( string name, DateTime? value )                         => Add( new SqlParameter( name, DbTypeCode.DateTime,                          value ) );
         public SqlParameter Add( string name, string value )                            => Add( new SqlParameter( name, DbTypeCode.String,                            value ) );
-                                                                                                                        
+
     
         public void Clear() => base.inner.Clear();
     }

@@ -44,7 +44,7 @@ namespace LenWeaver.Utilities {
         }
 
 
-        private static void             RoundPathGeometry                   ( PathGeometry pg,      int decimals ) {
+        private static void                         RoundPathGeometry           ( PathGeometry pg,      int decimals ) {
 
             foreach( PathFigure figure in pg.Figures ) {
                 figure.StartPoint = RoundPoint( figure.StartPoint, decimals );
@@ -89,7 +89,7 @@ namespace LenWeaver.Utilities {
                 }
             }
         }
-        private static void             RoundTransform                      ( Transform t,          int decimals ) {
+        private static void                         RoundTransform              ( Transform t,          int decimals ) {
 
             switch( t ) {
                 case TranslateTransform tt:
@@ -129,16 +129,16 @@ namespace LenWeaver.Utilities {
                 //    break;
             }
         }
-        private static Point            RoundPoint                          ( Point p,              int decimals ) {
+        private static Point                        RoundPoint                  ( Point p,              int decimals ) {
         
                 return new Point( Math.Round( p.X, decimals ), Math.Round( p.Y, decimals ) );
         }
-        private static Rect             RoundRect                           ( Rect r,               int decimals ) {
+        private static Rect                         RoundRect                   ( Rect r,               int decimals ) {
 
             return new Rect( Math.Round( r.X, decimals ),       Math.Round( r.Y, decimals ),
                              Math.Round( r.Width, decimals ),   Math.Round( r.Height, decimals ) );
         }
-        private static PointCollection  RoundPointCollection                ( PointCollection pc,   int decimals ) {
+        private static PointCollection              RoundPointCollection        ( PointCollection pc,   int decimals ) {
 
             PointCollection result = new PointCollection( pc.Count );
 
@@ -149,9 +149,9 @@ namespace LenWeaver.Utilities {
 
             return result;
         }
-        private static Geometry         Round                               ( Geometry geometry,    int decimals = RoundingDecimalPlaces ) {
+        private static Geometry                     Round                       ( Geometry geometry,    int decimals = RoundingDecimalPlaces ) {
 
-            if( geometry == null ) return null;
+            ArgumentNullException.ThrowIfNull( geometry, nameof(geometry) );
 
             geometry = geometry.CloneCurrentValue();
 
@@ -188,7 +188,7 @@ namespace LenWeaver.Utilities {
         }
 
 
-        public static GeometryDrawingDescriptor ParseSingle                 ( string extendedPathMarkup ) {
+        public static GeometryDrawingDescriptor     ParseSingle                 ( string extendedPathMarkup ) {
 
             string                      name;
             string                      value;
@@ -256,7 +256,7 @@ namespace LenWeaver.Utilities {
             return result;
         }
 
-        public static GeometryDrawingDescriptor[] Parse                     ( string extendedPathMarkup ) {
+        public static GeometryDrawingDescriptor[]   Parse                       ( string extendedPathMarkup ) {
 
             GeometryDrawingDescriptor           gdd;
 
@@ -274,7 +274,7 @@ namespace LenWeaver.Utilities {
 
             return result.ToArray();
         }
-        public static GeometryDrawingDescriptor[] Parse                     ( ResourceDictionary rd ) {
+        public static GeometryDrawingDescriptor[]   Parse                       ( ResourceDictionary rd ) {
 
             List<GeometryDrawingDescriptor>     result  = new();
 
@@ -288,7 +288,7 @@ namespace LenWeaver.Utilities {
             return result.ToArray();
         }
 
-        private static GeometryDrawingDescriptor ConvertEllipseGeometry     ( EllipseGeometry   eg, Brush? brush, Brush? penBrush, double? penThickness ) {
+        private static GeometryDrawingDescriptor    ConvertEllipseGeometry      ( EllipseGeometry   eg, Brush? brush, Brush? penBrush, double? penThickness ) {
 
             GeometryDrawingDescriptor   result  = new();
 
@@ -302,7 +302,7 @@ namespace LenWeaver.Utilities {
 
             return result;
         }
-        private static GeometryDrawingDescriptor ConvertLineGeometry        ( LineGeometry      lg, Brush? brush, Brush? penBrush, double? penThickness ) {
+        private static GeometryDrawingDescriptor    ConvertLineGeometry         ( LineGeometry      lg, Brush? brush, Brush? penBrush, double? penThickness ) {
 
             GeometryDrawingDescriptor   result  = new();
 
@@ -316,7 +316,7 @@ namespace LenWeaver.Utilities {
 
             return result;
         }
-        private static GeometryDrawingDescriptor ConvertPathGeometry        ( PathGeometry      pg, Brush? brush, Brush? penBrush, double? penThickness ) {
+        private static GeometryDrawingDescriptor    ConvertPathGeometry         ( PathGeometry      pg, Brush? brush, Brush? penBrush, double? penThickness ) {
 
             GeometryDrawingDescriptor   result  = new();
 
@@ -330,7 +330,7 @@ namespace LenWeaver.Utilities {
 
             return result;
         }
-        private static GeometryDrawingDescriptor ConvertRectangleGeometry   ( RectangleGeometry rg, Brush? brush, Brush? penBrush, double? penThickness ) {
+        private static GeometryDrawingDescriptor    ConvertRectangleGeometry    ( RectangleGeometry rg, Brush? brush, Brush? penBrush, double? penThickness ) {
 
             GeometryDrawingDescriptor   result  = new();
 
@@ -345,7 +345,7 @@ namespace LenWeaver.Utilities {
             return result;
         }
 
-        private static GeometryDrawingDescriptor[] IterateResourceDictionary( DrawingGroup dg ) {
+        private static GeometryDrawingDescriptor[]  IterateResourceDictionary   ( DrawingGroup dg ) {
 
             double?                             penThickness;
 
