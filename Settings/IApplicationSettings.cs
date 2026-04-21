@@ -6,54 +6,55 @@ namespace LenWeaver.Utilities {
 
     public interface IApplicationSettings {
 
+        bool            CacheAll            { get; set; }
+
         SettingsSource  Source              { get; }
 
         string?         ApplicationName     { get; set; }
         string?         MachineName         { get; set; }
         string?         Section             { get; set; }
 
-        DateTime        LastCacheRefresh    { get; }
-        TimeSpan        CacheRefreshRate    { get; set; }
 
+        void            Delete              ( string? machineName, string? applicationName, string? section, string key );
+        void            Delete              ( string? applicationName, string? section, string key );
+        void            Delete              ( string? section, string key );
+        void            Delete              ( string key );
 
-        void            LoadAll();
-        void            SaveAll();
+        void            Set                 ( string? machineName, string? applicationName, string? section, string key, object value );
+        void            Set                 ( string? applicationName, string? section, string key, object value );
+        void            Set                 ( string? section, string key, object value );
+        void            Set                 ( string key, object value );
 
-        void            Delete( string? machineName, string? applicationName, string? section, string key );
-        void            Delete( string? applicationName, string? section, string key );
-        void            Delete( string? section, string key );
-        void            Delete( string key );
+        bool            IsKnownType         ( Type t );
 
-        void            Set( string? machineName, string? applicationName, string? section, string key, object value );
-        void            Set( string? applicationName, string? section, string key, object value );
-        void            Set( string? section, string key, object value );
-        void            Set( string key, object value );
+        bool            TryGet              ( string? machineName, string? applicationName, string? section, string key, out object result );
+        bool            TryGet              ( string? applicationName, string? section, string key, out object result );
+        bool            TryGet              ( string? section, string key, out object result );
+        bool            TryGet              ( string key, out object result );
 
-        bool            IsKnownType( Type t );
+        bool            TryGet<T>           ( string? machineName, string? applicationName, string? section, string key, out T result );
+        bool            TryGet<T>           ( string? applicationName, string? section, string key, out T result );
+        bool            TryGet<T>           ( string? section, string key, out T result );
+        bool            TryGet<T>           ( string key, out T result );
 
-        bool            TryGet( string? machineName, string? applicationName, string? section, string key, out object result );
-        bool            TryGet( string? applicationName, string? section, string key, out object result );
-        bool            TryGet( string? section, string key, out object result );
-        bool            TryGet( string key, out object result );
+        object?         Get                 ( string? machineName, string? applicationName, string? section, string key, object defaultValue );
+        object?         Get                 ( string? applicationName, string? section, string key, object defaultValue );
+        object?         Get                 ( string? section, string key, object defaultValue );
+        object?         Get                 ( string key, object defaultValue );
 
-        bool            TryGet<T>( string? machineName, string? applicationName, string? section, string key, out T result );
-        bool            TryGet<T>( string? applicationName, string? section, string key, out T result );
-        bool            TryGet<T>( string? section, string key, out T result );
-        bool            TryGet<T>( string key, out T result );
+        object?         Get                 ( string? machineName, string? applicationName, string? section, string key );
+        object?         Get                 ( string? applicationName, string? section, string key );
+        object?         Get                 ( string? section, string key );
+        object?         Get                 ( string key );
 
-        object?         Get( string? machineName, string? applicationName, string? section, string key, object defaultValue );
-        object?         Get( string? applicationName, string? section, string key, object defaultValue );
-        object?         Get( string? section, string key, object defaultValue );
-        object?         Get( string key, object defaultValue );
+        T               Get<T>              ( string? machineName, string? applicationName, string? section, string key, T defaultValue );
+        T               Get<T>              ( string? applicationName, string? section, string key, T defaultValue );
+        T               Get<T>              ( string? section, string key, T defaultValue );
+        T               Get<T>              ( string key, T defaultValue );
 
-        object?         Get( string? machineName, string? applicationName, string? section, string key );
-        object?         Get( string? applicationName, string? section, string key );
-        object?         Get( string? section, string key );
-        object?         Get( string key );
-
-        T               Get<T>( string? machineName, string? applicationName, string? section, string key, T defaultValue );
-        T               Get<T>( string? applicationName, string? section, string key, T defaultValue );
-        T               Get<T>( string? section, string key, T defaultValue );
-        T               Get<T>( string key, T defaultValue );
+        T?              Get<T>              ( string? machineName, string? applicationName, string? section, string key );
+        T?              Get<T>              ( string? applicationName, string? section, string key );
+        T?              Get<T>              ( string? section, string key );
+        T?              Get<T>              ( string key );
     }
 }

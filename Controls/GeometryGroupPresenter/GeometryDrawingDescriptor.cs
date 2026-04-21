@@ -10,6 +10,8 @@ using SWM = System.Windows.Media;
 
 namespace LenWeaver.Utilities {
 
+    //FUTURE: Add minimum size to each descriptor.  Allow GeometryGroupPresenter to choose
+    //not to render GeometryDrawingDescriptor if the control is smaller than minimum size.
     public sealed class GeometryDrawingDescriptor {
 
         private const int RoundingDecimalPlaces = 2;
@@ -34,10 +36,10 @@ namespace LenWeaver.Utilities {
             List<string>        tokens          = new();
 
 
-            if( Brush is not null )             tokens.Add( $"B={(Brush as SolidColorBrush)!.Color.ToString()}" );
+            if( Brush is not null )             tokens.Add( $"B={(Brush as SolidColorBrush)!.Color}" );
             if( FillRule is not null )          tokens.Add( $"FR={(FillRule.Value == SWM.FillRule.Nonzero ? nameof(SWM.FillRule.Nonzero) : nameof(SWM.FillRule.EvenOdd))}" );
             if( PenThickness is not null )      tokens.Add( $"PT={PenThickness}" );
-            if( PenBrush is not null )          tokens.Add( $"PB={(PenBrush as SolidColorBrush)!.Color.ToString()}" );
+            if( PenBrush is not null )          tokens.Add( $"PB={(PenBrush as SolidColorBrush)!.Color}" );
             if( Geometry is not null )          tokens.Add( $"D={Round( Geometry ).ToPathMarkup()}" );
 
             return String.Join( '|', tokens );

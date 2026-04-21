@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -31,7 +32,7 @@ namespace LenWeaver.Utilities {
 
             return inner.ContainsValue( value );
         }
-        public bool TryGetValue( TKey key, out TValue value ) {
+        public bool TryGetValue( TKey key, out TValue? value ) {
 
             return inner.TryGetValue( key, out value );
         }

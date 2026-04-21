@@ -70,6 +70,7 @@ namespace LenWeaver.Utilities {
             return bindings.Add( new CommandBinding( command, executedHandler ) );
         }
 
+        [Obsolete( "Incomplete feature.  Use GeometryDrawingDescriptor." )]
         public static Shapes.Path               ExtendedPathMarkupToPath( Shapes.Path p, string markup ) {
 
             int                 index;
@@ -86,8 +87,6 @@ namespace LenWeaver.Utilities {
             // and StrokeThickness properties.  Usage is as follows:
             //
             //  "{Fill=Red,Stroke=#FFFF0000,StrokeThickness=1}M0,0 0,100, 100,100, 100,0 Z"
-            //
-            //TODO: Allow the user to specify brush type for both Fill and Stroke.
             if( markup.StartsWith( "{" ) ) {
                 index               = markup.IndexOf( '}' );
                 if( index > 0 && index < markup.Length - 1 ) {

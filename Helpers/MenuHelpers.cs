@@ -53,16 +53,18 @@ namespace LenWeaver.Utilities {
                         if ( o is null ) {
                             throw new ArgumentNullException( "items argument contains a null." );
                         }
+#pragma warning disable CS8602 // Dereference of a possibly null reference.
                         else if( o is Separator && menuTokens[tokenIndex] == "-" ) {
                             itemFound = true;
                             break;
                         }
-                        else if( o is T && ((T)o).Header.ToString().Replace( "_", "" ) == menuTokens[tokenIndex].Replace( "_", "" ) ) {
+                        else if( o is T t && t != null && t.Header.ToString().Replace( "_", "" ) == menuTokens[tokenIndex].Replace( "_", "" ) ) {
                             itemFound = true;
 
-                            result = (T)o;
+                            result = t;
                             break;
                         }
+#pragma warning restore CS8602 // Dereference of a possibly null reference.
                     }
 
                     if( !itemFound ) {
@@ -100,7 +102,7 @@ namespace LenWeaver.Utilities {
             for( int index = items.Count - 1; index >= 0; index-- ) {
                 obj = items[index];
 
-                if( obj is T && shouldRemove( (T)obj ) ) {
+                if( obj is T t && shouldRemove( t ) ) {
                     items.RemoveAt( index );
                 }
                 else {

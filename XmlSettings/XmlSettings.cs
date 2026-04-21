@@ -33,18 +33,14 @@ namespace LenWeaver.Utilities {
 
         public XmlCommentCollection     Comments {
             get {
-                if( _commentsList == null ) {
-                    _commentsList = new XmlCommentCollection();
-                }
+                _commentsList ??= new XmlCommentCollection();
 
                 return _commentsList;
             }
         }
         public XmlSectionList           Sections {
             get {
-                if( _sectionList == null ) {
-                    _sectionList = new XmlSectionList();
-                }
+                _sectionList ??= new XmlSectionList();
 
                 return _sectionList;
             }
@@ -52,9 +48,9 @@ namespace LenWeaver.Utilities {
 
         public void                     Load() {
 
-            XmlAttribute    attr;
+            XmlAttribute?   attr;
             XmlDocument     xmlDoc;
-            XmlNodeList     sections;
+            XmlNodeList?    sections;
 
             XmlSection      section;
 
@@ -70,19 +66,19 @@ namespace LenWeaver.Utilities {
                     foreach( XmlNode? node in xmlDoc.ChildNodes ) {
                         if( node != null ) { 
                             if( node.NodeType == XmlNodeType.Comment ) {
-                                _commentsList.Add( node.Value );
+                                _commentsList.Add( node.Value ?? String.Empty );
                             }
                         }
                     }
 
                     sections = xmlDoc.SelectNodes( "//settings/section" );
-                    if( sections.Count > 0 ) {
+                    if( sections != null && sections.Count > 0 ) {
                         foreach( XmlNode? node in sections ) {
-                            attr = node!.Attributes["name"];
+                            attr = node?.Attributes?["name"];
                             if( attr != null ) {
                                 section = _sectionList[attr.Value];
 
-                                ProcessXmlSection( section, node );
+                                if( node != null ) ProcessXmlSection( section, node );
                             }
                         }
                     }
@@ -315,7 +311,7 @@ namespace LenWeaver.Utilities {
             string          type;
             string          value;
 
-            XmlAttribute    attr;
+            XmlAttribute?   attr;
             XmlNodeList?    nodeList;
 
 
@@ -332,10 +328,10 @@ namespace LenWeaver.Utilities {
             if( nodeList is not null ) {
                 foreach( XmlNode? n in nodeList ) {
                     if( n != null ) { 
-                        name    = n.Attributes["name"].Value;
-                        value   = n.Attributes["value"].Value;
+                        name    = n.Attributes?["name"]?.Value ?? String.Empty;
+                        value   = n.Attributes?["value"]?.Value ?? String.Empty;;
 
-                        attr    = n.Attributes["type"];
+                        attr    = n.Attributes?["type"];
                         type    = attr != null ? attr.Value : "String";
 
                         section.Keys.Add( name, value, type );

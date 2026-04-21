@@ -7,6 +7,7 @@ using System.Windows.Media;
 
 namespace LenWeaver.Utilities {
 
+    //FUTURE: Allow the user access four filter toggles.  Show monospace, proportional, emoji and symbol.
     public class FontSelectionDialog {
 
         public bool                 AllowFontSizeSelection          { get; set; }       = true;

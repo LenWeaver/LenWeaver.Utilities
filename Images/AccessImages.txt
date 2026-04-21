@@ -3,3 +3,13 @@ From code behind: svSymbolImage.ImageUri = new Uri( "/LenWeaver.Utilities;compon
 Icon                = new BitmapImage( new Uri( "pack://application:,,,/LenWeaver.Utilities;component/Images/Folder-01-Star.png", UriKind.RelativeOrAbsolute ) );
 Icon = ImageExtensions.CreateBitmapImage( "pack://application:,,,/LenWeaver.Utilities;component/Images/Database-Connect.png", 64, 64 );
 Icon="/LenWeaver.Utilities;component/Images/Database-Connect.png"
+
+xmlns:sys="clr-namespace:System;assembly=mscorlib"
+xmlns:lw="clr-namespace:LenWeaver.Utilities;assembly=LenWeaver.Utilities"
+
+Binding:
+
+FontFamily="{Binding Path=(lw:FontExtensions.GlobalMonospace)}"
+FontFamily="{x:Static lw:FontExtensions.GlobalMonospace}"
+<TextBlock Text="{Binding ElementName=txtValue, Path=Text, Converter={StaticResource YesNoToBooleanConverter}}"></TextBlock>
+IsEnabled="{Binding ElementName=txtSql, Path=Text, Converter={StaticResource lw:StringLengthToBoolean}}">
