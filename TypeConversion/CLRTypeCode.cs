@@ -6,7 +6,7 @@ namespace LenWeaver.Utilities {
 
     public enum CLRTypeCode {
         Empty           =   0,      // Null reference
-        Object          =   1,      // Instance that isn't a value
+        Object          =   1,      // Instance that isn't a value type
         DBNull          =   2,      // Database null value
         Boolean         =   3,      // Boolean
         Char            =   4,      // Unicode character

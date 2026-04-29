@@ -16,6 +16,20 @@ namespace LenWeaver.Utilities {
         public const string AllAlphaNumeric = AllAlpha + AllNumeric;
 
 
+        public static bool IsAlphaOnly( this string s ) {
+
+            bool    result  = true;
+
+
+            foreach( char c in s ) {
+                if( !Char.IsLetter( c ) ) {
+                    result = false;
+                    break;
+                }
+            }
+
+            return result;
+        }
         public static string KeepOnly( this string s, string toKeep ) {
 
             HashSet<char>   keepers;

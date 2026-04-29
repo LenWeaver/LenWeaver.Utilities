@@ -30,7 +30,7 @@ namespace LenWeaver.Utilities {
         }
 
 
-        public T this[int index] {
+        public virtual T this[int index] {
             get => inner[index];
         }
 

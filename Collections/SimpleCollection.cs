@@ -8,23 +8,23 @@ namespace LenWeaver.Utilities {
         public SimpleCollection() : base() {}
 
 
-        public void Add( T item ) {
+        public virtual void Add( T item ) {
 
             base.inner.Add( item );
         }
-        public void AddRange( IEnumerable<T> items ) {
+        public virtual void AddRange( IEnumerable<T> items ) {
 
             base.inner.AddRange( items );
         }
-        public void Clear() {
+        public virtual void Clear() {
 
             base.ClearList();
         }
-        public void Remove( T item ) {
+        public virtual void Remove( T item ) {
 
             base.inner.Remove( item );
         }
-        public void RemoveAt( int index ) {
+        public virtual void RemoveAt( int index ) {
 
             base.inner.RemoveAt( index );
         }

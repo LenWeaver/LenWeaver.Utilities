@@ -13,9 +13,6 @@ namespace LenWeaver.Utilities {
         public  string?     MemberName      { get; internal set; }
 
 
-        public ApplicationSettingsException( [CallerMemberName] string? memberName  = null,
-                                             [CallerFilePath]   string? filePath    = null,
-                                             [CallerLineNumber] int?    lineNumber  = null ) : base() {}
         public ApplicationSettingsException( string message,
                                              [CallerMemberName] string? memberName  = null,
                                              [CallerFilePath]   string? filePath    = null,

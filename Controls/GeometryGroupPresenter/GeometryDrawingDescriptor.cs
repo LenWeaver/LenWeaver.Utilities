@@ -12,6 +12,7 @@ namespace LenWeaver.Utilities {
 
     //FUTURE: Add minimum size to each descriptor.  Allow GeometryGroupPresenter to choose
     //not to render GeometryDrawingDescriptor if the control is smaller than minimum size.
+
     public sealed class GeometryDrawingDescriptor {
 
         private const int RoundingDecimalPlaces = 2;

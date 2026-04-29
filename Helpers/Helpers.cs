@@ -187,7 +187,8 @@ namespace LenWeaver.Utilities {
             names       = Enum.GetNames( typeof(TEnum) );
             values      = (IBinaryInteger<T>[])Enum.GetValues( typeof(TEnum ) );
             
-            if( names.Length != values.Length ) throw new System.ComponentModel.InvalidEnumArgumentException( $"Enum Names count: {names.Length}, Values count: {values.Length}." );
+            if( names.Length != values.Length ) throw new System.ComponentModel.InvalidEnumArgumentException( $"Enum Names count: {names.Length}, " +
+                                                                                                              $"Values count: {values.Length}." );
 
             for( int index = 0; index < names.Length; index++ ) {
                 result.Add( names[index], (T)values[index] );

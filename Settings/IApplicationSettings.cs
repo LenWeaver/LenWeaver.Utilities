@@ -6,8 +6,6 @@ namespace LenWeaver.Utilities {
 
     public interface IApplicationSettings {
 
-        bool            CacheAll            { get; set; }
-
         SettingsSource  Source              { get; }
 
         string?         ApplicationName     { get; set; }
@@ -37,10 +35,10 @@ namespace LenWeaver.Utilities {
         bool            TryGet<T>           ( string? section, string key, out T result );
         bool            TryGet<T>           ( string key, out T result );
 
-        object?         Get                 ( string? machineName, string? applicationName, string? section, string key, object defaultValue );
-        object?         Get                 ( string? applicationName, string? section, string key, object defaultValue );
-        object?         Get                 ( string? section, string key, object defaultValue );
-        object?         Get                 ( string key, object defaultValue );
+        object          Get                 ( string? machineName, string? applicationName, string? section, string key, object defaultValue );
+        object          Get                 ( string? applicationName, string? section, string key, object defaultValue );
+        object          Get                 ( string? section, string key, object defaultValue );
+        object          Get                 ( string key, object defaultValue );
 
         object?         Get                 ( string? machineName, string? applicationName, string? section, string key );
         object?         Get                 ( string? applicationName, string? section, string key );

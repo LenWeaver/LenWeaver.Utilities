@@ -240,7 +240,9 @@ namespace LenWeaver.Utilities {
         /// <param name="dt">The DataTable whose columns and rows are used to create the ListView's columns and items. Cannot be null.</param>
         /// <exception cref="InvalidOperationException">Thrown if the ListView's View property is not set to a GridView.</exception>
         public static void FromDataTable( this ListView lvw, DataTable dt ) {
+
             //FUTURE: Use styles to have some columns right justified depending upon data type.
+
             GridViewColumn      gvc;
 
 

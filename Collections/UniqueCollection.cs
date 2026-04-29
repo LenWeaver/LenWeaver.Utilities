@@ -12,7 +12,7 @@ namespace LenWeaver.Utilities {
         public UniqueCollection() : base() {}
 
 
-        public void Add( T item ) {
+        public virtual void Add( T item ) {
 
             bool    alreadyInList   = false;
 
@@ -26,11 +26,15 @@ namespace LenWeaver.Utilities {
 
             if( !alreadyInList ) inner.Add( item );
         }
-        public void Clear() {
+        public virtual void AddRange( params IEnumerable<T> items ) {
+
+            foreach( T item in items ) Add( item );
+        }
+        public virtual void Clear() {
 
             inner.Clear();
         }
-        public void Remove( T item ) {
+        public virtual void Remove( T item ) {
 
             inner.Remove( item );
         }

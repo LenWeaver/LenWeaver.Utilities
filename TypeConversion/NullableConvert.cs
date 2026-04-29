@@ -12,7 +12,7 @@ namespace LenWeaver.Utilities {
         static NullableConvert() {}
 
         [MethodImpl( MethodImplOptions.AggressiveInlining )]
-        public static bool      IsAnyNull( object? o )                      => o == null || Convert.IsDBNull( o );
+        public static bool          IsAnyNull( object? o )                  => o == null || Convert.IsDBNull( o );
 
         public static T?            ToNullable<T>( object o ) where T : struct {
 
@@ -59,6 +59,18 @@ namespace LenWeaver.Utilities {
                 DateTime    dt  => TimeOnly.FromDateTime( dt ),
                 string       s  => TimeOnly.Parse( s ),
                 _               => throw new InvalidCastException( "Unable to cast to TimeOnly." )
+            };
+        }
+        public static TimeSpan?     ToTimeSpan( object o ) {
+
+            if( IsAnyNull( o ) ) return null;
+
+            return o switch {
+                TimeSpan    t => t,
+                TimeOnly   to => new TimeSpan( to.Ticks ),
+                DateTime   dt => dt.TimeOfDay,
+                string      s => TimeSpan.Parse( s ),
+                _             => throw new InvalidCastException( "Unable to cast to TimeSpan." )
             };
         }
     }

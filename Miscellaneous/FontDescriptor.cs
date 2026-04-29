@@ -12,6 +12,7 @@ namespace LenWeaver.Utilities {
     /// <summary>Encapsulates the five font properties: Family, Size, Stretch, Style and Weight.</summary>
     /// <remarks>The FontDescriptor class describes a set of font related data, primarily for storage.</remarks>
     public sealed class FontDescriptor : IComparable, IComparable<FontDescriptor>, IReadOnlyFontProperties {
+
         //FUTURE: Investigate possibility of adding decorators.
 
         public static readonly string           EllipsisChar        = "…";

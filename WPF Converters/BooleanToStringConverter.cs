@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Globalization;
+using System.Linq;
 using System.Windows.Data;
 
 namespace LenWeaver.Utilities {
@@ -23,10 +24,12 @@ namespace LenWeaver.Utilities {
         /// <returns></returns>
         public object Convert( object value, Type targetType, object parameter, CultureInfo culture ) {
             
-            bool        asBoolean   = Boolean.Parse( value?.ToString() ?? Boolean.FalseString );
+            bool        asBoolean   = System.Convert.ToBoolean( value );
 
-            string[]    tokens      = (parameter?.ToString() ?? "True,False").Split( ',' ) ;
-
+            string[]    tokens      = (parameter?.ToString() ?? "True|False")
+                                        .Split('|')
+                                        .Select(t => t.Trim())
+                                        .ToArray();
 
             if( tokens.Length != 2 ) throw new ArgumentException( $"Argument '{nameof(parameter)}' must be a comma delimited string containing " +
                                                                   "two tokens." );
