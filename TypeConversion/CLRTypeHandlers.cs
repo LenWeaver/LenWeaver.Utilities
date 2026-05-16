@@ -1,45 +1,33 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Globalization;
+using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Text.Json;
 
 namespace LenWeaver.Utilities {
 
-    public sealed class BooleanHandler      : TypeHandlerBase<bool> {
+    public sealed class BooleanHandler          : TypeHandlerBase<bool>     {}
+    public sealed class CharHandler             : TypeHandlerBase<char>     {}
+    public sealed class ByteHandler             : TypeHandlerBase<byte>     {}
+    public sealed class SByteHandler            : TypeHandlerBase<sbyte>    {}
+    public sealed class Int16Handler            : TypeHandlerBase<short>    {}
+    public sealed class UInt16Handler           : TypeHandlerBase<ushort>   {}
+    public sealed class Int32Handler            : TypeHandlerBase<int>      {}
+    public sealed class UInt32Handler           : TypeHandlerBase<uint>     {}
+    public sealed class Int64Handler            : TypeHandlerBase<long>     {}
+    public sealed class UInt64Handler           : TypeHandlerBase<ulong>    {}
+    public sealed class SingleHandler           : TypeHandlerBase<float>    {}
+    public sealed class DoubleHandler           : TypeHandlerBase<double>   {}
+    public sealed class DecimalHandler          : TypeHandlerBase<decimal>  {}
+    public sealed class StringHandler           : TypeHandlerBase<string> {
 
-        public override string TypeName => "$Boolean";
-    }
-    public sealed class ByteHandler         : TypeHandlerBase<byte> {
-
-        public override string TypeName => "$Byte";
-    }
-    public sealed class Int32Handler        : TypeHandlerBase<int> {
-
-        public override string TypeName => "$Int32";
-    }
-    public sealed class Int64Handler        : TypeHandlerBase<long> {
-
-        public override string TypeName => "$Int64";
-    }
-    public sealed class DoubleHandler       : TypeHandlerBase<double> {
-
-        public override string TypeName => "$Double";
-    }
-    public sealed class DecimalHandler      : TypeHandlerBase<decimal> {
-
-        public override string TypeName => "$Decimal";
-    }
-    public sealed class StringHandler       : TypeHandlerBase<string> {
-
-        public override string TypeName => "$String";
-
-        public override object? FromDbValue( object? dbValue ) => dbValue is DBNull ? null : dbValue?.ToString();
+        public override object? FromDbValue ( object? dbValue )     => dbValue is DBNull ? null : dbValue?.ToString();
+        public override object? ToDbValue   ( object? clrValue )    => clrValue ?? (object)DBNull.Value;
     }
 
-    public sealed class DateTimeHandler     : TypeHandlerBase<DateTime> {
-
-        public override string TypeName => "$DateTime";
+    public sealed class DateTimeHandler         : TypeHandlerBase<DateTime> {
 
         public override object? FromDbValue( object? dbValue ) {
 
@@ -66,66 +54,64 @@ namespace LenWeaver.Utilities {
         public override object? FromText( string? text )
             => string.IsNullOrEmpty( text ) ? default(DateTime) : DateTime.Parse( text, null, DateTimeStyles.RoundtripKind );
     }
-    public sealed class DateOnlyHandler     : TypeHandlerBase<DateOnly> {
-
-        public override string TypeName => "$DateOnly";
+    public sealed class DateOnlyHandler         : TypeHandlerBase<DateOnly> {
 
         public override object? FromDbValue( object? dbValue ) {
 
             if( dbValue is null || dbValue is DBNull ) return default(DateOnly);
-            if( dbValue is DateOnly d ) return d;
+            if( dbValue is DateOnly d )     return d;
+            if( dbValue is DateTime dt )    return DateOnly.FromDateTime( dt );
 
-            return DateOnly.Parse( dbValue.ToString()!, CultureInfo.InvariantCulture, DateTimeStyles.RoundtripKind );
+            return DateOnly.Parse( dbValue.ToString()!, CultureInfo.InvariantCulture );
         }
-        public override object? ToDbValue( object? clrValue ) {
 
-            if( clrValue is null ) return DBNull.Value;
-            DateOnly d = (DateOnly)Convert.ChangeType( clrValue, typeof(DateTime) );
+        public override object? ToDbValue( object? clrValue )
+        {
+            if( clrValue is null )          return DBNull.Value;
+            if( clrValue is DateOnly d )    return d;
 
-            return d;
+            throw new InvalidCastException( "Expected DateOnly." );
         }
 
         public override string? ToText( object? clrValue ) {
 
             if( clrValue is null ) return null;
-            DateOnly d = (DateOnly)Convert.ChangeType( clrValue, typeof(DateTime) );
-
-            return d.ToString( "o", CultureInfo.InvariantCulture );
+            return ((DateOnly)clrValue).ToString( DateTimeHelpers.ISO8601DateFormat, CultureInfo.InvariantCulture );
         }
-        public override object? FromText( string? text ) => String.IsNullOrEmpty( text ) ? default(DateOnly) : DateOnly.Parse( text, null, DateTimeStyles.RoundtripKind );
-    }
-    public sealed class TimeOnlyHandler     : TypeHandlerBase<TimeOnly> {
 
-        public override string TypeName => "$TimeOnly";
+        public override object? FromText( string? text ) => string.IsNullOrEmpty( text )
+                                                          ? default(DateOnly)
+                                                          : DateOnly.Parse( text, CultureInfo.InvariantCulture );
+    }
+    public sealed class TimeOnlyHandler         : TypeHandlerBase<TimeOnly> {
 
         public override object? FromDbValue( object? dbValue ) {
 
-            if( dbValue is null || dbValue is DBNull ) return default(TimeOnly);
-            if( dbValue is TimeOnly t ) return t;
+            if( dbValue is null || dbValue is DBNull )  return default(TimeOnly);
+            if( dbValue is TimeOnly t )                 return t;
+            if( dbValue is DateTime dt )                return TimeOnly.FromDateTime( dt );
 
-            return TimeOnly.Parse( dbValue.ToString()!, CultureInfo.InvariantCulture, DateTimeStyles.RoundtripKind );
+            return TimeOnly.Parse( dbValue.ToString()!, CultureInfo.InvariantCulture );
         }
         public override object? ToDbValue( object? clrValue ) {
 
-            if( clrValue is null ) return DBNull.Value;
-            TimeOnly t = (TimeOnly)Convert.ChangeType( clrValue, typeof(DateTime) );
+            if( clrValue is null )          return DBNull.Value;
+            if( clrValue is TimeOnly t )    return t;
 
-            return t;
+            throw new InvalidCastException( "Expected TimeOnly." );
         }
 
-        public override string? ToText( object? clrValue ) {
-
+        public override string? ToText( object? clrValue )
+        {
             if( clrValue is null ) return null;
-            TimeOnly t = (TimeOnly)Convert.ChangeType( clrValue, typeof(DateTime) );
-
-            return t.ToString( "o", CultureInfo.InvariantCulture );
+            return ( (TimeOnly)clrValue).ToString("HH:mm:ss.fffffff", CultureInfo.InvariantCulture );
         }
-        public override object? FromText( string? text ) => String.IsNullOrEmpty( text ) ? default(TimeOnly) : TimeOnly.Parse( text, null, DateTimeStyles.RoundtripKind );
+        public override object? FromText( string? text ) => String.IsNullOrEmpty( text )
+                                                          ? default(TimeOnly)
+                                                          : TimeOnly.Parse( text, CultureInfo.InvariantCulture );
     }
 
-    public sealed class GuidHandler         : TypeHandlerBase<Guid> {
-
-        public override string TypeName => "$Guid";
+    public sealed class GuidHandler             : TypeHandlerBase<Guid> {
 
         public override string? ToText( object? clrValue ) {
 
@@ -138,14 +124,14 @@ namespace LenWeaver.Utilities {
         public override object? FromText( string? text )
             => string.IsNullOrEmpty( text ) ? default(Guid) : Guid.Parse( text );
     }
-    public sealed class ByteArrayHandler    : TypeHandlerBase<byte[]> {
 
-        public override string TypeName => "$ByteArray";
+    public sealed class ByteArrayHandler        : TypeHandlerBase<byte[]> {
+
         public override bool IsBlob => true;
 
         public override object? FromDbValue( object? dbValue ) {
 
-            if(dbValue is null || dbValue is DBNull ) return Array.Empty<byte>();
+            if( dbValue is null || dbValue is DBNull ) return Array.Empty<byte>();
             if( dbValue is byte[] b ) return b;
 
             throw new InvalidCastException( "Expected byte[] from DB." );
@@ -162,9 +148,10 @@ namespace LenWeaver.Utilities {
         public override object? FromBlob( byte[]? blob ) => blob ?? Array.Empty<byte>();
     }
 
-    public sealed class EnumHandler<TEnum>  : TypeHandlerBase<TEnum> where TEnum : struct, Enum {
+    public sealed class EnumHandler<TEnum>      : TypeHandlerBase<TEnum> where TEnum : struct, Enum {
 
-        public override string TypeName => "$Enum:" + typeof(TEnum).FullName;
+        public EnumHandler( ITypeConversionService tcs ) : base( tcs ) {}
+
 
         public override object? FromDbValue( object? dbValue ) {
 
@@ -184,14 +171,14 @@ namespace LenWeaver.Utilities {
             throw new InvalidCastException();
         }
 
-        public override string? ToText( object? clrValue ) => clrValue?.ToString();
-        public override object? FromText( string? text ) => string.IsNullOrEmpty( text ) ? default(TEnum) : Enum.Parse<TEnum>( text, true );
+        public override string? ToText( object? clrValue )  => clrValue?.ToString();
+        public override object? FromText( string? text )    => String.IsNullOrEmpty( text ) ? default(TEnum) : Enum.Parse<TEnum>( text, true );
     }
+    public sealed class JsonHandler<T>          : TypeHandlerBase<T> {
 
-    [UnderConstruction( Developer = "LW", ToDo = "Just testing the attribute." )]
-    public sealed class JsonHandler<T>      : TypeHandlerBase<T> {
+        public JsonHandler( ITypeConversionService tcs ) : base( tcs ) {}
 
-        public override string TypeName => "$Json:" + typeof(T).FullName;
+
         public override bool IsBlob => false;
 
         public override string? ToText( object? clrValue ) {
@@ -207,5 +194,121 @@ namespace LenWeaver.Utilities {
 
         public override object? FromDbValue( object? dbValue ) => FromText( dbValue as string );
         public override object? ToDbValue( object? clrValue )  => ToText( clrValue ) ?? (object)DBNull.Value;
+    }
+    public sealed class NullableHandler<T>      : TypeHandlerBase<T?> where T : struct {
+
+        public NullableHandler( ITypeConversionService converter ) : base( converter ) {
+
+            _innerType  = typeof(T);
+            _inner      = converter.GetHandler( _innerType );
+        }
+
+
+        private readonly ITypeHandler   _inner;
+        private readonly Type           _innerType;
+
+        public override bool IsBlob     => _inner.IsBlob;
+
+        public override object? FromDbValue ( object? dbValue ) {
+
+            if( dbValue is null || dbValue is DBNull ) return null;
+
+            return _inner.FromDbValue( dbValue );
+        }
+        public override object? ToDbValue   ( object? clrValue ) {
+
+            if( clrValue is null ) return DBNull.Value;
+
+            return _inner.ToDbValue( clrValue );
+        }
+
+        public override string? ToText      ( object? clrValue ) {
+
+            if( clrValue is null ) return null;
+
+            return _inner.ToText( clrValue );
+        }
+        public override object? FromText    ( string? text ) {
+
+            if( String.IsNullOrEmpty( text ) ) return null;
+
+            return _inner.FromText( text );
+        }
+
+        public override byte[]? ToBlob      ( object? clrValue ) {
+
+            if( clrValue is null ) return null;
+
+            return _inner.ToBlob( clrValue );
+        }
+        public override object? FromBlob    ( byte[]? blob ) {
+
+            if( blob is null || blob.Length == 0 ) return null;
+
+            return _inner.FromBlob( blob );
+        }
+    }
+
+    public sealed class ValueTupleHandler<T>    : TypeHandlerBase<T> {
+
+        public ValueTupleHandler( ITypeConversionService tcs ) : base( tcs ) {}
+
+
+        public override bool IsBlob         => true;
+
+        public override byte[]? ToBlob( object? clrValue ) {
+
+            Type?           type;
+
+            object?[]?      values;
+            FieldInfo[]     fields;
+
+
+            if( clrValue is null ) return null;
+
+            type            = clrValue.GetType();
+
+            fields          = type.GetFields();
+            values          = fields.Select( f => f.GetValue( clrValue ) ).ToArray();
+
+            return JsonSerializer.SerializeToUtf8Bytes( values );
+        }
+
+        public override object? FromBlob( byte[]? blob ) {
+
+            object[]?       deserialized;
+
+
+            if( blob is null ) return default(T);
+
+            deserialized    = JsonSerializer.Deserialize<object[]>( blob! );
+
+            return TypeConversionService.Create<T>( deserialized! );
+        }
+    }
+
+    public sealed class FontDescriptorHandler   : TypeHandlerBase<FontDescriptor> {
+
+        public override object? ToDbValue( object? clrValue ) {
+
+            if( clrValue == null ) return (string?)null;
+            return clrValue.ToString();
+        }
+        public override object? FromDbValue( object? dbValue ) {
+
+            if( dbValue == null || dbValue is DBNull ) return (FontDescriptor?)null;
+            return new FontDescriptor( dbValue.ToString()! );
+        }
+
+        public override string? ToText( object? clrValue ) {
+
+            if( clrValue == null ) return (string?)null;
+            return ToDbValue( clrValue )!.ToString();
+        }
+        public override object? FromText( string? text ) {
+
+            if( String.IsNullOrWhiteSpace( text ) ) return (FontDescriptor?)null;
+            return new FontDescriptor( text );
+        }
     }
 }

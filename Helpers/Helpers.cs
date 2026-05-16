@@ -172,7 +172,7 @@ namespace LenWeaver.Utilities {
             return list.ToArray();
         }
         public static IReadOnlyDictionary<string,T>         ToReadOnlyDictionary<T,TEnum>( this TEnum e ) where T : IBinaryInteger<T>
-                                                                                                      where TEnum : Enum {
+                                                                                                      where TEnum : struct, Enum {
 
             IBinaryInteger<T>[]     values;
 
@@ -187,8 +187,10 @@ namespace LenWeaver.Utilities {
             names       = Enum.GetNames( typeof(TEnum) );
             values      = (IBinaryInteger<T>[])Enum.GetValues( typeof(TEnum ) );
             
-            if( names.Length != values.Length ) throw new System.ComponentModel.InvalidEnumArgumentException( $"Enum Names count: {names.Length}, " +
-                                                                                                              $"Values count: {values.Length}." );
+            if( names.Length != values.Length ) throw ExceptionBuilder.Create<UnknownEnumValueException<TEnum>>( "Number of names does not match number of values." )
+                                                                      .AddData( $"{nameof(names)}:",  names.Length )
+                                                                      .AddData( $"{nameof(values)}:", values.Length );
+
 
             for( int index = 0; index < names.Length; index++ ) {
                 result.Add( names[index], (T)values[index] );

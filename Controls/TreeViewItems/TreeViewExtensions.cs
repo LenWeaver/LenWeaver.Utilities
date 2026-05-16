@@ -26,6 +26,32 @@ namespace LenWeaver.Utilities {
         static TreeViewExtensions() {}
 
 
+        extension( TreeViewItem? item ) {
+            public TreeViewItem? ParentItem {
+                get {
+                    DependencyObject    depObj;
+
+                    TreeViewItem        result;
+
+
+                    ArgumentNullException.ThrowIfNull( item );
+
+                    result  = item;
+                    depObj  = VisualTreeHelper.GetParent( item );
+
+                    while( depObj != null ) {
+                        if( depObj is TreeViewItem ) {
+                            result = (TreeViewItem)depObj;
+                        }
+
+                        depObj = VisualTreeHelper.GetParent( depObj );
+                    }
+
+                    return result;
+                }
+            }
+        }
+
         public static void SetNoChildItemsCheckedBrush      ( DependencyObject obj, Brush newValue ) {
 
             obj.SetValue( NoChildItemsCheckedBrushProperty, newValue );

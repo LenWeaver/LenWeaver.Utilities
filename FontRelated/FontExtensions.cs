@@ -217,7 +217,7 @@ namespace LenWeaver.Utilities {
             }
 
             public static double        WidthEqualityTolerance {
-                get => 0.001d;
+                get => 0.001d;      //Character width's can be this different and still be considered equal.
             }
         }
         extension( CultureInfo ci ) {

@@ -7,9 +7,20 @@ namespace LenWeaver.Utilities {
 
     public abstract class TypeHandlerBase<T> : ITypeHandler {
 
-        public          Type        CLRType     => typeof(T);
-        public abstract string      TypeName    { get; }
-        public virtual  bool        IsBlob      => false;
+        public          Type                        CLRType         { get; init; }
+        public          string                      TypeName        { get; init; }
+        public virtual  bool                        IsBlob          => false;
+
+        protected       ITypeConversionService?     TypeConverter   { get; init; }
+
+
+        protected TypeHandlerBase( ITypeConversionService? typeConverter) {
+
+            CLRType         = typeof(T);
+            TypeName        = CLRType.AssemblyQualifiedName!;
+            TypeConverter   = typeConverter;
+        }
+        protected TypeHandlerBase() : this( null ) {}
 
 
         public virtual object? FromDbValue      ( object? dbValue ) {

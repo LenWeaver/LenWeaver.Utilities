@@ -29,21 +29,45 @@ namespace LenWeaver.Utilities {
             return parameter;
         }
 
-        public static string ToSqlLiteral( this object? value, ITypeConversionService types ) {
+        public static CLRTypeCode GetCLRTypeCode( this object? o ) {
 
-            if( value is null ) return "NULL";
+            Type        t;
 
-            ITypeHandler? handler = types.GetHandler( value.GetType() );
-            string? text = handler.ToText( value );
 
-            // For simplicity: quote and escape text
-            if( handler.IsBlob ) throw new NotSupportedException( "Literal BLOBs not supported here." );
+            if( o is null )                     return CLRTypeCode.Empty;
+            if( o is DBNull )                   return CLRTypeCode.DBNull;
 
-            if( text is null ) return "NULL";
+            t = o.GetType();
 
-            // Basic escaping for SQLite-style single quotes
-            string? escaped = text.Replace( "'", "''" );
-            return $"'{escaped}'";
+            //Most common date types first for performance.
+            if( t == typeof(string) )           return CLRTypeCode.String;
+            if( t == typeof(int) )              return CLRTypeCode.Int32;
+            if( t == typeof(DateTime) )         return CLRTypeCode.DateTime;
+            if( t == typeof(double) )           return CLRTypeCode.Double;
+            if( t == typeof(decimal) )          return CLRTypeCode.Decimal;
+
+            if( t == typeof(bool) )             return CLRTypeCode.Boolean;
+            if( t == typeof(DateOnly) )         return CLRTypeCode.DateOnly;
+            if( t == typeof(TimeOnly) )         return CLRTypeCode.TimeOnly;
+            if( t == typeof(long) )             return CLRTypeCode.Int64;
+            if( t == typeof(byte[]) )           return CLRTypeCode.ByteArray;
+
+            //Least common data types last.
+            if( t == typeof(byte) )             return CLRTypeCode.Byte;
+            if( t == typeof(ulong) )            return CLRTypeCode.UInt64;
+            if( t == typeof(float) )            return CLRTypeCode.Single;
+            if( t == typeof(short) )            return CLRTypeCode.Int16;
+            if( t == typeof(ushort) )           return CLRTypeCode.UInt16;
+            if( t == typeof(uint) )             return CLRTypeCode.UInt32;
+            if( t == typeof(sbyte) )            return CLRTypeCode.SByte;
+            if( t == typeof(char) )             return CLRTypeCode.Char;
+            if( t == typeof(TimeSpan) )         return CLRTypeCode.TimeSpan;
+            if( t == typeof(Guid) )             return CLRTypeCode.Guid;
+            if( t == typeof(DateTimeOffset) )   return CLRTypeCode.DateTimeOffset;
+
+            if( t.IsValueType )                 return CLRTypeCode.Object;
+
+            return CLRTypeCode.Object;
         }
     }
 }

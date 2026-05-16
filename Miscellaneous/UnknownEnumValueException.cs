@@ -10,7 +10,11 @@ namespace LenWeaver.Utilities {
         public string       ParameterName       { get; internal set; }  = String.Empty;
 
 
-        public UnknownEnumValueException( string message, Exception inner )                     : base( message, inner ) {}
+        public UnknownEnumValueException( string message, Exception? inner )                    : base( message, inner ) {}
+        public UnknownEnumValueException( string message, Exception? inner, TEnum value )       : base( message, inner ) {
+
+            EnumValue       = value;
+        }
         public UnknownEnumValueException( string message, string parameterName, TEnum value )   : base( message ) {
 
             ParameterName   = parameterName;
@@ -73,8 +77,8 @@ namespace LenWeaver.Utilities {
     /// <summary>Base type used for catching all generic sub-types.</summary>
     public abstract class UnknownEnumValueException : Exception {
 
-        public UnknownEnumValueException( string message, Exception inner ) : base( message, inner ) {}
-        public UnknownEnumValueException( string message )                  : base( message ) {}
-        public UnknownEnumValueException()                                  : base() {}
+        public UnknownEnumValueException( string message, Exception? inner )    : base( message, inner ) {}
+        public UnknownEnumValueException( string message )                      : base( message ) {}
+        public UnknownEnumValueException()                                      : base() {}
     }
 }

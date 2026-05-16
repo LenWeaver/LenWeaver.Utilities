@@ -7,7 +7,7 @@ using System.Windows.Media;
 
 namespace LenWeaver.Utilities {
 
-    //FUTURE: Allow the user access four filter toggles.  Show monospace, proportional, emoji and symbol.
+    //FUTURE: Allow the user to access four filter toggles.  Show monospace, proportional, emoji and symbol.
     public class FontSelectionDialog {
 
         public bool                 AllowFontSizeSelection          { get; set; }       = true;
@@ -169,6 +169,7 @@ namespace LenWeaver.Utilities {
                 }
             }
         }
+        //TODO: Display the GlyphTypeface.Sample text when present.
         private void            UpdateSampleText() {
 
             FontFamily?     ff      = FontFamily;

@@ -1,4 +1,4 @@
-﻿# Type Conversion System
+﻿## Type Conversion System
 
 ---
 &emsp;The type conversion system is used primarily to convert from database types
@@ -10,8 +10,9 @@ from TypeHandlerBase or implementing ITypeHandler.
 #### Source Files:
 
 - CLRTypeCode.cs
-- CLR Type Handlers:
+- CLRTypeHandlers.cs
 	- BooleanHandler
+	- CharHandler
 	- ByteHandler
 	- Int32Handler
 	- Int64Handler
@@ -23,27 +24,44 @@ from TypeHandlerBase or implementing ITypeHandler.
 	- TimeOnlyHandler
 	- GuidHandler
 	- ByteArrayHandler
-	- EnumHandler<T>
+	- EnumHandler&lt;T&gt;
+	- ValueTupleHandler&lt;T&gt;
+	- FontDescriptorHandler
 - ITypeHandlerService.cs
 - ITypeHandler.cs
-- NullConvert.cs
+- NullableConvert.cs
 - TypeConversionExtensions.cs
 - TypeConversionService.cs
 - TypeHandlerBase.cs
 
 ---
 
-##### CLRTypeCode.cs:
+##### [CLRTypeCode.cs:](CLRTypeCode.cs)
+
+&emsp;The CLRTypeCode enumerated type is similar to the TypeCode enumerated type
+from earlier versions of .Net.  CLRTypeCode adds members for more recent types
+such as DateOnly and TimeOnly.  The [TypeConversionExtensions.cs](TypeConversionExtensions.cs)
+file contains an extension method that provides a **GetCLRTypeCode()** method to
+all types.
 
 ---
 
-##### CLRTypeHandlers.cs:
+##### [CLRTypeHandlers.cs:](CLRTypeHandlers.cs)
+
+&emsp;The CLRTypeHandlers.cs source file contains Type Handlers for the following
+data types: Boolean, Byte, Int32, Int64, Double, Decimal, String, DateTime,
+DateOnly, TimeOnly, Guid, Byte[], Enum and Json.  Others to be added soon.
+
+---
+
 ##### ITypeHandlerService.cs:
 ##### ITypeHandler.cs:
-##### NullConverter.cs:
+##### NullableConvert.cs:
 ##### TypeConversionExtensions.cs:
 ##### TypeConversionService.cs:
 ##### TypeHandlerBase.cs:
 
 ---
-Notes:
+Notes: &emsp;An [UnderConstruction](..\Miscellaneous\UnderConstructionAttribute.cs) 
+attribute exists that can <em>hide</em> an ITypeHandler implementation from the
+[ObjectRegistry](..\ObjectRegistry\ObjectRegistry.cs).

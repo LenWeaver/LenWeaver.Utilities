@@ -15,8 +15,9 @@ using System.Windows.Input;
 using System.Windows.Markup;
 using System.Windows.Media;
 
-namespace LenWeaver.Utilities
-{
+namespace LenWeaver.Utilities {
+
+    //TODO: Replace this entire control with a more general MaskedTextBox.
     [ContentProperty("Number")]
     public class CurrencyTextBox : TextBox
     {

@@ -6,6 +6,7 @@ Icon="/LenWeaver.Utilities;component/Images/Database-Connect.png"
 
 xmlns:sys="clr-namespace:System;assembly=mscorlib"
 xmlns:lw="clr-namespace:LenWeaver.Utilities;assembly=LenWeaver.Utilities"
+xmlns:lwdata="clr-namespace:LenWeaver.Data.Common;assembly=LenWeaver.Data"
 
 Binding:
 
@@ -13,3 +14,30 @@ FontFamily="{Binding Path=(lw:FontExtensions.GlobalMonospace)}"
 FontFamily="{x:Static lw:FontExtensions.GlobalMonospace}"
 <TextBlock Text="{Binding ElementName=txtValue, Path=Text, Converter={StaticResource YesNoToBooleanConverter}}"></TextBlock>
 IsEnabled="{Binding ElementName=txtSql, Path=Text, Converter={StaticResource lw:StringLengthToBoolean}}">
+
+<Style TargetType="{x:Type local:DatabaseTreeViewItem}">
+    <Setter Property="ContextMenu" Value="{StaticResource ctxDatabase}" />
+</Style>
+
+<Application.Resources>
+    <ResourceDictionary>
+        <ResourceDictionary.MergedDictionaries>
+
+            <!-- 1. Constants, colors, brushes -->
+            <ResourceDictionary Source="Resources/Colors.xaml" />
+
+            <!-- 2. Styles that depend on colors -->
+            <ResourceDictionary Source="Resources/Styles.xaml" />
+
+            <!-- 3. Control templates that depend on styles -->
+            <ResourceDictionary Source="Resources/Templates.xaml" />
+
+            <!-- 4. Menus, context menus, icons -->
+            <ResourceDictionary Source="Resources/Menus.xaml" />
+
+            <!-- 5. TreeView styles (depends on menus) -->
+            <ResourceDictionary Source="Resources/TreeViewStyles.xaml" />
+
+        </ResourceDictionary.MergedDictionaries>
+    </ResourceDictionary>
+</Application.Resources>

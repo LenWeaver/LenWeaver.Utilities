@@ -46,7 +46,8 @@ namespace LenWeaver.Utilities {
                 DateOnly     d  => d,
                 DateTime    dt  => DateOnly.FromDateTime( dt ),
                 string       s  => DateOnly.Parse( s ),
-                _               => throw new InvalidCastException( "Unable to cast to DateOnly." )
+                _               => throw ExceptionBuilder.Create<InvalidCastException>( "Unable to cast to DateOnly." )
+                                                                             .AddData( $"Parameter {nameof(o)}", o )
             };
         }
         public static TimeOnly?     ToTimeOnly( object? o ) {
@@ -58,7 +59,8 @@ namespace LenWeaver.Utilities {
                 TimeSpan    ts  => TimeOnly.FromTimeSpan( ts ),
                 DateTime    dt  => TimeOnly.FromDateTime( dt ),
                 string       s  => TimeOnly.Parse( s ),
-                _               => throw new InvalidCastException( "Unable to cast to TimeOnly." )
+                _               => throw ExceptionBuilder.Create<InvalidCastException>( "Unable to cast to TimeOnly." )
+                                                                             .AddData( $"Parameter {nameof(o)}", o )
             };
         }
         public static TimeSpan?     ToTimeSpan( object o ) {
@@ -70,7 +72,8 @@ namespace LenWeaver.Utilities {
                 TimeOnly   to => new TimeSpan( to.Ticks ),
                 DateTime   dt => dt.TimeOfDay,
                 string      s => TimeSpan.Parse( s ),
-                _             => throw new InvalidCastException( "Unable to cast to TimeSpan." )
+                _             => throw ExceptionBuilder.Create<InvalidCastException>( "Unable to cast to TimeSpan." )
+                                                                             .AddData( $"Parameter {nameof(o)}", o )
             };
         }
     }

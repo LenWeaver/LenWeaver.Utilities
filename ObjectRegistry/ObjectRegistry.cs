@@ -12,7 +12,7 @@ using System.Windows.Shapes;
 
 namespace LenWeaver.Utilities {
 
-    public static class ObjectRegistry {
+    public class ObjectRegistry {
 
         #region Assembly groups that may need to be skipped.
         public static readonly  string[]                    WPFAssemblies       = ["PresentationCore","PresentationFramework","System.Xaml",
@@ -27,17 +27,16 @@ namespace LenWeaver.Utilities {
         #endregion
 
 
-        private static readonly         List<Type>                  types                                   = new List<Type>();
-        private static readonly         List<TypeDiscoveryEntry>    lookFor                                 = new List<TypeDiscoveryEntry>();
+        private readonly    List<TypeDiscoveryEntry>    lookFor                                 = new List<TypeDiscoveryEntry>();
 
-        public static                   ExcludedAssemblyCollection  ExcludedAssemblies      { get; }        = new ExcludedAssemblyCollection();
-        public static                   FolderList                  SearchFolders           { get; }        = new FolderList();
+        public              ExcludedAssemblyCollection  ExcludedAssemblies      { get; }        = new ExcludedAssemblyCollection();
+        public              FolderList                  SearchFolders           { get; }        = new FolderList();
 
         // TODO: Allow ObjectRegister to lookfor other Types (not just interfaces).
-        static ObjectRegistry() {}
+        public ObjectRegistry() {}
 
 
-        public static void              LookFor                     ( Type t, LoadingStrategies flags ) {
+        public void                                     LookFor                     ( Type t, LoadingStrategies flags ) {
 
             ArgumentNullException.ThrowIfNull( t );
             UnknownEnumValueException<LoadingStrategies>.ThrowIfUndefined( flags );
@@ -51,8 +50,19 @@ namespace LenWeaver.Utilities {
             lookFor.Add( new TypeDiscoveryEntry( t, flags ) );
         }
 
+        public IEnumerable<Type>                        OfType<T>                   () {
 
-        public static void              Invoke                      () {
+            foreach( TypeDiscoveryEntry tde in lookFor ) {
+                if( tde.SoughtAfterType == typeof(T) ) {
+                    return tde.MatchingTypes.ToArray();
+                }
+            }
+
+            throw new ArgumentException( $"There are no type entries for type {typeof(T).FullName}." );
+        }
+
+
+        public void                                     Invoke                      () {
 
             foreach( TypeDiscoveryEntry tde in lookFor ) {
                 if( (tde.LoadingStrategies & LoadingStrategies.ApplicationFolder) != 0 ) {
@@ -74,104 +84,81 @@ namespace LenWeaver.Utilities {
         }
 
 
-        public static IEnumerable<Type> OfType<T>                   () {
+        private void                                    ScanAssemblyForMatches      ( Assembly ass, TypeDiscoveryEntry tde ) {
 
-            foreach( TypeDiscoveryEntry tde in lookFor ) {
-                if( tde.SoughtAfterType == typeof(T) ) {
-                    return tde.MatchingTypes.ToArray();
-                }
+            foreach( Type t in GetTypesFromAssembly( ass ) ) {
+                if( tde.SoughtAfterType.IsAssignableFrom( t ) )
+                    tde.MatchingTypes.Add( t );
             }
-
-            throw new ArgumentException( $"There are no type entries for type {typeof(T).FullName}." );
         }
+        private void                                    SearchReferencedAssemblies  ( TypeDiscoveryEntry tde ) {
 
-        private static void             SearchReferencedAssemblies  ( TypeDiscoveryEntry tde ) {
+            Assembly targetAssembly = tde.SoughtAfterType.Assembly;
+            AssemblyName targetAsmName = targetAssembly.GetName();
 
-            bool                found;
+            // 1. Always scan the interface’s own assembly
+            ScanAssemblyForMatches( targetAssembly, tde );
 
+            // 2. Scan assemblies that reference the interface’s assembly
+            foreach( Assembly ass in AppDomain.CurrentDomain.GetAssemblies() ) {
+                if( ass == targetAssembly )
+                    continue;
 
-            try {
-                foreach( Assembly ass in AppDomain.CurrentDomain.GetAssemblies() ) {
-                    found = false;
+                if( ShouldSkipAssembly( ass ) )
+                    continue;
 
-                    foreach( string s in ExcludedAssemblies ) {
-                        if( ass.FullName != null && ass.FullName.StartsWith( s, StringComparison.OrdinalIgnoreCase ) ) {
-                            found = true;
-                            break;
-                        }
-                    }
+                bool referencesTarget =
+                    ass.GetReferencedAssemblies()
+                       .Any( r => r.FullName == targetAsmName.FullName );
 
-                    if( !found ) {
-                        foreach( Type t in GetTypesFromAssembly( ass ) ) {
-                            if( tde.SoughtAfterType.IsAssignableFrom( t ) ) {
-                                tde.MatchingTypes.Add( t );
-                            }
-                        }
-                    }
-                }
-            }
-            catch( Exception ex ) {
-                throw new ApplicationException( "Unable to search referenced assemblies.", ex );
+                if( !referencesTarget )
+                    continue;
+
+                ScanAssemblyForMatches( ass, tde );
             }
         }
 
-        private static bool             IncludeType                 ( [NotNullWhen(true)]Type? t ) {
 
-#if DEBUG
-            bool        isNull      = t == null;
-            bool        underCon    = IsUnderConstruction( t );
-            bool        isAb        = t.IsAbstract;
-
-            return !isNull && !underCon && !isAb;
-#else
-            return t != null && !IsUnderConstruction( t ) && !t.IsAbstract;
-#endif
-        }
-        private static bool             IsUnderConstruction         ( Type t ) {
+        private bool                                    IsUnderConstruction         ( Type t ) {
 
             return !Debugger.IsAttached && t.GetCustomAttribute<UnderConstructionAttribute>() != null;
         }
+        private bool                                    ShouldSkipAssembly          ( Assembly ass ) {
 
-        private static Type[]           GetTypesFromAssembly        ( Assembly ass ) {
+            if( ass.IsDynamic )
+                return true;
 
-            //List<Type>      loadedTypes;
-            
+            if( ass.IsCollectible )
+                return true;
+
+            if( String.IsNullOrEmpty( ass.Location ) )
+                return true;
+
+            // Skip assemblies explicitly excluded by the user
+            foreach( string prefix in ExcludedAssemblies ) {
+                if( ass.FullName != null &&
+                    ass.FullName.StartsWith(prefix, StringComparison.OrdinalIgnoreCase ) )
+                    return true;
+            }
+
+            return false;
+        }
+
+        private IEnumerable<Type>                       GetTypesFromAssembly        ( Assembly ass ) {
+
+            Type[] types;
 
             try {
-                types.Clear();
-
-                if( !ass.IsDynamic && !ass.IsCollectible && !String.IsNullOrEmpty( ass.Location ) ) {
-                    types.AddRange( ass.GetTypes() );
-                }
+                types = ass.GetTypes();
             }
             catch( ReflectionTypeLoadException ex ) {
-                //Some types may have been loaded despite the exception.
-                types.AddRange( (IEnumerable<Type>)ex.Types.RemoveIf<Type?>( t => t == null ) );
-            }
-            catch( Exception ex ) {
-                throw new ApplicationException( "Unable to extract Type information from assembly.", ex );
+                types = ex.Types.Where( t => t != null ).ToArray()!;
             }
 
-            try {
-                //loadedTypes = new List<Type>();
-
-                //foreach( Type t in types ) {
-                //    if( IncludeType( t ) ) {
-                //        loadedTypes.Add( t );
-                //    }
-                //}
-
-                for( int i = types.Count - 1; i >= 0; i-- ) {
-                    if( !IncludeType( types[i] ) ) {
-                        types.RemoveAt( i );
-                    }
-                }
+            foreach( Type t in types ) {
+                if( t != null && !t.IsAbstract && !IsUnderConstruction( t ) )
+                    yield return t;
             }
-            catch( Exception ex ) {
-                throw new ApplicationException( "Unable to filter Types from list.", ex );
-            }
-
-            return types.ToArray();
         }
 
 
