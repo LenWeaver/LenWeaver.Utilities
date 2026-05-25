@@ -10,14 +10,14 @@ namespace LenWeaver.Utilities {
 
     public class GeometryGroupPresenter : FrameworkElement {
 
-        private                 string                  pathCache       = String.Empty;
+        private             string                  pathCache       = String.Empty;
 
-        private                 Rect                    drawingRect     = new Rect( 0d, 0d, 0d, 0d );
-        private                 Size                    renderSize      = Size.Empty;
+        private             Rect                    drawingRect     = new Rect( 0d, 0d, 0d, 0d );
+        private             Size                    renderSize      = Size.Empty;
 
-        private readonly        DrawingGroup            drawingGroup    = new DrawingGroup();
-        private readonly        PlacementDescriptor     placement       = new PlacementDescriptor();
-        private readonly        TransformGroup          transform       = new TransformGroup();
+        private readonly    DrawingGroup            drawingGroup    = new DrawingGroup();
+        private readonly    PlacementDescriptor     placement       = new PlacementDescriptor();
+        private readonly    TransformGroup          transform       = new TransformGroup();
 
 
         #region Dependency Property Declarations
@@ -67,7 +67,11 @@ namespace LenWeaver.Utilities {
         }
 
 
-        protected void InvalidateGeometry() {
+        protected void  Clear() {
+
+            ExtendedPathMarkup = String.Empty;
+        }
+        protected void  InvalidateGeometry() {
 
             string              extendedMarkup;
 
@@ -133,7 +137,7 @@ namespace LenWeaver.Utilities {
 
             renderSize = finalSize;
 
-            if (!renderSize.IsEmpty && !drawingRect.IsEmpty) {
+            if( !renderSize.IsEmpty && !drawingRect.IsEmpty ) {
                 naturalWidth        = drawingRect.Width;
                 naturalHeight       = drawingRect.Height;
 
@@ -165,23 +169,18 @@ namespace LenWeaver.Utilities {
         }
         protected override Size MeasureOverride( Size availableSize ) {
 
-            double      height;
-            double      width;
+            if( drawingRect.IsEmpty ) return new Size(0, 0);
 
-            Size        result;
+            double width  = drawingRect.Width;
+            double height = drawingRect.Height;
 
-            
-            if( !drawingRect.IsEmpty && drawingRect.Height != 0d && drawingRect.Bottom != 0d ) {
-                result              = new Size( 0d, 0d );
-            }
-            else {
-                width               = Math.Min( availableSize.Width,    drawingRect.Width );
-                height              = Math.Min( availableSize.Height,   drawingRect.Height );
+            if( !double.IsInfinity( availableSize.Width ) )
+                width = Math.Min( width, availableSize.Width );
 
-                result              = new Size( width, height );
-            }
+            if( !double.IsInfinity( availableSize.Height ) )
+                height = Math.Min( height, availableSize.Height );
 
-            return result;
+            return new Size( width, height );
         }
 
 

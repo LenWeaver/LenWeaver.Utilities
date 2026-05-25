@@ -17,8 +17,8 @@ namespace LenWeaver.Utilities {
 
             foreach( object key in rd.Keys ) {
                 if( String.Compare( key.ToString(), styleKey, ignoreCase: true ) == 0 ) {
-                    if( rd[key] is Style ) {
-                        result = (Style)rd[key];
+                    if( rd[key] is Style style) {
+                        result = style;
 
                         break;
                     }
@@ -44,7 +44,7 @@ namespace LenWeaver.Utilities {
 
         public static string ToExtendedPathMarkup( this IEnumerable<GeometryDrawingDescriptor> descriptors ) {
 
-            return String.Join( '@', descriptors );
+            return String.Join( GeometryDrawingDescriptor.MarkupSeparator, descriptors );
         }
     }
 }

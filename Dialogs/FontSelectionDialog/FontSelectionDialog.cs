@@ -1,9 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
+using System.Diagnostics;
+using System.Numerics;
 using System.Text;
+using System.Threading;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
+using System.Windows.Threading;
 
 namespace LenWeaver.Utilities {
 
@@ -20,16 +25,21 @@ namespace LenWeaver.Utilities {
 
         public string               Title                           { get; set; }       = "Font Selection...";
 
-        public FontDescriptor?      SelectedFont                    { get; set; }       = null;
         public Window?              Owner                           { get; set; }       = null;
 
 
+        private                     bool                            templateApplied     = false;
+        private                     FontDescriptor?                 delayedFont         = null;
         private readonly            FontSelectionWindow             fsw;
 
 
         public FontSelectionDialog() {
 
             fsw = new FontSelectionWindow();
+            fsw.Dispatcher.BeginInvoke( new Action( () => {
+
+                if( delayedFont != null ) SelectedFont = delayedFont;
+            } ), DispatcherPriority.Loaded );
         }
 
 
@@ -42,135 +52,134 @@ namespace LenWeaver.Utilities {
 
             switch( AllowFontSizeSelection, AllowTypefaceSelection ) {
                 case (true, true):
-                    fsw.cboFontSizeLeft.Visibility      = Visibility.Collapsed;
-                    fsw.cboFontSizeCenter.Visibility    = Visibility.Visible;
+                    fsw.nudFontSizeLeft.Visibility      = Visibility.Collapsed;
+                    fsw.nudFontSizeCenter.Visibility    = Visibility.Visible;
                     fsw.grpTypeface.Visibility          = Visibility.Visible;
-                    fsw.cboFontSize                     = fsw.cboFontSizeCenter;
+                    fsw.nudFontSize                     = fsw.nudFontSizeCenter;
                     break;
 
                 case (true, false):
-                    fsw.cboFontSizeLeft.Visibility      = Visibility.Visible;
+                    fsw.nudFontSizeLeft.Visibility      = Visibility.Visible;
                     fsw.grpTypeface.Visibility          = Visibility.Collapsed;
-                    fsw.cboFontSize                     = fsw.cboFontSizeLeft;
+                    fsw.nudFontSizeCenter.Visibility    = Visibility.Collapsed;
+                    fsw.nudFontSize                     = fsw.nudFontSizeLeft;
                     break;
 
                 case (false, true):
-                    fsw.cboFontSizeLeft.Visibility      = Visibility.Collapsed;
-                    fsw.cboFontSizeCenter.Visibility    = Visibility.Collapsed;
+                    fsw.nudFontSizeLeft.Visibility      = Visibility.Collapsed;
+                    fsw.nudFontSizeCenter.Visibility    = Visibility.Collapsed;
                     fsw.grpTypeface.Visibility          = Visibility.Visible;
                     break;
 
                 case (false, false):
-                    fsw.cboFontSizeLeft.Visibility      = Visibility.Collapsed;
+                    fsw.nudFontSizeLeft.Visibility      = Visibility.Collapsed;
+                    fsw.nudFontSizeCenter.Visibility    = Visibility.Collapsed;
                     fsw.grpTypeface.Visibility          = Visibility.Collapsed;
                     break;
             }
 
             ConnectEventHandlers();
 
-            PopulateFontSizes();
             PopulateFontFamilies();
 
-            if( SelectedFont is null ) {
-                if( fsw.lstFontFamily.Items.Count > 0 ) fsw.lstFontFamily.SelectedIndex = 0;
-                if( fsw.lvwTypeface.Items.Count > 0 )   fsw.lvwTypeface.SelectedIndex = 0;
-
-                if( fsw.cboFontSize is not null ) {
-                    FontSize = 11d;
-                }
+            if( fsw.nudFontSize != null ) {
+                fsw.nudFontSize.StringFormat = "{0} pt";
+                fsw.nudFontSize.HorizontalContentAlignment = HorizontalAlignment.Center;
+                fsw.nudFontSize.MaximumValue = 72m;
+                fsw.nudFontSize.MinimumValue =  3m;
             }
 
             return fsw.ShowDialog();
         }
 
 
-        //public FontDescriptor   SelectedFont {
-        //    get {
-        //        FontDescriptor      result;
+        public FontDescriptor?      SelectedFont {
+            get {
+                FontDescriptor?     result      = null;
 
-        //    }
-        //}
-
-        private bool            CanSelect() {
-
-            bool        result;
-
-
-            result = fsw.lstFontFamily.SelectedItem != null;
-
-            if( AllowFontSizeSelection ) {
-                if( fsw.cboFontSize is not null ) {
-                    if( !Double.TryParse( fsw.cboFontSize.Text, out _ ) ) result = false;
+                if( FontFamily != null && FontSize != null && Typeface != null ) {
+                    result = new FontDescriptor( FontFamily, (double)FontSize, Typeface );
                 }
-                else {
-                    result = false;
-                }
+
+                return result;
             }
-
-            return result && AllowTypefaceSelection && fsw.lvwTypeface.SelectedItem != null;
-        }
-        private double?         FontSize {
-            get => fsw?.cboFontSize?.SelectedItem as double?;
             set {
-                if( fsw.cboFontSize is not null ) {
-                    foreach( NamedValue<double> nv in fsw.cboFontSize.Items ) {
-                        if( nv.Value == value ) {
-                            fsw.cboFontSize.SelectedItem = nv;
-                            break;
-                        }
+                if( value != null ) {
+                    if( fsw.TemplateLoaded ) {
+                        FontFamily      = value.Family;
+                        FontSize        = value.Size;
+                        Typeface        = value.Typeface;
+                    }
+                    else {
+                        delayedFont     = value;
                     }
                 }
             }
         }
-        private FontFamily?     FontFamily {
-            get => fsw?.lstFontFamily?.SelectedItem as FontFamily;
-            set {
-                fsw.lstFontFamily.SelectedItem = value;
-                //foreach( FontFamily ff in fsw.lstFontFamily.Items ) {
-                //    if( ff == value ) {
 
-                //    }
-                //}
+        private bool                CanSelect() {
+
+            bool        result;
+
+            
+            result = fsw.lstFontFamily.SelectedItem != null;
+
+            if( AllowFontSizeSelection && result ) {
+                result = fsw.nudFontSize != null;
+            }
+
+            return result && AllowTypefaceSelection && fsw.lvwTypeface.SelectedItem != null;
+        }
+        private double?             FontSize {
+            get => (double?)(fsw.nudFontSize?.Value ?? null);
+            set {
+                fsw.nudFontSize?.Value = (decimal?)value ?? 5.5m;
             }
         }
-        private Typeface?       Typeface {
+        private FontFamily?         FontFamily {
+            get => fsw.lstFontFamily?.SelectedItem as FontFamily;
+            set {
+                fsw.lstFontFamily.SelectedItem = value;
+                fsw.lstFontFamily.ScrollIntoView( value );
+            }
+        }
+        private Typeface?           Typeface {
             get => fsw.lvwTypeface?.SelectedItem as Typeface;
-            set => fsw.lvwTypeface.SelectedItem = value;
+            set {
+                fsw.lvwTypeface.SelectedItem = value;
+                fsw.lvwTypeface.ScrollIntoView( value );
+            }
         }
 
 
-        private void            ConnectEventHandlers() {
+        private void                ConnectEventHandlers() {
 
             fsw.btnSelect.Click                     += btnSelect_Click;
             fsw.lstFontFamily.SelectionChanged      += lstFontFamily_SelectionChanged;
             fsw.lvwTypeface.SelectionChanged        += lvwTypeface_SelectionChanged;
             fsw.txtSearch.TextChanged               += txtSearch_TextChanged;
-
-            if( fsw.cboFontSize is not null ) {
-                //fsw.cboFontSize.V
-                fsw.cboFontSize.SelectionChanged    += cboFontSize_SelectionChanged;
-            }
+            fsw.nudFontSize?.ValueChanged           += nudFontSize_ValueChanged;
         }
-        private void            PopulateFontFamilies( string? searchSpec = null ) {
+
+        private void nudFontSize_ValueChanged( object sender, RoutedPropertyChangedEventArgs<decimal> e ) {
+            
+            fsw.btnSelect.IsEnabled = CanSelect();
+        }
+
+        private void                PopulateFontFamilies( string? searchSpec = null ) {
 
             fsw.lstFontFamily.Items.Clear();
 
             foreach( FontFamily ff in Fonts.SystemFontFamilies ) {
-                if( searchSpec is null || ff.Source.Contains( searchSpec, StringComparison.CurrentCultureIgnoreCase ) ) {
+                if( searchSpec == null || ff.Source.Contains( searchSpec, StringComparison.CurrentCultureIgnoreCase ) ) {
                     fsw.lstFontFamily.Items.Add( ff );
                 }
             }
-        }
-        private void            PopulateFontSizes() {
 
-            if( fsw.cboFontSize is not null ) {
-                for( double size = 5d; size < 73d; size += 2 ) {
-                    fsw.cboFontSize.Items.Add( new NamedValue<double>( size.ToString(), size ) );
-                }
-            }
+            fsw.lstFontFamily.Items.SortDescriptions.Add( new SortDescription( nameof(FontFamily.Source), ListSortDirection.Ascending ) );
         }
         //TODO: Display the GlyphTypeface.Sample text when present.
-        private void            UpdateSampleText() {
+        private void                UpdateSampleText() {
 
             FontFamily?     ff      = FontFamily;
             Typeface?       tf      = Typeface;
@@ -186,10 +195,8 @@ namespace LenWeaver.Utilities {
 
 
         private void btnSelect_Click                ( object sender, RoutedEventArgs e ) {
-        }
-        private void cboFontSize_SelectionChanged   ( object sender, SelectionChangedEventArgs e ) {
 
-            fsw.btnSelect.IsEnabled = CanSelect();
+            fsw.DialogResult = true;
         }
         private void lstFontFamily_SelectionChanged ( object sender, SelectionChangedEventArgs e ) {
 

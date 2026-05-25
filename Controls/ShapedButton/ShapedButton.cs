@@ -52,10 +52,8 @@ namespace LenWeaver.Utilities {
 
 
             if( btn.Template != null ) {
-                gp   = (GeometryPresenter)btn.Template.FindName( ShapedButton.PathName, btn );
-                if( gp != null ) {
-                    gp.PathMarkup = pathMarkup;
-                }
+                gp              = (GeometryPresenter)btn.Template.FindName( ShapedButton.PathName, btn );
+                gp?.PathMarkup  = pathMarkup;
             }
         }
 

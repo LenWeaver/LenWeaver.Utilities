@@ -8,6 +8,7 @@ namespace LenWeaver.Utilities {
         None,
         Character,          //Symbol source will be a character from a font, such as Segoe MDL2 Assets.
         Image,              //Symbol source will be an image.
-        Path                //Symbol source will be path geometry.
+        Path,               //Symbol source will be path geometry.
+        ExtendedPath        //Symbol source will be extended path geometry.
     }
 }

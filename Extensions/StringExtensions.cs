@@ -76,7 +76,7 @@ namespace LenWeaver.Utilities {
         /// not match the mask.</exception>
         public static string    Increment           ( this string s, string mask ) {
 
-            bool        carry           = false;
+            bool        carry;
 
             char        c;
             char[]      chars;

@@ -75,12 +75,17 @@
                 <ListBox                    x:Name="lstFontFamily"      Grid.Row="2"
                                             TabIndex="1" />
                 
+                <!--
                 <ComboBox                   x:Name="cboFontSizeLeft"    Grid.Row="3"
                                             Margin="0 6 0 0"
                                             SelectedValuePath="Value"
                                             TabIndex="2" />
+                -->
+                <local:NumericUpDown        x:Name="nudFontSizeLeft"    Grid.Row="3"
+                                            TabIndex="2" />
+                
                 <TextBlock                  x:Name="tbFontSizeLeft"     Grid.Row="4"
-                                            Text="Font Size:"           Visibility="{Binding ElementName=cboFontSizeLeft, Path=Visibility}" />
+                                            Text="Font Size:"           Visibility="{Binding ElementName=nudFontSizeLeft, Path=Visibility}" />
             </Grid>
         </GroupBox>
                                             
@@ -102,9 +107,13 @@
                                             IsEditable="true" TextBlock.TextAlignment="Right" 
                                             Margin="0 1 0 0"
                                             TabIndex="3" />
+                
+                <local:NumericUpDown        x:Name="nudFontSizeCenter"  Grid.Row="0"
+                                            TabIndex="3" />
+                
                 <TextBlock                  x:Name="tbFontSizeCenter"   Grid.Row="1"
                                             Margin="0 0 0 6"            Text="Font Size:"
-                                            Visibility="{Binding ElementName=cboFontSizeCenter, Path=Visibility}" />
+                                            Visibility="{Binding ElementName=nudFontSizeCenter, Path=Visibility}" />
                 
                 <ListView                   x:Name="lvwTypeface"        Grid.Row="2"
                                             Margin="0 0 0 2"

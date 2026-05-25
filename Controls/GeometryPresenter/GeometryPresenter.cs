@@ -13,6 +13,15 @@ namespace LenWeaver.Utilities {
 
 
         #region DependencyProperty Declarations
+        public static readonly  DependencyProperty  BoundsOverrideProperty =
+                                DependencyProperty.Register( nameof(BoundsOverride),
+                                                             typeof(Rect?),
+                                                             typeof(GeometryPresenter),
+                                                             new FrameworkPropertyMetadata( null,
+                                                                                            FrameworkPropertyMetadataOptions.AffectsRender |
+                                                                                            FrameworkPropertyMetadataOptions.AffectsMeasure,
+                                                                                            PathMarkup_Changed ) );
+
         public static readonly  DependencyProperty StrokeThicknessProperty
                                 = DependencyProperty.Register( nameof(StrokeThickness),
                                                                typeof(double),
@@ -58,6 +67,11 @@ namespace LenWeaver.Utilities {
             set => SetValue( PathMarkupProperty, value );
         }
 
+        public Rect? BoundsOverride {
+            get => (Rect?)GetValue( BoundsOverrideProperty );
+            set => SetValue( BoundsOverrideProperty, value );
+        }
+
         public Brush FillBrush {
             get => (Brush)GetValue( FillBrushProperty );
             set => SetValue( FillBrushProperty, value );
@@ -98,7 +112,7 @@ namespace LenWeaver.Utilities {
             }
             else {
                 g                               = Geometry.Parse( PathMarkup );
-                bounds                          = g.Bounds;
+                bounds                          = BoundsOverride ?? g.Bounds;
 
                 sx                              = ActualWidth / bounds.Width;
                 sy                              = ActualHeight / bounds.Height;

@@ -18,7 +18,7 @@
                                      HorizontalAlignment="Stretch" 
                                      VerticalAlignment="Stretch" 
                                      Visibility="Visible">
-                                <TextBlock x:Name="tbCharacter" 
+                                <TextBlock x:Name="PART_Character" 
                                            FontFamily="{TemplateBinding FontFamily}"
                                            FontWeight="{TemplateBinding FontWeight}" 
                                            Text="{TemplateBinding Character}"
@@ -31,7 +31,7 @@
                                      HorizontalAlignment="Stretch" 
                                      VerticalAlignment="Stretch"
                                      Visibility="Collapsed">
-                                <Image x:Name="imgImage" 
+                                <Image x:Name="PART_Image" 
                                        Source="{TemplateBinding ImageSource}" />
                             </Viewbox>
                             <Viewbox x:Name="vbPath" 
@@ -41,7 +41,8 @@
                                      Stretch="Fill" 
                                      StretchDirection="Both"
                                      Width="{TemplateBinding Height}">
-                                <Path x:Name="pPath" 
+                                
+                                <Path x:Name="PART_PathMarkup" 
                                       Fill="{TemplateBinding PathFill}" 
                                       Stroke="{TemplateBinding PathStroke}"
                                       StrokeThickness="{TemplateBinding PathStrokeThickness}" 
@@ -49,6 +50,21 @@
                                       Data="{Binding RelativeSource={RelativeSource TemplatedParent},
                                                                Path=PathMarkup, Converter={StaticResource PathConverter}}"
                                       Stretch="Fill" />
+                                
+                            </Viewbox>
+                            <Viewbox  x:Name="vbExtendedPathMarkup"
+                                      HorizontalAlignment="Center" 
+                                      VerticalAlignment="Center"
+                                      Visibility="Collapsed" 
+                                      Stretch="Fill" 
+                                      StretchDirection="Both"
+                                      Width="{TemplateBinding Height}">
+                                <local:GeometryGroupPresenter x:Name="PART_ExtendedPathMarkup"
+                                                              Stretch="UniformToFill"
+                                                              VerticalAlignment="Stretch"
+                                                              HorizontalAlignment="Stretch"
+                                                              ExtendedPathMarkup="{Binding RelativeSource={RelativeSource TemplatedParent},
+                                                              Path=ExtendedPathMarkup}" />
                             </Viewbox>
                         </Grid>
                     </Border>

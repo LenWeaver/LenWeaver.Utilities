@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 using System.Windows;
 using System.Windows.Controls;
@@ -308,6 +309,7 @@ namespace LenWeaver.Utilities {
             }
         }
     }
+
 
     [Flags()]
     public enum TypefaceMetrics : ushort {

@@ -15,12 +15,16 @@ namespace LenWeaver.Utilities {
 
     internal partial class FontSelectionWindow : Window {
 
-        internal ComboBox?  cboFontSize     = null;
+        public      bool                TemplateLoaded      { get; private set; }   = false;
+
+        internal    NumericUpDown?      nudFontSize         = null;
 
 
         public FontSelectionWindow() {
 
             InitializeComponent();
+
+            if( !TemplateLoaded ) base.OnApplyTemplate();
         }
 
 
@@ -35,6 +39,8 @@ namespace LenWeaver.Utilities {
             else {
                 lstFontFamily?.Focus();
             }
+
+            TemplateLoaded = true;
         }
     }
 }

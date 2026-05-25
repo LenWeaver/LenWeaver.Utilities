@@ -20,7 +20,6 @@
                         <TextBox    x:Name="PART_TextBox"           Grid.Column="0"
                                     Text="{TemplateBinding Text}"
                                     AcceptsReturn="false"
-                                    Background="Transparent"
                                     IsReadOnly="True"
                                     Padding="2"
                                     VerticalContentAlignment="Center" />
@@ -39,7 +38,7 @@
                         </Button>
 
                         <Button     x:Name="PART_PopupButton"       Grid.Column="2"
-                                    Content="..."
+                                    Content="📅"
                                     Height="{Binding ActualHeight, ElementName=PART_TextBox}"
                                     Width="{TemplateBinding MinimumButtonWidth}"
                                     VerticalAlignment="Center" />

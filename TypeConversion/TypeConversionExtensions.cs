@@ -7,27 +7,31 @@ namespace LenWeaver.Utilities {
 
     public static class TypeConversionExtensions {
 
-        public static DbParameter AddTypedParameter( this DbCommand cmd, string name, object? value, ITypeConversionService types ) {
+        private static ITypeHandler[] allHandlers   = Array.Empty<ITypeHandler>();
 
-            DbParameter? parameter = cmd.CreateParameter();
-            parameter.ParameterName = name;
+        //Any new non-generic handlers added to LINK:CLRTypeHandlers.cs
+        //should have their compile-time type added to AllHandlers.
+        public static ITypeHandler[] AllHandlers {
+            get {
+                if( allHandlers.Length == 0 ) {
+                    allHandlers  = [new BooleanHandler(),       new CharHandler(),          new ByteHandler(),
+                                    new SByteHandler(),         new Int16Handler(),         new UInt16Handler(),
+                                    new Int32Handler(),         new UInt32Handler(),        new Int64Handler(),
+                                    new UInt64Handler(),        new SingleHandler(),        new DoubleHandler(),
+                                    new DecimalHandler(),       new StringHandler(),        new DateTimeHandler(),
+                                    new DateOnlyHandler(),      new TimeOnlyHandler(),      new GuidHandler(),
+                                    new ByteArrayHandler(),     new FontDescriptorHandler()];
+                }
 
-            if( value is null ) {
-                parameter.Value = DBNull.Value;
-                cmd.Parameters.Add(parameter);
-                
-                return parameter;
+                return allHandlers;
             }
-
-            ITypeHandler handler = types.GetHandler( value.GetType() );
-            parameter.Value = handler.ToDbValue( value );
-
-            // Optionally set DbType based on handler.ClrType
-            // parameter.DbType = ...
-
-            cmd.Parameters.Add( parameter );
-            return parameter;
         }
+
+        public static   Type[]  xAllHandlers     = [typeof(BooleanHandler),      typeof(CharHandler),        typeof(ByteHandler),        typeof(SByteHandler),
+                                                   typeof(Int16Handler),        typeof(UInt16Handler),      typeof(Int32Handler),       typeof(UInt32Handler),
+                                                   typeof(Int64Handler),        typeof(UInt64Handler),      typeof(SingleHandler),      typeof(DoubleHandler),
+                                                   typeof(DecimalHandler),      typeof(StringHandler),      typeof(DateTimeHandler),    typeof(DateOnlyHandler),
+                                                   typeof(TimeOnlyHandler),     typeof(GuidHandler),        typeof(ByteArrayHandler),   typeof(FontDescriptorHandler)];
 
         public static CLRTypeCode GetCLRTypeCode( this object? o ) {
 
@@ -69,5 +73,28 @@ namespace LenWeaver.Utilities {
 
             return CLRTypeCode.Object;
         }
+
+        public static DbParameter AddTypedParameter( this DbCommand cmd, string name, object? value, ITypeConversionService types ) {
+
+            DbParameter? parameter = cmd.CreateParameter();
+            parameter.ParameterName = name;
+
+            if( value is null ) {
+                parameter.Value = DBNull.Value;
+                cmd.Parameters.Add(parameter);
+                
+                return parameter;
+            }
+
+            ITypeHandler handler = types.GetHandler( value.GetType() );
+            parameter.Value = handler.ToDbValue( value );
+
+            // Optionally set DbType based on handler.ClrType
+            // parameter.DbType = ...
+
+            cmd.Parameters.Add( parameter );
+            return parameter;
+        }
+
     }
 }

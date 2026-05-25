@@ -77,14 +77,30 @@ namespace LenWeaver.Utilities {
             tokens = parts[1].Split( ',', StringSplitOptions.TrimEntries );
             if( tokens.Length != 3 ) throw new FormatException( "Invalid stretch/style/weight format." );
 
-            if( !Enum.TryParse<FontStretch>( tokens[0], out FontStretch stretch ) ) throw new FormatException( "Invalid FontStretch value." );
-            Stretch = stretch;
+            if( PseudoEnum<FontStretch>.TryParse( tokens[0], out FontStretch stretch ) ) {
+                Stretch     = stretch;
+            }
+            else {
+                throw ExceptionBuilder.Create<FormatException>( "Invalid FontStretch value." )
+                                      .AddData( "FontStretch", stretch );
+            }
 
-            if( !Enum.TryParse<FontStyle>( tokens[1], out FontStyle style ) ) throw new FormatException( "Invalid FontStyle value." );
-            Style = style;
+            if( PseudoEnum<FontStyle>.TryParse( tokens[1], out FontStyle style ) ) {
+                Style       = style;
+            }
+            else {
+                throw ExceptionBuilder.Create<FormatException>( "Invalid FontStyle value." )
+                                      .AddData( "FontStyle", style );
+            }
 
-            if( !Enum.TryParse<FontWeight>( tokens[2], out FontWeight weight ) ) throw new FormatException( "Invalid FontWeight value." );
-            Weight = weight;
+            if( PseudoEnum<FontWeight>.TryParse( tokens[2], out FontWeight weight ) ) {
+                Weight      = weight;
+            }
+            else {
+                throw ExceptionBuilder.Create<FormatException>( "Invalid FontWeight value." )
+                                      .AddData( "FontWeight", weight );
+            }
+
         }
         public FontDescriptor( FontFamily ff, double fs, FontStretch stretch, FontStyle style, FontWeight weight ) {
 
@@ -328,8 +344,39 @@ namespace LenWeaver.Utilities {
         }
 
 
-        public override string ToString() => $"{Family.Source} {Size.ToString( CultureInfo.InvariantCulture )}pt - {Stretch}, {Style}, {Weight}";
+        public override string ToString()       => $"{Family.Source} {Size.ToString( CultureInfo.InvariantCulture )}pt - {Stretch}, {Style}, {Weight}";
 
+        /// <summary>
+        /// Sets the five font-related properties of the specified object to the values provided by the given font
+        /// descriptor.
+        /// </summary>
+        /// <remarks>
+        /// Throws an ArgumentException if the specified object does not support font properties. This method uses
+        /// dynamic typing to support multiple UI element types.
+        /// </remarks>
+        /// <param name="c">
+        /// The object whose font properties will be set. Must be an instance of Control, TextBlock, TextElement,
+        /// FlowDocument, or IFontProperties.
+        /// </param>
+        /// <param name="font">
+        /// A FontDescriptor containing the font family, size, stretch, style, and weight to apply.
+        /// </param>
+        public static void SetFontProperties( dynamic c, FontDescriptor font ) {
+            //TODO: Investigate using discriminated unions (when they are available) to replace 'dynamic' usage.
+
+
+            if( c is Control || c is TextBlock || c is TextElement || c is FlowDocument || c is IFontProperties ) {
+                c.FontFamily        = font.Family;
+                c.FontSize          = font.Size;
+                c.FontStretch       = font.Stretch;
+                c.FontStyle         = font.Style;
+                c.FontWeight        = font.Weight;
+            }
+            else {
+                throw ExceptionBuilder.Create<ArgumentException>( "Provided object not supported." )
+                                      .AddData( $"Argument {nameof(c)}:", ((object)c).GetType().FullName );
+            }
+        }
 
         #region IComparable and IComparable<FontDescriptor?> Implementation
         public int CompareTo( object? obj ) => CompareTo( obj as FontDescriptor );

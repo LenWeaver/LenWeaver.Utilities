@@ -249,9 +249,9 @@ namespace LenWeaver.Utilities {
                 RaiseEvent( args );
 
                 if( args.Handled ) {
-                    complete        = true;
+                    complete            = true;
 
-                    displayText     = args.DisplayText;
+                    displayText         = args.DisplayText;
                 }
 
                 if( !complete ) displayText = SelectedObject?.ToString() ?? String.Empty;

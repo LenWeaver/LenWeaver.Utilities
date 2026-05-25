@@ -15,7 +15,14 @@ namespace LenWeaver.Utilities {
 
     public sealed class GeometryDrawingDescriptor {
 
-        private const int RoundingDecimalPlaces = 2;
+        private const           int     RoundingDecimalPlaces = 2;
+
+        public  static readonly char    MarkupSeparator = '@';                  //Separates ExtendedPathMarkup blocks.
+        public  static readonly char    TokenSeparator  = '|';                  //Separates tokens such as brush, fillrule, etc.
+
+        private static readonly char[]  anyOf = new char[] { '=',               //Characters which appear in ExtendedPathMarkup but
+                                                             MarkupSeparator,   //regular PathMarkup.
+                                                             TokenSeparator };
 
 
         public  FillRule?   FillRule            { get; internal set; }  = null;
@@ -191,6 +198,21 @@ namespace LenWeaver.Utilities {
         }
 
 
+        public static bool                          IsExtendedPathMarkup        ( string extendedPathMarkup ) {
+
+            bool    result      = true;
+
+            
+            if( extendedPathMarkup.IndexOfAny( anyOf ) == -1 ) result = false;
+
+            return result;
+        }
+
+        public static string                        ToExtendedPathMarkup        ( GeometryDrawingDescriptor[] descriptors ) {
+
+            return String.Join( MarkupSeparator, descriptors );
+        }
+
         public static GeometryDrawingDescriptor     ParseSingle                 ( string extendedPathMarkup ) {
 
             string                      name;
@@ -205,7 +227,7 @@ namespace LenWeaver.Utilities {
 
             result                  = new GeometryDrawingDescriptor();
 
-            foreach( string token in extendedPathMarkup.Split( '|', StringSplitOptions.TrimEntries ) ) {
+            foreach( string token in extendedPathMarkup.Split( TokenSeparator, StringSplitOptions.TrimEntries ) ) {
                 nameValue           = token.Split( '=', StringSplitOptions.TrimEntries );
 
                 if( nameValue.Length == 1 && (result.Geometry is null || result!.Geometry!.IsEmpty() ) ) {
@@ -266,7 +288,7 @@ namespace LenWeaver.Utilities {
             List<GeometryDrawingDescriptor>     result  = new();
 
 
-            foreach( string s in extendedPathMarkup.Split( '@', StringSplitOptions.TrimEntries ) ) {
+            foreach( string s in extendedPathMarkup.Split( MarkupSeparator, StringSplitOptions.TrimEntries ) ) {
                 gdd = ParseSingle( s );
 
                 if( gdd.Geometry is null || gdd.Geometry.IsEmpty() ) throw new FormatException( "Data section of Extended Path Markup is empty." );

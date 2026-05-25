@@ -8,6 +8,9 @@ using System.Text.Json;
 
 namespace LenWeaver.Utilities {
 
+    //When a new non-generic ITypeHandler is created its compile-time should be
+    //added to the AllHandlers array in LINK:TypeConversionExtensions.cs
+
     public sealed class BooleanHandler          : TypeHandlerBase<bool>     {}
     public sealed class CharHandler             : TypeHandlerBase<char>     {}
     public sealed class ByteHandler             : TypeHandlerBase<byte>     {}
@@ -110,7 +113,6 @@ namespace LenWeaver.Utilities {
                                                           ? default(TimeOnly)
                                                           : TimeOnly.Parse( text, CultureInfo.InvariantCulture );
     }
-
     public sealed class GuidHandler             : TypeHandlerBase<Guid> {
 
         public override string? ToText( object? clrValue ) {
@@ -124,7 +126,6 @@ namespace LenWeaver.Utilities {
         public override object? FromText( string? text )
             => string.IsNullOrEmpty( text ) ? default(Guid) : Guid.Parse( text );
     }
-
     public sealed class ByteArrayHandler        : TypeHandlerBase<byte[]> {
 
         public override bool IsBlob => true;
@@ -146,6 +147,30 @@ namespace LenWeaver.Utilities {
 
         public override byte[]? ToBlob( object? clrValue ) => clrValue as byte[];
         public override object? FromBlob( byte[]? blob ) => blob ?? Array.Empty<byte>();
+    }
+    public sealed class FontDescriptorHandler   : TypeHandlerBase<FontDescriptor> {
+
+        public override object? ToDbValue( object? clrValue ) {
+
+            if( clrValue == null ) return (string?)null;
+            return clrValue.ToString();
+        }
+        public override object? FromDbValue( object? dbValue ) {
+
+            if( dbValue == null || dbValue is DBNull ) return (FontDescriptor?)null;
+            return new FontDescriptor( dbValue.ToString()! );
+        }
+
+        public override string? ToText( object? clrValue ) {
+
+            if( clrValue == null ) return (string?)null;
+            return ToDbValue( clrValue )!.ToString();
+        }
+        public override object? FromText( string? text ) {
+
+            if( String.IsNullOrWhiteSpace( text ) ) return (FontDescriptor?)null;
+            return new FontDescriptor( text );
+        }
     }
 
     public sealed class EnumHandler<TEnum>      : TypeHandlerBase<TEnum> where TEnum : struct, Enum {
@@ -248,7 +273,6 @@ namespace LenWeaver.Utilities {
             return _inner.FromBlob( blob );
         }
     }
-
     public sealed class ValueTupleHandler<T>    : TypeHandlerBase<T> {
 
         public ValueTupleHandler( ITypeConversionService tcs ) : base( tcs ) {}
@@ -287,28 +311,4 @@ namespace LenWeaver.Utilities {
         }
     }
 
-    public sealed class FontDescriptorHandler   : TypeHandlerBase<FontDescriptor> {
-
-        public override object? ToDbValue( object? clrValue ) {
-
-            if( clrValue == null ) return (string?)null;
-            return clrValue.ToString();
-        }
-        public override object? FromDbValue( object? dbValue ) {
-
-            if( dbValue == null || dbValue is DBNull ) return (FontDescriptor?)null;
-            return new FontDescriptor( dbValue.ToString()! );
-        }
-
-        public override string? ToText( object? clrValue ) {
-
-            if( clrValue == null ) return (string?)null;
-            return ToDbValue( clrValue )!.ToString();
-        }
-        public override object? FromText( string? text ) {
-
-            if( String.IsNullOrWhiteSpace( text ) ) return (FontDescriptor?)null;
-            return new FontDescriptor( text );
-        }
-    }
 }

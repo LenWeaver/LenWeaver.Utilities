@@ -4,6 +4,7 @@ using System.Data;
 using System.Text;
 using System.Windows;
 using System.Windows.Controls;
+using win = System.Windows.Controls;
 using System.Windows.Controls.Primitives;
 using System.Windows.Data;
 using System.Windows.Media;
@@ -204,7 +205,7 @@ namespace LenWeaver.Utilities {
             return rows.Add( (double)numberOfStars, GridUnitType.Star );
         }
 
-        public static UIElement         AddChild( this Grid grd, string textBlockText, int row = 0, int column = 0, int rowSpan = 1, int colSpan = 1,
+        public static UIElement         AddText( this win.Grid grd, string textBlockText, int row = 0, int column = 0, int rowSpan = 1, int colSpan = 1,
                                                   Brush? foreground = null, HorizontalAlignment horizontalAlignment = HorizontalAlignment.Left ) {
 
             TextBlock   tb          = new();
@@ -217,7 +218,18 @@ namespace LenWeaver.Utilities {
 
             return AddChild( grd, tb, row, column, rowSpan, colSpan );
         }
-        public static UIElement         AddChild( this Grid grd, UIElement control, int row = 0, int column = 0, int rowSpan = 1, int colSpan = 1 ) {
+        public static UIElement         AddChild( this win.Grid grd, UIElement control, int row = 0, int column = 0, int rowSpan = 1, int colSpan = 1 ) {
+
+            grd.Children.Add( control );
+
+            Grid.SetRow( control, row );
+            Grid.SetColumn( control, column );
+            Grid.SetRowSpan( control, rowSpan );
+            Grid.SetColumnSpan( control, colSpan );
+
+            return control;
+        }
+        public static Control           AddChild( this win.Grid grd, Control control, int row = 0, int column = 0, int rowSpan = 1, int colSpan = 1 ) {
 
             grd.Children.Add( control );
 
