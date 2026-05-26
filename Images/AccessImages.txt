@@ -6,6 +6,7 @@ Icon="/LenWeaver.Utilities;component/Images/Database-Connect.png"
 
 xmlns:sys="clr-namespace:System;assembly=mscorlib"
 xmlns:lw="clr-namespace:LenWeaver.Utilities;assembly=LenWeaver.Utilities"
+xmlns:lwui="clr-namespace:LenWeaver.UI.WPF;assembly=LenWeaver.UI.WPF"
 xmlns:lwdb="clr-namespace:LenWeaver.Data;assembly=LenWeaver.Data"
 xmlns:lwdbc="clr-namespace:LenWeaver.Data.Common;assembly=LenWeaver.Data"
 
