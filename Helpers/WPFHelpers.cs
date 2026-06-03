@@ -204,12 +204,12 @@ namespace LenWeaver.Utilities {
             for( int index = 0; index < VisualTreeHelper.GetChildrenCount( parent ); index++ ) {
                 child           = (Visual)VisualTreeHelper.GetChild( parent, index );
 
-                if( child is T ) yield return (T)child;
+                if( child is T t) yield return t;
 
                 childCount      = VisualTreeHelper.GetChildrenCount( child );
                 if( childCount > 0 ) {
                     foreach( Visual v in ForEachChild<T>( child ) ) {
-                        if( v is T ) yield return (T)v;
+                        if( v is T vt) yield return vt;
                     }
                 }
             }

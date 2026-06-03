@@ -324,7 +324,7 @@ namespace LenWeaver.Utilities {
                 leftSpan    = span[..leftCount];
                 rightSpan   = span[^rightCount..];
 
-                width       = MeasureText(leftSpan.ToString() + rightSpan.ToString());
+                width       = MeasureText( leftSpan.ToString() + rightSpan.ToString() );
 
                 if( width + ellipsisWidth > maxPixels ) {
                     right   = keep - 1;

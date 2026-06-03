@@ -21,6 +21,16 @@ IsEnabled="{Binding ElementName=txtSql, Path=Text, Converter={StaticResource lw:
     <Setter Property="ContextMenu" Value="{StaticResource ctxDatabase}" />
 </Style>
 
+<interactivity:CallMethodAction MethodName="IncrementCount"
+                                        TargetObject="{x:Bind}" />
+
+<Window.Resources>
+    <sys:Double x:Key="AboutFontSize">18</sys:Double>
+    <sys:Double x:Key="ProductNameFontSize">22</sys:Double>
+</Window.Resources>
+
+FontSize="{DynamicResource ProductNameFontSize}"
+
 <Application.Resources>
     <ResourceDictionary>
         <ResourceDictionary.MergedDictionaries>
@@ -43,3 +53,7 @@ IsEnabled="{Binding ElementName=txtSql, Path=Text, Converter={StaticResource lw:
         </ResourceDictionary.MergedDictionaries>
     </ResourceDictionary>
 </Application.Resources>
+
+int[] someArray = new int[5] { 1, 2, 3, 4, 5 };
+int[] subArray1 = someArray[0..2]; // { 1, 2 }
+int[] subArray2 = someArray[1..^0]; // { 2, 3, 4, 5 }
