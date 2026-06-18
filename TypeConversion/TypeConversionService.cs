@@ -38,7 +38,7 @@ namespace LenWeaver.Utilities {
 
         public bool             CanHandle                   ( string typeName ) {
 
-            bool        result  = false;
+            bool        result;
 
             Type?       t;
 
@@ -68,7 +68,7 @@ namespace LenWeaver.Utilities {
 
             ITypeHandler        handler;
 
-            Type?               def;
+            //Type?               def;
             Type?               enumHandlerType;
             Type?               handlerType;
 

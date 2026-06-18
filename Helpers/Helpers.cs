@@ -11,6 +11,15 @@ namespace LenWeaver.Utilities {
         static Helpers() {}
 
 
+        public static bool                                  AreClose( double value1, double value2 ) {
+
+            if( value1 == value2 ) return true;
+ 
+            double delta = value1 - value2;
+
+            return (delta < 0.00000153) && (delta > -0.00000153);
+        }
+
         public static T                                     Max<T>( T a, T b ) where T : IComparable<T> {
 
             return a.CompareTo( b ) > 0 ? a : b;

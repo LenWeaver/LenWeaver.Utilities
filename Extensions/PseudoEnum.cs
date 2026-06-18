@@ -40,7 +40,7 @@ namespace LenWeaver.Utilities {
                 );
         }
 
-        public static bool TryParse( string s, [NotNullWhen(true)] out TPseudoEnum value ) => _map.TryGetValue( s, out value );
+        public static bool TryParse( string s, [NotNullWhen(true)] out TPseudoEnum value ) => _map.TryGetValue( s, out value! );
         public static bool Validate( string s ) => _map.ContainsKey( s );
 
         public static IReadOnlyDictionary<string, TPseudoEnum> Values => _map;

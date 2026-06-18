@@ -35,7 +35,7 @@ namespace LenWeaver.Utilities {
             Button? btn;
 
 
-            if( control == null )  throw new ArgumentNullException( $"{nameof(control)} parameter must not be null." );
+            ArgumentNullException.ThrowIfNull( control );
 
             btn                     = control.Template?.FindName( buttonName, control ) as Button;
             if( btn != null ) {
@@ -57,7 +57,7 @@ namespace LenWeaver.Utilities {
 
             var border = ti.Template.FindName( "innerBorder", ti ) as Border;
 
-            if( border is not null ) border.Background = b;
+            border?.Background = b;
         }
 
         public static int                       Add( this CommandBindingCollection bindings, ICommand command,
@@ -87,7 +87,7 @@ namespace LenWeaver.Utilities {
             // and StrokeThickness properties.  Usage is as follows:
             //
             //  "{Fill=Red,Stroke=#FFFF0000,StrokeThickness=1}M0,0 0,100, 100,100, 100,0 Z"
-            if( markup.StartsWith( "{" ) ) {
+            if( markup.StartsWith( '{' ) ) {
                 index               = markup.IndexOf( '}' );
                 if( index > 0 && index < markup.Length - 1 ) {
                     extended        = markup.Substring( 1, index - 1);

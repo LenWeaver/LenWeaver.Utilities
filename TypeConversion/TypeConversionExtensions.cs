@@ -27,11 +27,11 @@ namespace LenWeaver.Utilities {
             }
         }
 
-        public static   Type[]  xAllHandlers     = [typeof(BooleanHandler),      typeof(CharHandler),        typeof(ByteHandler),        typeof(SByteHandler),
-                                                   typeof(Int16Handler),        typeof(UInt16Handler),      typeof(Int32Handler),       typeof(UInt32Handler),
-                                                   typeof(Int64Handler),        typeof(UInt64Handler),      typeof(SingleHandler),      typeof(DoubleHandler),
-                                                   typeof(DecimalHandler),      typeof(StringHandler),      typeof(DateTimeHandler),    typeof(DateOnlyHandler),
-                                                   typeof(TimeOnlyHandler),     typeof(GuidHandler),        typeof(ByteArrayHandler),   typeof(FontDescriptorHandler)];
+        //public static   Type[]  xAllHandlers     = [typeof(BooleanHandler),      typeof(CharHandler),        typeof(ByteHandler),        typeof(SByteHandler),
+        //                                           typeof(Int16Handler),        typeof(UInt16Handler),      typeof(Int32Handler),       typeof(UInt32Handler),
+        //                                           typeof(Int64Handler),        typeof(UInt64Handler),      typeof(SingleHandler),      typeof(DoubleHandler),
+        //                                           typeof(DecimalHandler),      typeof(StringHandler),      typeof(DateTimeHandler),    typeof(DateOnlyHandler),
+        //                                           typeof(TimeOnlyHandler),     typeof(GuidHandler),        typeof(ByteArrayHandler),   typeof(FontDescriptorHandler)];
 
         public static CLRTypeCode GetCLRTypeCode( this object? o ) {
 

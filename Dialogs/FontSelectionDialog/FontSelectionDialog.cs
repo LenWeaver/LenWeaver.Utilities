@@ -28,7 +28,6 @@ namespace LenWeaver.Utilities {
         public Window?              Owner                           { get; set; }       = null;
 
 
-        private                     bool                            templateApplied     = false;
         private                     FontDescriptor?                 delayedFont         = null;
         private readonly            FontSelectionWindow             fsw;
 
