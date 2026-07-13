@@ -36,7 +36,7 @@ namespace LenWeaver.Utilities {
                 .ToDictionary(
                     p => p.Name,
                     p => (TPseudoEnum)p.GetValue( null )!,
-                    StringComparer.OrdinalIgnoreCase
+                    System.StringComparer.OrdinalIgnoreCase
                 );
         }
 

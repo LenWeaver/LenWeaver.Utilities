@@ -16,6 +16,7 @@ FontFamily="{Binding Path=(lw:FontExtensions.GlobalMonospace)}"
 FontFamily="{x:Static lw:FontExtensions.GlobalMonospace}"
 <TextBlock Text="{Binding ElementName=txtValue, Path=Text, Converter={StaticResource YesNoToBooleanConverter}}"></TextBlock>
 IsEnabled="{Binding ElementName=txtSql, Path=Text, Converter={StaticResource lw:StringLengthToBoolean}}">
+Visibility="{Binding ShowHeaders, Converter={StaticResource BooleanToVisibility}, ConverterParameter='Collapse'}"
 
 <Style TargetType="{x:Type local:DatabaseTreeViewItem}">
     <Setter Property="ContextMenu" Value="{StaticResource ctxDatabase}" />
@@ -30,6 +31,17 @@ IsEnabled="{Binding ElementName=txtSql, Path=Text, Converter={StaticResource lw:
 </Window.Resources>
 
 FontSize="{DynamicResource ProductNameFontSize}"
+
+<lwui:TabularViewRowPresenter
+        Style="{StaticResource TabularViewRowPresenterStyle}"
+        Columns="{Binding Columns, RelativeSource={RelativeSource AncestorType=lwui:TabularView}}"
+        GridLines="{Binding GridLines, RelativeSource={RelativeSource AncestorType=lwui:TabularView}}"
+        GridLinesBrush="{Binding GridLinesBrush, RelativeSource={RelativeSource AncestorType=lwui:TabularView}}"
+        GridLinesWidth="{Binding GridLinesWidth, RelativeSource={RelativeSource AncestorType=lwui:TabularView}}"
+        />
+
+In this example ItemHighlightBackground is defined in a host object.
+<Setter Property="Background" Value="{Binding ItemHighlightBackground, RelativeSource={RelativeSource AncestorType=lwui:TabularView}}"/>
 
 <Application.Resources>
     <ResourceDictionary>

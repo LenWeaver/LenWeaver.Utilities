@@ -10,7 +10,7 @@ namespace LenWeaver.Utilities {
     public sealed class TypeConversionService : ITypeConversionService {
 
         private readonly Dictionary<Type,ITypeHandler>      _byCLR                  = new();
-        private readonly Dictionary<string,ITypeHandler>    _byName                 = new( StringComparer.Ordinal );
+        private readonly Dictionary<string,ITypeHandler>    _byName                 = new( System.StringComparer.Ordinal );
 
         private readonly Lock                               _sync                   = new();
 
@@ -35,7 +35,6 @@ namespace LenWeaver.Utilities {
 
             lock(_sync) return _byCLR.ContainsKey( clrType );
         }
-
         public bool             CanHandle                   ( string typeName ) {
 
             bool        result;
